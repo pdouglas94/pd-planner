@@ -1,0 +1,34 @@
+<div class="planner-container">
+	<div class="pad-bottom">
+		<h2>Planner</h2>
+		<h4>-Organize and Plan Your Day-</h4>
+	</div>
+	<div>
+		<div class="pad-bottom">
+			<h4>Current Category: {{activeCategory.name}}</h4>
+			<label>Select Category:</label>
+			<select ng-model="activeCategory" ng-options="cat.name for cat in categories"></select>
+		</div>
+		<input type="text" ng-model="addCat" />
+		<button class="btn btn-default" ng-click="addCategory()"><i class="glyphicon-plus"></i> Add Category</button>
+	</div>
+	<div class="row margin-left">
+		<div class="span4">
+			<h4>To Do List </h4>
+			<ul class="list-unstyled margin-right">
+				<li class="pad-bottom" ng-repeat="item in activeCategory.list">
+					<div class="clearfix" ng-class="{completed: item.complete}">
+						<input type="checkbox" ng-model="item.complete"/> {{item.todo}}
+						<button ng-click="switchExpand($index)" class="btn btn-default pull-right"><i class="glyphicon-plus"></i></button>
+						<button ng-click="removeToDoItem($index)" class="btn btn-danger pull-right"><i class="glyphicon-minus"></i> Remove</button>
+						<div ng-show="item.expanded">
+							<div>To Do List Information!</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<input type="text" ng-model="addItem" />
+			<button class="btn btn-default" ng-click="addToDoItem()"><i class="glyphicon-plus"></i> Add Item</button>
+		</div>
+	</div>
+</div>

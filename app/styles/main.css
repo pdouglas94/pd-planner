@@ -1,0 +1,41 @@
+/* Style elements for PD Planner App */
+
+/* Basic Style classes */
+
+.pad-bottom {
+	padding-bottom:12px;
+}
+
+.pad-top {
+	padding-top:12px;
+}
+
+.margin-left {
+	margin-left:10px;
+}
+
+.margin-right {
+	margin-right:10px;
+}
+
+/* End Basic */
+
+.active {
+	
+}
+
+.completed {
+	text-decoration:line-through;
+	color:grey;
+}
+
+.planner-container {
+	background-color:#f8f8f8;
+	padding:10px;
+}
+
+.page-width {
+	margin-left:200px;
+	margin-right:200px;
+}
+
