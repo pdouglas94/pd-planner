@@ -29,7 +29,7 @@
 	color:grey;
 }
 
-.planner-container {
+#planner-container {
 	background-color:#f8f8f8;
 	padding:10px;
 }
@@ -39,3 +39,14 @@
 	margin-right:200px;
 }
 
+.priority-high {
+	color:red;
+}
+
+.priority-medium {
+	color:green;
+}
+
+.priority-low {
+	color:purple;
+}

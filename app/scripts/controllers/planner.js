@@ -16,6 +16,7 @@ angular.module('pdPlannerApp')
 	
 	$scope.addCategory = function() {
 		$scope.categories.push({name:$scope.addCat, list:[]});
+		$scope.addCat = '';
 	};
 	
 	$scope.removeCategory = function($index) {
@@ -35,7 +36,16 @@ angular.module('pdPlannerApp')
 	
 	$scope.addToDoItem = function() {
 		if ($scope.activeCategory.list !== null){
-			$scope.activeCategory.list.push({todo:$scope.addItem, complete:false, expanded:false});
+			$scope.activeCategory.list.push({
+				todo:$scope.addItem, 
+				desc:$scope.addDesc, 
+				prior:$scope.addPrior,
+				complete:false, 
+				expanded:false
+			});
+			$scope.addItem = '';
+			$scope.addDesc = '';
+			$scope.addPrior = '';
 		}
 		else {
 			alert("You must make a category first!");
@@ -44,6 +54,18 @@ angular.module('pdPlannerApp')
 	
 	$scope.removeToDoItem = function($index) {
 		$scope.activeCategory.list.splice($index, 1);
+	};
+	
+	$scope.getPriority = function($index) {
+		switch ($scope.activeCategory.list[$index].prior) {
+			case '1':
+				return "High";
+			case '2':
+				return "Medium";
+			case '3':
+				return "Low";
+		}
+		return "None";
 	};
   });
 

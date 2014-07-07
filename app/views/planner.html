@@ -1,4 +1,4 @@
-<div class="planner-container">
+<div id="planner-container">
 	<div class="pad-bottom">
 		<h2>Planner</h2>
 		<h4>-Organize and Plan Your Day-</h4>
@@ -19,15 +19,35 @@
 				<li class="pad-bottom" ng-repeat="item in activeCategory.list">
 					<div class="clearfix" ng-class="{completed: item.complete}">
 						<input type="checkbox" ng-model="item.complete"/> {{item.todo}}
-						<button ng-click="switchExpand($index)" class="btn btn-default pull-right"><i class="glyphicon-plus"></i></button>
-						<button ng-click="removeToDoItem($index)" class="btn btn-danger pull-right"><i class="glyphicon-minus"></i> Remove</button>
+						<button ng-click="switchExpand($index)" class="btn btn-default pull-right">
+							<i class="glyphicon-plus"></i> Show Details
+						</button>
+						<button ng-click="removeToDoItem($index)" class="btn btn-danger pull-right">
+							<i class="glyphicon-minus"></i> Remove
+						</button>
 						<div ng-show="item.expanded">
-							<div>To Do List Information!</div>
+							<div>Description: {{item.desc}}</div>
+							<div ng-class="{'priority-high': (item.prior === '1'), 'priority-medium': (item.prior === '2'), 'priority-low': (item.prior === '3')}">
+								Priority: {{getPriority($index)}}
+							</div>
 						</div>
 					</div>
 				</li>
 			</ul>
-			<input type="text" ng-model="addItem" />
+			<div>
+				<label>To-Do: </label>
+				<input type="text" ng-model="addItem" />
+			</div>
+			<div>
+				<label>Description: </label>
+				<input type="text" ng-model="addDesc" />
+			</div>
+			<div><h5>Priority:</h5></div>
+			<div>
+				<label class="margin-right">High </label><input type="radio" ng-model="addPrior" value="1"/>
+				<label class="margin-right">Medium </label><input type="radio" ng-model="addPrior" value="2"/>
+				<label class="margin-right">Low </label><input type="radio" ng-model="addPrior" value="3"/>
+			</div>
 			<button class="btn btn-default" ng-click="addToDoItem()"><i class="glyphicon-plus"></i> Add Item</button>
 		</div>
 	</div>
