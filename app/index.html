@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="pdPlannerApp">
 	<head>
 		<!--
 			Planner
@@ -36,11 +36,15 @@
 
 		<!-- scripts -->
 		<script src="scripts/app.js"></script>
+		<script src="scripts/controllers/application.js"></script>
 		<script src="scripts/controllers/main.js"></script>
 		<script src="scripts/controllers/about.js"></script>
 		<script src="scripts/controllers/planner.js"></script>
+		<script src="scripts/controllers/login.js"></script>
+		<script src="scripts/services/authorize.js"></script>
+		<script src="scripts/services/session.js"></script>
 	</head>
-	<body ng-app="pdPlannerApp">
+	<body ng-controller="ApplicationCtrl">
 		<script type="text/javascript"> 
 			var $buoop = {}; 
 			$buoop.ol = window.onload; 
@@ -63,6 +67,7 @@
 						</a>
 					</div>
 				</div>
+				<div class="pull-right">{{currentUser}}</div>
 			</div>
 
 			<div class="pad-bottom" ng-view=""></div>

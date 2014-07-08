@@ -33,6 +33,10 @@ angular
         templateUrl: 'views/planner.html',
         controller: 'PlannerCtrl'
       })
+	  .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl',
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -42,7 +46,8 @@ angular
 		$rootScope.views = [
 			{link: '', name: 'Home'},
 			{link: 'about', name:'About'},
-			{link: 'planner', name:'Planner'}
+			{link: 'planner', name:'Planner'},
+			{link: 'login', name:'Login'}
 		];
 
 		$rootScope.selectedNav = '';
