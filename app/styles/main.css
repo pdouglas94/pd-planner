@@ -18,6 +18,14 @@
 	margin-right:10px;
 }
 
+.margin-bottom {
+	margin-bottom:10px;
+}
+
+.no-new-line {
+	white-space:nowrap;
+}
+
 /* End Basic */
 
 .active {
@@ -35,8 +43,8 @@
 }
 
 .page-width {
-	margin-left:200px;
-	margin-right:200px;
+	margin:auto;
+	width:80%;
 }
 
 .priority-high {

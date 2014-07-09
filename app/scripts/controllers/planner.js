@@ -8,11 +8,13 @@
  * Controller of the pdPlannerApp
  */
 angular.module('pdPlannerApp')
-  .controller('PlannerCtrl', function ($scope) {
+  .controller('PlannerCtrl', ['$scope', function ($scope) {
 
-	//$scope.toDoList = [];
 	$scope.categories = [];
 	$scope.activeCategory = {name:null, list:null};
+	
+	$scope.toDoExpand = false;
+	$scope.catExpand = false;
 	
 	$scope.addCategory = function() {
 		$scope.categories.push({name:$scope.addCat, list:[]});
@@ -23,7 +25,7 @@ angular.module('pdPlannerApp')
 		$scope.categories.splice($index, 1);
 	};
 	
-	$scope.switchExpand = function($index) {
+	$scope.switchToDo = function($index) {
 		var value = $scope.activeCategory.list[$index].expanded;
 		if (value === true){
 			value = false;
@@ -32,6 +34,15 @@ angular.module('pdPlannerApp')
 			value = true;
 		}
 		$scope.activeCategory.list[$index].expanded = value;
+	};
+	
+	$scope.switchExpand = function(value) {
+		if ($scope[value]) {
+			$scope[value] = false;
+		}
+		else {
+			$scope[value] = true;
+		}
 	};
 	
 	$scope.addToDoItem = function() {
@@ -67,5 +78,5 @@ angular.module('pdPlannerApp')
 		}
 		return "None";
 	};
-  });
+  }]);
 

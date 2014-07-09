@@ -16,7 +16,9 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-	'ui.router'
+	'ui.router',
+	'pdPlannerApp.directives.todo',
+	'pdPlannerApp.directives.category'
   ])
   
   .config(function ($routeProvider) {
