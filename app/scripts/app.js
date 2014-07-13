@@ -22,6 +22,7 @@ angular
   ])
   
   .config(function ($routeProvider) {
+	  console.log('routing');
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -37,7 +38,7 @@ angular
       })
 	  .when('/login', {
         templateUrl: 'views/login.html',
-        controller: 'LoginCtrl',
+        controller: 'LoginCtrl'
       })
       .otherwise({
         redirectTo: '/'
@@ -53,4 +54,6 @@ angular
 		];
 
 		$rootScope.selectedNav = '';
-	}]);
+	}])
+
+	.constant('SITE_URL', 'http://pd-planner-db/');

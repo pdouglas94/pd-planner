@@ -8,8 +8,8 @@
  * Controller of the pdPlannerApp
  */
 angular.module('pdPlannerApp')
-  .controller('PlannerCtrl', ['$scope', function ($scope) {
-
+  .controller('PlannerCtrl', ['SITE_URL', '$scope', 'db', function (SITE_URL, $scope, db) {
+		  
 	$scope.categories = [];
 	$scope.activeCategory = {name:null, list:null};
 	
@@ -17,11 +17,22 @@ angular.module('pdPlannerApp')
 	$scope.catExpand = false;
 	
 	$scope.addCategory = function() {
+		//add to database
+//		db.Category = {user_id:$scope.currentUser.id, name:$scope.addCat};
+//		$http.post(SITE_URL + 'rest/categories.json').success(function(reply){
+//			$scope.something = reply;
+//		});
+//		db.Category.save(function(reply) {
+//			console.log(reply);
+//		}, function(reply) {
+//			console.log(reply);
+//		});
 		$scope.categories.push({name:$scope.addCat, list:[]});
 		$scope.addCat = '';
 	};
 	
 	$scope.removeCategory = function($index) {
+		//remove from database
 		$scope.categories.splice($index, 1);
 	};
 	
@@ -46,6 +57,7 @@ angular.module('pdPlannerApp')
 	};
 	
 	$scope.addToDoItem = function() {
+		//add to database
 		if ($scope.activeCategory.list !== null){
 			$scope.activeCategory.list.push({
 				todo:$scope.addItem, 
@@ -65,6 +77,7 @@ angular.module('pdPlannerApp')
 	
 	$scope.removeToDoItem = function($index) {
 		$scope.activeCategory.list.splice($index, 1);
+		//remove from database
 	};
 	
 	$scope.getPriority = function($index) {

@@ -8,17 +8,26 @@
  * Controller of the pdPlannerApp
  */
 angular.module('pdPlannerApp')
-  .controller('ApplicationCtrl', ['$rootScope', '$scope', '$routeParams', 'AuthService', 'USER_ROLES', 
-  function ($rootScope, $scope, $routeParams, AuthService, USER_ROLES) {
+  .controller('ApplicationCtrl', ['$rootScope', '$scope', '$routeParams', 'AuthService', 'USER_ROLES', 'db', 
+  function ($rootScope, $scope, $routeParams, AuthService, USER_ROLES, db) {
 		  
 	var viewName = $routeParams.viewName ? $routeParams.viewName : '';
 	$scope.viewName = 'views/' + viewName + '.html';
 	$rootScope.selectedNav = viewName;
 	
-	$scope.currentUser = null;
-	$scope.userRoles = USER_ROLES;
-	$scope.isAuthorized = AuthService.isAuthorized;
+//	$scope.currentUser = null;
+//	$scope.userRoles = USER_ROLES;
+//	$scope.isAuthorized = AuthService.isAuthorized;
+
+	$scope.getUser = function() {
+		db.User.find(3).then(function(reply) {
+			$scope.currentUser = reply;
+		}, function (reply) {
+			console.log("Failed: ", reply);
+		});
+	};
 	
+	$scope.getUser();
   }]);
 
 

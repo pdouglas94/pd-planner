@@ -12,6 +12,8 @@
 			-Login Authentication
 			-Connection to database
 			-Add Number of Categories on page
+  
+			-amplify.js
 		-->
 		<meta charset="utf-8">
 		<title>Planner!</title>
@@ -36,9 +38,11 @@
 		<script src="../bower_components/angular-touch/angular-touch.js"></script>
 		<script src="../bower_components/angular-route/angular-route.js"></script>
 		<script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+		<script src="vendor/dabl.min.js"></script>
 
 		<!-- scripts -->
 		<script src="scripts/app.js"></script>
+		<script src="scripts/db.js"></script>
 		<script src="scripts/directives/todo.js"></script>
 		<script src="scripts/directives/category.js"></script>
 		<script src="scripts/controllers/application.js"></script>
@@ -71,8 +75,8 @@
 							{{ view.name }}
 						</a>
 					</div>
+					<button class="pull-right btn btn-primary">User: {{currentUser.username}}</button>
 				</div>
-				<div class="pull-right">{{currentUser}}</div>
 			</div>
 			
 			<div class="pad-bottom" ng-view=""></div>
