@@ -8,7 +8,7 @@
  * Controller of the pdPlannerApp
  */
 angular.module('pdPlannerApp')
-  .controller('PlannerCtrl', ['SITE_URL', '$scope', 'db', function (SITE_URL, $scope, db) {
+  .controller('PlannerCtrl', ['SITE_URL', '$http', '$scope', 'db', function (SITE_URL, $http, $scope, db) {
 		  
 	$scope.categories = [];
 	$scope.activeCategory = {name:null, list:null};
@@ -16,19 +16,25 @@ angular.module('pdPlannerApp')
 	$scope.toDoExpand = false;
 	$scope.catExpand = false;
 	
+	$scope.newCategory = new db.Category;
 	$scope.addCategory = function() {
-		//add to database
-//		db.Category = {user_id:$scope.currentUser.id, name:$scope.addCat};
-//		$http.post(SITE_URL + 'rest/categories.json').success(function(reply){
-//			$scope.something = reply;
-//		});
-//		db.Category.save(function(reply) {
+
+		$scope.newCategory.name = $scope.addCat;
+		$scope.newCategory.user_id = $scope.currentUser.id;
+//		db.Category.findAll().then(function(reply){
 //			console.log(reply);
-//		}, function(reply) {
+//		}, function(reply){
 //			console.log(reply);
 //		});
+		console.log($scope.newCategory);
+		$scope.newCategory.save().then(function(reply) {
+			console.log(reply);
+		}, function(reply) {
+			console.log(reply);
+		});
 		$scope.categories.push({name:$scope.addCat, list:[]});
 		$scope.addCat = '';
+		$scope.newCategory = new db.Category;
 	};
 	
 	$scope.removeCategory = function($index) {

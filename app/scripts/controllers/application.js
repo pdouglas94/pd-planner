@@ -15,13 +15,20 @@ angular.module('pdPlannerApp')
 	$scope.viewName = 'views/' + viewName + '.html';
 	$rootScope.selectedNav = viewName;
 	
-//	$scope.currentUser = null;
+	$rootScope.currentUser = null;
 //	$scope.userRoles = USER_ROLES;
 //	$scope.isAuthorized = AuthService.isAuthorized;
 
 	$scope.getUser = function() {
 		db.User.find(3).then(function(reply) {
-			$scope.currentUser = reply;
+			$rootScope.currentUser = reply;
+			$rootScope.currentUser.username = "What";
+			console.log($rootScope.currentUser);
+			$rootScope.currentUser.save().then(function(reply) {
+				console.log("Success: ", reply);
+			}, function (reply) {
+				console.log("Failed: ", reply);
+			});
 		}, function (reply) {
 			console.log("Failed: ", reply);
 		});

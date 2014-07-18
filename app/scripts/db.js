@@ -17,8 +17,6 @@ angular.module('pdPlannerApp')
 				adapter: adapter,
 				fields: {
 					id: { type: 'int', key: true, computed: true }
-					//created: Date,
-					//updated: Date
 				}
 			});
 			

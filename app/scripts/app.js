@@ -22,7 +22,6 @@ angular
   ])
   
   .config(function ($routeProvider) {
-	  console.log('routing');
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
