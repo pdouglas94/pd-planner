@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database name="organizer">
+  <table name="category" phpName="Category">
+    <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="userId" phpName="Userid" type="INTEGER" required="true"/>
+    <column name="name" phpName="Name" type="VARCHAR" size="250" required="true"/>
+    <foreign-key foreignTable="user" name="userId" onDelete="CASCADE" onUpdate="CASCADE">
+      <reference local="userId" foreign="id"/>
+    </foreign-key>
+    <index name="userId">
+      <index-column name="userId"/>
+    </index>
+  </table>
+  <table name="item" phpName="Item">
+    <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="categoryId" phpName="Categoryid" type="INTEGER" required="true"/>
+    <column name="complete" phpName="Complete" type="TINYINT" size="2" required="true"/>
+    <column name="description" phpName="Description" type="LONGVARCHAR" required="false"/>
+    <column name="priority" phpName="Priority" type="INTEGER" required="true"/>
+    <column name="progress" phpName="Progress" type="INTEGER" size="5" required="true"/>
+    <column name="name" phpName="Name" type="VARCHAR" size="250" required="true"/>
+    <foreign-key foreignTable="category" name="categoryId" onDelete="CASCADE" onUpdate="CASCADE">
+      <reference local="categoryId" foreign="id"/>
+    </foreign-key>
+    <index name="categoryId">
+      <index-column name="categoryId"/>
+    </index>
+  </table>
+  <table name="user" phpName="User">
+    <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="type" phpName="Type" type="INTEGER" required="true"/>
+    <column name="username" phpName="Username" type="VARCHAR" size="50" required="true"/>
+    <column name="email" phpName="Email" type="VARCHAR" size="50" required="true"/>
+    <column name="password" phpName="Password" type="VARCHAR" size="255" required="true"/>
+    <column name="image" phpName="Image" type="VARCHAR" size="100" required="false"/>
+    <column name="created" phpName="Created" type="TIMESTAMP" required="true"/>
+    <unique name="username">
+      <unique-column name="username"/>
+      <unique-column name="email"/>
+    </unique>
+  </table>
+</database>

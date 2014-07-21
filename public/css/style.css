@@ -1,0 +1,224 @@
+/* Global */
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+body, table, input, select, textarea {
+	font: 12px Helvetica, Arial, sans-serif;
+}
+
+a img {
+	border: none;
+}
+
+a {
+	color: #7fc241;
+}
+
+h1 {
+	font-size: 20px;
+}
+
+.content-wrapper {
+	padding: 0 12px
+}
+
+/* Forms */
+form p, form, h2 {
+	clear: both;
+}
+
+form h2 {
+	margin-left: 10px;
+	margin-right: 20px;
+}
+
+.form-action-buttons, .action-buttons {
+	margin: 5px 0;
+	padding: 0;
+}
+
+.form-field-label, .field-label {
+	display: block;
+	float: left;
+	width: 160px;
+	text-align: right;
+	line-height: 24px;
+	font-weight: bold;
+	padding-right: 10px;
+}
+
+.form-field-wrapper, .field-wrapper {
+	text-align: left;
+	line-height: 24px;
+	clear: both;
+	padding: 5px 0 5px 0;
+}
+
+input[type=text], input[type=password], textarea, select {
+	border: 1px solid #aaa;
+	padding: 2px;
+}
+
+select {
+	padding: 1px;
+}
+
+textarea {
+	width: 400px;
+	height: 80px;
+}
+
+
+/** UI Grid **/
+table.object-grid{
+	width: 100%;
+	border-spacing: 0px;
+	font-size: 12px;
+}
+
+table.object-grid thead th{
+	padding: 4px 4px 3px 6px;
+	font-weight: bold;
+	text-align: left;
+	border-left: 0px;
+	white-space: nowrap;
+}
+
+table.object-grid thead th .ui-corner-tl{
+	border-left: 1px solid #051C2E;
+}
+
+table.object-grid th a {
+	display: block;
+	text-decoration: none;
+}
+
+table.object-grid th a span {
+	float: right;
+}
+
+table.object-grid tbody td {
+	padding: 2px 6px;
+	border-top: 1px solid #ddd;
+}
+
+tr.even td {
+	background: #f5f5f5;
+}
+
+
+/** Pager **/
+.pager {
+	font-size: 1em;
+	padding: 5px 0;
+	margin-bottom: 5px;
+}
+
+.pager .button-group {
+	margin-right: 5px;
+	display: inline-block;
+}
+
+.pager .pager-current, .pager .pager-text {
+	border: 1px solid transparent;
+	padding: .4em 1em;
+	display: inline-block;
+	position: relative;
+	line-height: normal;
+	vertical-align: middle;
+	overflow: visible;
+}
+
+.pager .pager-text {
+	padding-left: 5px;
+}
+
+.pager .pager-current {
+	text-align: center;
+}
+
+
+/** UI Buttons **/
+h1 .button{
+	float:right;
+	margin-left: 10px;
+}
+
+h1 .ui-button-text{
+	font-size: 12px;
+}
+
+.ui-button input {
+	border: none;
+	background: none;
+	margin: 0;
+	padding: 0;
+	color: inherit;
+	line-height: inherit;
+	font: inherit;
+	text-decoration: inherit;
+	cursor: inherit;
+}
+
+table.object-grid .ui-button-text {
+	line-height: 14px;
+	font-size: 10px;
+}
+
+
+/** UI Tabs **/
+div.ui-tabs {
+	padding: 0;
+	margin-bottom: 10px;
+}
+
+div.ui-tabs ul.ui-tabs-nav {
+	padding: 8px 12px 0;
+}
+
+div.ui-tabs ul.ui-tabs-nav li {
+	margin-right: 0;
+	margin-left: 0;
+}
+
+div.ui-tabs .ui-tabs-nav li.ui-tabs-active a,
+div.ui-tabs .ui-tabs-nav li.ui-state-disabled a,
+div.ui-tabs .ui-tabs-nav li.ui-state-processing a {
+	cursor: default;
+}
+
+
+/** UI Other **/
+div.ui-widget-content {
+	padding: 5px;
+	background: #efefef;
+	border: 1px solid #ccc;
+	margin-bottom: 5px;
+}
+
+div.ui-widget-content div.ui-widget-content {
+	background: #f1f1f1;
+}
+
+.ui-message-icon{
+	float: left;
+	margin-right: 0.3em;
+}
+
+div.ui-state-highlight, div.ui-state-error{
+	margin-top:5px;
+	margin-bottom: 5px;
+}
+
+@media all and (max-width: 599px) {
+	.form-field-label, .field-label {
+		float: none;
+		text-align: left;
+		line-height: 18px;
+		padding-right: 0;
+		width: auto;
+	}
+}

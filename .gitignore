@@ -1,6 +1,10 @@
-node_modules
+app/node_modules
 dist
 .tmp
 .sass-cache
-bower_components
+app/bower_components
 /nbproject/
+.DS_STORE
+.DS_Store
+logs/
+config/connections.ini

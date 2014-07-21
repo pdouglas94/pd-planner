@@ -22,13 +22,6 @@ angular.module('pdPlannerApp')
 	$scope.getUser = function() {
 		db.User.find(3).then(function(reply) {
 			$rootScope.currentUser = reply;
-			$rootScope.currentUser.username = "What";
-			console.log($rootScope.currentUser);
-			$rootScope.currentUser.save().then(function(reply) {
-				console.log("Success: ", reply);
-			}, function (reply) {
-				console.log("Failed: ", reply);
-			});
 		}, function (reply) {
 			console.log("Failed: ", reply);
 		});

@@ -55,4 +55,4 @@ angular
 		$rootScope.selectedNav = '';
 	}])
 
-	.constant('SITE_URL', 'http://pd-planner-db/');
+	.constant('SITE_URL', 'http://pd-planner/');

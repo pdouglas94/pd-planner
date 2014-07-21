@@ -8,7 +8,8 @@
  * Controller of the pdPlannerApp
  */
 angular.module('pdPlannerApp')
-  .controller('PlannerCtrl', ['SITE_URL', '$http', '$scope', 'db', function (SITE_URL, $http, $scope, db) {
+  .controller('PlannerCtrl', ['$rootScope', 'SITE_URL', '$http', '$scope', 'db', 
+	function ($rootScope, SITE_URL, $http, $scope, db) {
 		  
 	$scope.categories = [];
 	$scope.activeCategory = {name:null, list:null};
@@ -17,15 +18,23 @@ angular.module('pdPlannerApp')
 	$scope.catExpand = false;
 	
 	$scope.newCategory = new db.Category;
+	
+	$scope.loadInfo = function() {
+		$http.post(SITE_URL + 'rest/categories/get-user-categories' + '?' + "user_id=" + 3).then(
+		function(reply){
+			$scope.categories = reply;
+			alert($scope.categories);
+		}, function(reply) {
+			console.log(reply);
+		});
+	};
+	
+	$scope.loadInfo();
+	
 	$scope.addCategory = function() {
-
 		$scope.newCategory.name = $scope.addCat;
 		$scope.newCategory.user_id = $scope.currentUser.id;
-//		db.Category.findAll().then(function(reply){
-//			console.log(reply);
-//		}, function(reply){
-//			console.log(reply);
-//		});
+
 		console.log($scope.newCategory);
 		$scope.newCategory.save().then(function(reply) {
 			console.log(reply);
