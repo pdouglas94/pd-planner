@@ -31,21 +31,21 @@
 					<div class="row-fluid clearfix" ng-class="{completed: item.complete}">
 						<div class="span7">
 							<div class="checkbox">
-								<input type="checkbox" ng-model="item.complete"/> {{item.todo}}
+								<input type="checkbox" ng-model="item.complete"/> {{item.name}}
 							</div>
 							<div ng-show="item.expanded">
-								<div>Description: {{item.desc}}</div>
-								<div ng-class="{'priority-high': (item.prior === '1'), 'priority-medium': (item.prior === '2'), 'priority-low': (item.prior === '3')}">
+								<div>Description: {{item.description}}</div>
+								<div ng-class="{'priority-high': (item.priority === 1), 'priority-medium': (item.priority === 2), 'priority-low': (item.priority === 3)}">
 									Priority: {{getPriority($index)}}
 								</div>
 							</div>
 						</div>
-						<div class="span4 offset1">
-							<button ng-click="switchToDo($index)" class="btn btn-default pull-right">
-								<i class="glyphicon-plus"></i> Show Details
-							</button>
+						<div class="span5">
 							<button ng-click="removeToDoItem($index)" class="btn btn-danger pull-right">
 								<i class="glyphicon-minus"></i> Remove
+							</button>
+							<button ng-click="switchToDo($index)" class="btn btn-default pull-right">
+								<i class="glyphicon-plus"></i> Show Details
 							</button>
 						</div>
 					</div>

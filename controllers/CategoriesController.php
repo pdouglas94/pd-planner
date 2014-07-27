@@ -95,12 +95,19 @@ class CategoriesController extends ApplicationController {
 		}
 	}
 	
-	function getUserCategories($userId = null) {
-		//have userId passed
+	function getUserData() {
+		$reply = array();
 		if($_REQUEST['user_id']) {
-			$userId = $_REQUEST['user_id'];
+			$user = User::retrieveById($_REQUEST['user_id']);
 		}
-		return Category::retrieveByUserId($userId);
+		$categories = $user->getCategorysRelatedByUserId();
+		$reply['todos'] = array();
+		foreach($categories as $cat) {
+			$todos = $cat->getItemsRelatedByCategoryId();
+			$reply['todos'][$cat->getId()] = $todos;
+		}
+		$reply['categories'] = $categories;
+		return $reply;
 	}
 
 	/**

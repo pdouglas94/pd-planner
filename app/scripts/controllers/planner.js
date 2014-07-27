@@ -20,10 +20,21 @@ angular.module('pdPlannerApp')
 	$scope.newCategory = new db.Category;
 	
 	$scope.loadInfo = function() {
-		$http.post(SITE_URL + 'rest/categories/get-user-categories' + '?' + "user_id=" + 3).then(
+		var params = {
+			user_id: 3
+		};
+		
+		$http.post(SITE_URL + 'rest/categories/get-user-data.json' + '?' + $.param(params)).then(
 		function(reply){
-			$scope.categories = reply;
-			alert($scope.categories);
+			$scope.categories = reply.data.categories;
+//			console.log(reply);
+//			console.log(reply.data.categories);
+//			console.log(reply.data.todos);
+			for (var i in $scope.categories) {
+				var current = $scope.categories[i].id;
+				$scope.categories[i].list = reply.data.todos[current];
+			}
+			console.log($scope.categories);
 		}, function(reply) {
 			console.log(reply);
 		});
@@ -32,6 +43,7 @@ angular.module('pdPlannerApp')
 	$scope.loadInfo();
 	
 	$scope.addCategory = function() {
+		//add to database
 		$scope.newCategory.name = $scope.addCat;
 		$scope.newCategory.user_id = $scope.currentUser.id;
 
@@ -96,12 +108,12 @@ angular.module('pdPlannerApp')
 	};
 	
 	$scope.getPriority = function($index) {
-		switch ($scope.activeCategory.list[$index].prior) {
-			case '1':
+		switch ($scope.activeCategory.list[$index].priority) {
+			case 1:
 				return "High";
-			case '2':
+			case 2:
 				return "Medium";
-			case '3':
+			case 3:
 				return "Low";
 		}
 		return "None";
