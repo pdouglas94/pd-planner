@@ -18,8 +18,10 @@ angular.module('pdPlannerApp')
 	$scope.catExpand = false;
 	
 	$scope.newCategory = new db.Category;
+	$scope.newItem = new db.Item;
 	
 	$scope.loadInfo = function() {
+		//This needs to be fixed to indicate current user id
 		var params = {
 			user_id: 3
 		};
@@ -27,14 +29,10 @@ angular.module('pdPlannerApp')
 		$http.post(SITE_URL + 'rest/categories/get-user-data.json' + '?' + $.param(params)).then(
 		function(reply){
 			$scope.categories = reply.data.categories;
-//			console.log(reply);
-//			console.log(reply.data.categories);
-//			console.log(reply.data.todos);
 			for (var i in $scope.categories) {
 				var current = $scope.categories[i].id;
 				$scope.categories[i].list = reply.data.todos[current];
 			}
-			console.log($scope.categories);
 		}, function(reply) {
 			console.log(reply);
 		});
@@ -43,11 +41,9 @@ angular.module('pdPlannerApp')
 	$scope.loadInfo();
 	
 	$scope.addCategory = function() {
-		//add to database
 		$scope.newCategory.name = $scope.addCat;
 		$scope.newCategory.user_id = $scope.currentUser.id;
 
-		console.log($scope.newCategory);
 		$scope.newCategory.save().then(function(reply) {
 			console.log(reply);
 		}, function(reply) {
@@ -86,16 +82,24 @@ angular.module('pdPlannerApp')
 	$scope.addToDoItem = function() {
 		//add to database
 		if ($scope.activeCategory.list !== null){
-			$scope.activeCategory.list.push({
-				todo:$scope.addItem, 
-				desc:$scope.addDesc, 
-				prior:$scope.addPrior,
-				complete:false, 
-				expanded:false
+			$scope.newItem.name = $scope.addItem;
+			$scope.newItem.description = $scope.addDesc;
+			$scope.newItem.priority = $scope.addPrior;
+			$scope.newItem.complete = 0;
+			$scope.newItem.progress = 0;
+			$scope.newItem.category_id = $scope.activeCategory.id;
+			$scope.newItem.save().then(function(reply) {
+				console.log(reply);
+			}, function(reply) {
+				console.log(reply);
 			});
+			$scope.newItem.complete = false;
+			$scope.newItem.expanded = false;
+			$scope.activeCategory.list.push($scope.newItem);
 			$scope.addItem = '';
 			$scope.addDesc = '';
 			$scope.addPrior = '';
+			$scope.newItem = new db.Item;
 		}
 		else {
 			alert("You must make a category first!");

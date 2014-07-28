@@ -44,6 +44,10 @@ class CategoriesController extends ApplicationController {
 	function save($id = null) {
 		$category = $this->getCategory($id);
 		
+		if ($category->isNew()){
+			$category->setUserId($_REQUEST['user_id']);
+		}
+		
 		try {
 			$category->fromArray($_REQUEST);
 			if ($category->validate()) {

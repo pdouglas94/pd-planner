@@ -43,6 +43,10 @@ class ItemsController extends ApplicationController {
 	 */
 	function save($id = null) {
 		$item = $this->getItem($id);
+		
+		if ($item->isNew()) {
+			$item->setCategoryId($_REQUEST['category_id']);
+		}
 
 		try {
 			$item->fromArray($_REQUEST);
