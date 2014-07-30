@@ -17,6 +17,7 @@ angular
     'ngSanitize',
     'ngTouch',
 	'ui.router',
+	'ui.bootstrap',
 	'pdPlannerApp.directives.todo',
 	'pdPlannerApp.directives.category'
   ])

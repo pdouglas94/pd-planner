@@ -33,6 +33,7 @@ angular.module('pdPlannerApp')
 				var current = $scope.categories[i].id;
 				$scope.categories[i].list = reply.data.todos[current];
 			}
+			$scope.numCategories = $scope.categories.length;
 		}, function(reply) {
 			console.log(reply);
 		});
@@ -52,6 +53,7 @@ angular.module('pdPlannerApp')
 		$scope.categories.push({name:$scope.addCat, list:[]});
 		$scope.addCat = '';
 		$scope.newCategory = new db.Category;
+		$scope.numCategories += 1;
 	};
 	
 	$scope.removeCategory = function($index) {

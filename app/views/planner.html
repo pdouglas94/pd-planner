@@ -11,6 +11,7 @@
 			<div>
 				<div class="pad-bottom">
 					<h4>Current Category: {{activeCategory.name}}</h4>
+					<h5>Number of Categories: {{ numCategories }}</h5>
 					<label>Select Category:</label>
 					<select ng-model="activeCategory" ng-options="cat.name for cat in categories"></select>
 				</div>

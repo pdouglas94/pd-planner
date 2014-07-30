@@ -9,11 +9,11 @@
 			<label>Description: </label>
 			<input type="text" ng-model="addDesc" />
 		</div>
-		<div><h5>Priority:</h5></div>
-		<div>
-			<label class="margin-right">High</label><input type="radio" ng-model="addPrior" value="1"/>
-			<label class="margin-right"> | Medium</label><input type="radio" ng-model="addPrior" value="2"/>
-			<label class="margin-right"> | Low </label><input type="radio" ng-model="addPrior" value="3"/>
+		<h5>Priority:</h5>
+		<div class="btn-group">
+			<label class="btn btn-default" ng-model="addPrior" btn-radio="1">High</label>
+			<label class="btn btn-default" ng-model="addPrior" btn-radio="2">Medium</label>
+			<label class="btn btn-default" ng-model="addPrior" btn-radio="3">Low</label>
 		</div>
 		<button class="btn btn-default" ng-click="addToDoItem()"><i class="glyphicon-plus"></i> Add Item</button>
 	</form>
