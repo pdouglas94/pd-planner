@@ -17,33 +17,13 @@ angular
     'ngSanitize',
     'ngTouch',
 	'ui.router',
-	'ui.bootstrap',
-	'pdPlannerApp.directives.todo',
-	'pdPlannerApp.directives.category'
+	'ui.bootstrap'
   ])
   
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
-      })
-	  .when('/planner', {
-        templateUrl: 'views/planner.html',
-        controller: 'PlannerCtrl'
-      })
-	  .when('/login', {
-        templateUrl: 'views/login.html',
-        controller: 'LoginCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  })
+  .config(['$urlRouterProvider', function ($urlRouterProvider) {
+    $urlRouterProvider.otherwise('/');
+
+  }])
   
   .run(['$rootScope', function($rootScope) {
 		$rootScope.views = [

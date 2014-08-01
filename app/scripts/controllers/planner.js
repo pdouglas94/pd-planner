@@ -8,9 +8,9 @@
  * Controller of the pdPlannerApp
  */
 angular.module('pdPlannerApp')
-  .controller('PlannerCtrl', ['$rootScope', 'SITE_URL', '$http', '$scope', 'db', 
-	function ($rootScope, SITE_URL, $http, $scope, db) {
-		  
+  .controller('PlannerCtrl', ['$rootScope', 'SITE_URL', '$modal', '$http', '$scope', 'db', 
+	function ($rootScope, SITE_URL, $modal, $http, $scope, db) {
+	
 	$scope.categories = [];
 	$scope.activeCategory = {name:null, list:null};
 	
@@ -18,7 +18,6 @@ angular.module('pdPlannerApp')
 	$scope.catExpand = false;
 	
 	$scope.newCategory = new db.Category;
-	$scope.newItem = new db.Item;
 	
 	$scope.loadInfo = function() {
 		//This needs to be fixed to indicate current user id
@@ -79,27 +78,19 @@ angular.module('pdPlannerApp')
 		}
 	};
 	
-	$scope.addToDoItem = function() {
-		//add to database
+	var addToDoItem = function(todo_item) {
 		if ($scope.activeCategory.list !== null){
-			$scope.newItem.name = $scope.addItem;
-			$scope.newItem.description = $scope.addDesc;
-			$scope.newItem.priority = $scope.addPrior;
-			$scope.newItem.complete = 0;
-			$scope.newItem.progress = 0;
-			$scope.newItem.category_id = $scope.activeCategory.id;
-			$scope.newItem.save().then(function(reply) {
-				console.log(reply);
+			var newItem = todo_item;
+			todo_item.complete = 0;
+			todo_item.progress = 0;
+			todo_item.category_id = $scope.activeCategory.id;
+			todo_item.save().then(function(reply) {
+				reply.complete = false;
+				reply.expanded = false;
+				$scope.activeCategory.list.push(reply);
 			}, function(reply) {
-				console.log(reply);
+				alert("ToDo Item did not save: " + reply);
 			});
-			$scope.newItem.complete = false;
-			$scope.newItem.expanded = false;
-			$scope.activeCategory.list.push($scope.newItem);
-			$scope.addItem = '';
-			$scope.addDesc = '';
-			$scope.addPrior = '';
-			$scope.newItem = new db.Item;
 		}
 		else {
 			alert("You must make a category first!");
@@ -121,6 +112,24 @@ angular.module('pdPlannerApp')
 				return "Low";
 		}
 		return "None";
+	};
+	
+	$scope.openToDoModal = function() {
+		var modalInstance = $modal.open({
+			templateUrl: 'scripts/modals/overlays/todo.html',
+			controller: 'ToDoModalCtrl',
+			size: 'sm'
+		});
+
+		modalInstance.result.then(function (selectedItem) {
+			addToDoItem(selectedItem);
+		}, function (cancel) {
+			
+		});
+	};
+	
+	$scope.openCategoryModal = function() {
+		
 	};
   }]);
 

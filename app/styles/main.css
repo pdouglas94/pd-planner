@@ -1,5 +1,9 @@
 /* Style elements for PD Planner App */
 
+body {
+	font-family:Helvetica;
+}
+
 /* Basic Style classes */
 
 .pad-bottom {
@@ -20,6 +24,10 @@
 
 .margin-bottom {
 	margin-bottom:10px;
+}
+
+.large-margin-top {
+	margin-top:30px;
 }
 
 .no-new-line {

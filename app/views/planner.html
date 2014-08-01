@@ -1,32 +1,35 @@
 <div class="well">
-	<div class="pad-bottom">
-		<div ng-repeat="item in items">
-			{{item.name}}
+	<div class="row-fluid">
+		<div class="span5">
+			<h2>PLANNER</h2>
+			<h4>Organize and Plan Your Day</h4>
 		</div>
-		<h2>PLANNER</h2>
-		<h4>Organize and Plan Your Day</h4>
+		<div class="span7">
+			<div class="pad-bottom large-margin-top">
+				<button ng-click="switchExpand('catExpand')" class="btn btn-primary">Add Category</button>
+				<button ng-click="openToDoModal()" class="btn btn-primary">Add To-Do</button>
+			</div>
+			<!--<div ng-show="catExpand">
+				<div category></div>
+			</div>
+			<div ng-show="toDoExpand">
+				<div todo></div>
+			</div> -->
+		</div>
 	</div>
-	<div class="row">
+	<div class="row-fluid">
 		<div class="span5">
 			<div>
 				<div class="pad-bottom">
-					<h4>Current Category: {{activeCategory.name}}</h4>
 					<h5>Number of Categories: {{ categories.length }}</h5>
 					<label>Select Category:</label>
 					<select ng-model="activeCategory" ng-options="cat.name for cat in categories"></select>
 				</div>
-				<div class="pad-bottom"><button ng-click="switchExpand('catExpand')" class="btn btn-primary">Manage Categories</button></div>
-				<div ng-show="catExpand">
-					<div category></div>
-				</div>
-				<div class="pad-bottom"><button ng-click="switchExpand('toDoExpand')" class="btn btn-primary">Add To-Do</button></div>
-				<div ng-show="toDoExpand">
-					<div todo></div>
-				</div>
 			</div>
 		</div>
 		<div class="span7">
-			<h4>To Do List </h4>
+			<h4>Current Category: {{activeCategory.name}}</h4>
+			<h5>To Do List </h5>
 			<ul class="unstyled margin-right">
 				<li class="pad-bottom" ng-repeat="item in activeCategory.list">
 					<div class="row-fluid clearfix" ng-class="{completed: item.complete}">

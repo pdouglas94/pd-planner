@@ -9,5 +9,4 @@
  */
 angular.module('pdPlannerApp')
   .controller('MainCtrl', ['$scope', function ($scope) {
-	
   }]);
