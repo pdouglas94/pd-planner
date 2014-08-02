@@ -8,21 +8,16 @@
  * Controller of the pdPlannerApp
  */
 angular.module('pdPlannerApp')
-  .controller('PlannerCtrl', ['$rootScope', 'SITE_URL', '$modal', '$http', '$scope', 'db', 
-	function ($rootScope, SITE_URL, $modal, $http, $scope, db) {
+  .controller('PlannerCtrl', ['Session', 'SITE_URL', '$modal', '$http', '$scope', 'db', 
+	function (Session, SITE_URL, $modal, $http, $scope, db) {
 	
 	$scope.categories = [];
 	$scope.activeCategory = {name:null, list:null};
 	
-	$scope.toDoExpand = false;
-	$scope.catExpand = false;
-	
-	$scope.newCategory = new db.Category;
-	
 	$scope.loadInfo = function() {
 		//This needs to be fixed to indicate current user id
 		var params = {
-			user_id: 3
+			user_id: Session.userId
 		};
 		
 		$http.post(SITE_URL + 'rest/categories/get-user-data.json' + '?' + $.param(params)).then(
@@ -33,24 +28,25 @@ angular.module('pdPlannerApp')
 				$scope.categories[i].list = reply.data.todos[current];
 			}
 		}, function(reply) {
-			console.log(reply);
+			alert("Could not get categories from the database: " + reply);
 		});
 	};
 	
-	$scope.loadInfo();
-	
-	$scope.addCategory = function() {
-		$scope.newCategory.name = $scope.addCat;
-		$scope.newCategory.user_id = $scope.currentUser.id;
-
-		$scope.newCategory.save().then(function(reply) {
-			console.log(reply);
-		}, function(reply) {
-			console.log(reply);
+	$scope.$on('user-loaded', function() {
+		$scope.$apply(function() {
+			$scope.loadInfo();
 		});
-		$scope.categories.push({name:$scope.addCat, list:[]});
-		$scope.addCat = '';
-		$scope.newCategory = new db.Category;
+	});
+	
+	var addCategory = function(addCat) {
+		addCat.user_id = Session.userId;
+
+		addCat.save().then(function(reply) {
+			reply.list = [];
+			$scope.categories.push(reply);
+		}, function(reply) {
+			alert("Something went wrong with saving your new category: " + reply);
+		});
 	};
 	
 	$scope.removeCategory = function($index) {
@@ -67,15 +63,6 @@ angular.module('pdPlannerApp')
 			value = true;
 		}
 		$scope.activeCategory.list[$index].expanded = value;
-	};
-	
-	$scope.switchExpand = function(value) {
-		if ($scope[value]) {
-			$scope[value] = false;
-		}
-		else {
-			$scope[value] = true;
-		}
 	};
 	
 	var addToDoItem = function(todo_item) {
@@ -121,15 +108,25 @@ angular.module('pdPlannerApp')
 			size: 'sm'
 		});
 
-		modalInstance.result.then(function (selectedItem) {
-			addToDoItem(selectedItem);
+		modalInstance.result.then(function (newItem) {
+			addToDoItem(newItem);
 		}, function (cancel) {
 			
 		});
 	};
 	
 	$scope.openCategoryModal = function() {
+		var modalInstance = $modal.open({
+			templateUrl: 'scripts/modals/overlays/category.html',
+			controller: 'CategoryModalCtrl',
+			size: 'sm'
+		});
 		
+		modalInstance.result.then(function (newCat) {
+			addCategory(newCat);
+		}, function (cancel) {
+			
+		});
 	};
   }]);
 

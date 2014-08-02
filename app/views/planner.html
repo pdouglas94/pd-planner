@@ -6,15 +6,9 @@
 		</div>
 		<div class="span7">
 			<div class="pad-bottom large-margin-top">
-				<button ng-click="switchExpand('catExpand')" class="btn btn-primary">Add Category</button>
+				<button ng-click="openCategoryModal()" class="btn btn-primary">Add Category</button>
 				<button ng-click="openToDoModal()" class="btn btn-primary">Add To-Do</button>
 			</div>
-			<!--<div ng-show="catExpand">
-				<div category></div>
-			</div>
-			<div ng-show="toDoExpand">
-				<div todo></div>
-			</div> -->
 		</div>
 	</div>
 	<div class="row-fluid">
@@ -37,10 +31,16 @@
 							<div class="checkbox">
 								<input type="checkbox" ng-model="item.complete"/> {{item.name}}
 							</div>
-							<div ng-show="item.expanded">
+							<div ng-if="item.expanded">
 								<div>Description: {{item.description}}</div>
 								<div ng-class="{'priority-high': (item.priority === 1), 'priority-medium': (item.priority === 2), 'priority-low': (item.priority === 3)}">
 									Priority: {{getPriority($index)}}
+								</div>
+								<div>
+									<progress style="text-align:center;" class="progress-striped">
+										<bar class="bar-success" value="item.progress">Progress:{{item.progress}}/100</bar>
+									</progress>
+									<input type="text" ng-model="item.progress" />
 								</div>
 							</div>
 						</div>

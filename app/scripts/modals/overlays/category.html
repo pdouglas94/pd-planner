@@ -1,8 +1,14 @@
 <div>
-	<form class="form-inline">
-		<input id="categoryInput" class="form-control" type="text" ng-model="addCat" placeholder="Enter Category Name" />
-		<button class="btn btn-default" ng-click="addCategory()">
+	<div class="modal-header">
+		Add A New Category:
+	</div>
+	<div class="modal-body">
+		<input id="categoryInput" class="form-control" type="text" ng-model="newCategory.name" placeholder="Enter Category Name" />
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="packageCategory()">
 			<i class="glyphicon-plus"></i> Add Category
 		</button>
-	</form>
+		<button class="btn btn-danger" ng-click="cancel()">Cancel</button>
+	</div>
 </div>

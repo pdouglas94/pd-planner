@@ -1,5 +1,7 @@
 <div>
-	<div class="modal-header">Add A To-Do List Item</div>
+	<div class="modal-header">
+		Add A To-Do List Item: 
+	</div>
 	<div class="modal-body">
 		<div class="form-group margin-bottom">
 			<label>Title: </label>
@@ -15,6 +17,8 @@
 			<label class="btn btn-default" ng-model="newItem.priority" btn-radio="2">Medium</label>
 			<label class="btn btn-default" ng-model="newItem.priority" btn-radio="3">Low</label>
 		</div>
+	</div>
+	<div class="modal-footer">
 		<div class="pad-top">
 			<button class="btn btn-primary" ng-click="packageItem()"><i class="glyphicon-plus"></i> Add Item</button>
 			<button class="btn btn-danger" ng-click="cancel()">Cancel</button>
