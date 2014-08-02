@@ -1,32 +1,6 @@
 <!DOCTYPE html>
 <html ng-app="pdPlannerApp">
 	<head>
-		<!--
-			WORK ON:
-			-Remove Categories and Items
-			-Update categories and items
-			-Grunt serve?
-			-Styles and visual fixes (button positioning)
-			-Login Authentication
-			-Database fully integrate with data (saves/deletes/updates)
-			-Make sure complete status sets and saves properly
-			-Add angular bootstrap ui stuff 
-				-alerts for errors
-				-eventually pagination
-				-eventually timepicker/dates
-				*-progress bar for todo item completion
-			-Visual Improvements
-				-Lay out todo list in some sort of neat table
-				-Fix priority button position
-				-Turn category drop down into actual buttons or bootstrap dropdown
-				-Better title/header image
-				-Make better looking navigation
-				-change current user button (add profile glyphicon)
-				-Add icons all over (x for remove, + for add)
-				-change checkbox by todo item
-  
-			-amplify.js
-		-->
 		<meta charset="utf-8">
 		<title>Planner!</title>
 		<meta name="description" content="">
@@ -35,8 +9,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<!-- styles -->
-		<link rel="stylesheet" href="styles/bootstrap/css/bootstrap.css">
-		<link rel="stylesheet" href="styles/bootstrap/js/bootstrap.js">
+		<link rel="stylesheet" href="styles/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="styles/bootstrap/js/bootstrap.min.js">
 		<link rel="stylesheet" href="styles/main.css">
 		
 		<!-- bower scripts -->
@@ -51,7 +25,7 @@
 		<script src="bower_components/angular-route/angular-route.js"></script>
 		<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 		
-		<!-- Dabl -->
+		<!-- dabl -->
 		<script src="vendor/dabl/dist/scripts/dabl.min.js"></script>
 		<script src="vendor/dabl/dist/scripts/dabl.adapter.rest.min.js"></script>
 		<script src="vendor/dabl/dist/scripts/dabl.adapter.rest.angular.min.js"></script>
@@ -89,16 +63,18 @@
 
 		<!-- Application Content -->
 		<div class="page-width">
-			<div>
-				<div class="nav clearfix pad-top pad-bottom">
-					<div class="btn btn-default navbar-btn" ng-repeat="view in views">
-						<a href="#/{{ view.link }}"  class="nav-item" ng-class="{'nav-selected' : selectedNav == view.name}">
-							{{ view.name }}
-						</a>
-					</div>
-					<button class="pull-right btn btn-primary">User: {{currentUser.username}}</button>
+			<nav class="navbar planner-navbar navbar-inverse navbar-fixed-top">
+				<div class="container-fluid">
+					<ul class="nav navbar-nav navbar-left">
+						<li ng-repeat="view in views">
+							<a href="#/{{ view.link }}" ng-class="{'nav-selected' : selectedNav == view.name}">
+								{{ view.name }}
+							</a>
+						</li>
+					</ul>
+					<p class="navbar-text navbar-right">User: {{currentUser.username}}</p>
 				</div>
-			</div>
+			</nav>
 			
 			<div class="pad-bottom" ui-view=""></div>
 

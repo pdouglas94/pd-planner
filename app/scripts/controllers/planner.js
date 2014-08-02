@@ -15,7 +15,6 @@ angular.module('pdPlannerApp')
 	$scope.activeCategory = {name:null, list:null};
 	
 	$scope.loadInfo = function() {
-		//This needs to be fixed to indicate current user id
 		var params = {
 			user_id: Session.userId
 		};

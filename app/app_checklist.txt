@@ -1,0 +1,27 @@
+WORK ON:
+	-Remove Categories and Items (dropdown change first w/ delete button on side)
+	-Update categories and items
+	-Grunt serve?
+	-Allow drag and drop of todo items and save place
+	-Make table row colors correspond to priority level?
+	-Improper data loading on switch pages (resolve on planner)
+	-Styles and visual fixes (button positioning)
+	* -New footer
+	-Login Authentication
+	-Database fully integrate with data (saves/deletes/updates)
+	-Make sure complete status sets and saves properly
+	-Progress bar saves information properly
+	-Add angular bootstrap ui stuff 
+		-alerts for errors
+		-eventually pagination
+		-eventually timepicker/dates
+		ON HOLD: -progress bar for todo item completion
+	-Visual Improvements
+		-Lay out todo list in some sort of neat table
+		-Turn category drop down into actual buttons or bootstrap dropdown
+		-Better title/header image
+		* -change current user button (add profile glyphicon)
+		* -Add icons all over (x for remove, + for add)
+		-change checkbox by todo item
+
+	-amplify.js

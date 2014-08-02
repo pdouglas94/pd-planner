@@ -2,9 +2,17 @@
 
 body {
 	font-family:Helvetica;
+	padding-top:70px;
 }
 
 /* Basic Style classes */
+
+.planner-navbar {
+	border-radius: 5px;
+	background-color:#000066;
+	width:80%;
+	margin:auto;
+}
 
 .pad-bottom {
 	padding-bottom:12px;
@@ -43,11 +51,6 @@ body {
 .completed {
 	text-decoration:line-through;
 	color:grey;
-}
-
-#planner-container {
-	background-color:#f8f8f8;
-	padding:10px;
 }
 
 .page-width {
