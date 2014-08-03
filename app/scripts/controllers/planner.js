@@ -78,7 +78,6 @@ angular.module('pdPlannerApp')
 	
 	var addToDoItem = function(todo_item) {
 		if ($scope.activeCategory.list !== null){
-			var newItem = todo_item;
 			todo_item.complete = 0;
 			todo_item.progress = 0;
 			todo_item.category_id = $scope.activeCategory.id;
@@ -91,6 +90,23 @@ angular.module('pdPlannerApp')
 		}
 		else {
 			alert("You must make a category first!");
+		}
+	};
+	
+	var updateToDoItem = function(todo_item) {
+		if (todo_item) {
+			db.Item.find(todo_item.id).then(function(reply) {
+				var update_item = reply;
+				update_item.fromJSON(todo_item);
+				update_item.category_id = todo_item.categoryId;
+				update_item.save().then(function(reply) {
+					alert("Item was updated succesfully: " + reply.name);
+				}, function(reply){
+					alert("Item was not updated successfully: " + reply);
+				});
+			}, function(reply) {
+				alert("Error: " + reply);
+			});
 		}
 	};
 	
@@ -124,15 +140,29 @@ angular.module('pdPlannerApp')
 		return "None";
 	};
 	
-	$scope.openToDoModal = function() {
+	$scope.openToDoModal = function($index) {
+		if ($index !== null) {
+			var current_item = $scope.activeCategory.list[$index];
+		}
+		
 		var modalInstance = $modal.open({
 			templateUrl: 'scripts/modals/overlays/todo.html',
 			controller: 'ToDoModalCtrl',
-			size: 'sm'
+			size: 'sm',
+			resolve: {
+				item: function() {
+					return current_item;
+				}
+			}
 		});
 
 		modalInstance.result.then(function (newItem) {
-			addToDoItem(newItem);
+			if (newItem.update) {
+				updateToDoItem(newItem);
+			}
+			else {
+				addToDoItem(newItem);
+			}
 		}, function (cancel) {
 			
 		});

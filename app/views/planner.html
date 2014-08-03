@@ -36,7 +36,12 @@
 			</div>
 			<div class="panel" ng-class="{'panel-default' : activeCategory.name === null, 'panel-primary' : activeCategory.name !== null}">
 				<div class="panel-heading">
-					<h4>Current Category: {{activeCategory.name}}</h4>
+					<h4>
+						{{activeCategory.name}}
+						<div ng-if="activeCategory.name === null">
+							No Category Selected
+						</div>
+					</h4>
 				</div>
 				<table class="table">
 					<tr ng-repeat="item in activeCategory.list" ng-class="{completed: item.complete === 1}">
@@ -72,7 +77,10 @@
 								<i class="glyphicon glyphicon-remove-sign"></i> Remove
 							</button>
 							<button ng-click="item.expanded = !item.expanded" class="btn btn-sm btn-default pull-right">
-								<i class="glyphicon glyphicon-plus-sign"></i> Show Details
+								<i class="glyphicon glyphicon-plus-sign"></i> Details
+							</button>
+							<button ng-click="openToDoModal($index)" class="btn btn-sm btn-default pull-right">
+								<i class="glyphicon glyphicon-pencil"></i>
 							</button>
 						</td>
 					</tr>

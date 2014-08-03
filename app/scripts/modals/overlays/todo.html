@@ -1,26 +1,30 @@
 <div>
 	<div class="modal-header">
-		Add A To-Do List Item: 
+		<div ng-if="updating">Update This Item: {{item.name}}</div> 
+		<div ng-if="!updating">Add An Item: </div> 
 	</div>
 	<div class="modal-body">
 		<div class="form-group margin-bottom">
 			<label>Title: </label>
-			<input type="text" ng-model="newItem.name" />
+			<input value="item.name" type="text" ng-model="item.name" />
 		</div>
 		<div class="form-group margin-bottom">
 			<label>Description: </label>
-			<input type="text" ng-model="newItem.description" />
+			<input value="item.description" type="text" ng-model="item.description" />
 		</div>
 		<h5>Priority:</h5>
 		<div class="btn-group">
-			<label class="btn btn-default" ng-model="newItem.priority" btn-radio="1">High</label>
-			<label class="btn btn-default" ng-model="newItem.priority" btn-radio="2">Medium</label>
-			<label class="btn btn-default" ng-model="newItem.priority" btn-radio="3">Low</label>
+			<label class="btn btn-default" ng-model="item.priority" btn-radio="1">High</label>
+			<label class="btn btn-default" ng-model="item.priority" btn-radio="2">Medium</label>
+			<label class="btn btn-default" ng-model="item.priority" btn-radio="3">Low</label>
 		</div>
 	</div>
 	<div class="modal-footer">
 		<div class="pad-top">
-			<button class="btn btn-primary" ng-click="packageItem()"><i class="glyphicon-plus"></i> Add Item</button>
+			<button class="btn btn-primary" ng-click="packageItem()"><i class="glyphicon-plus"></i>
+				<span ng-if="updating"> Update Item</span>
+				<span ng-if="!updating"> Add Item</span>
+			</button>
 			<button class="btn btn-danger" ng-click="cancel()">Cancel</button>
 		</div>
 	</div>

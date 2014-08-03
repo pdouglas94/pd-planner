@@ -1,9 +1,17 @@
 angular.module('pdPlannerApp')
-	.controller('ToDoModalCtrl', ['$scope', 'db', '$modalInstance', function($scope, db, $modalInstance) {
-		$scope.newItem = new db.Item;
+	.controller('ToDoModalCtrl', ['$scope', 'item', 'db', '$modalInstance', function($scope, item, db, $modalInstance) {
+		if (item !== null) {
+			$scope.item = item;
+			$scope.updating = true;
+		}
+		else {
+			$scope.item = new db.Item;
+			$scope.updating = false;
+		}
 					
 		$scope.packageItem = function() {
-			$modalInstance.close($scope.newItem);
+			$scope.item.update = $scope.updating;
+			$modalInstance.close($scope.item);
 		};
 		
 		$scope.cancel = function() {
