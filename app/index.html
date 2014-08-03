@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="styles/bootstrap/css/bootstrap.min.css">
 		<link rel="stylesheet" href="styles/bootstrap/js/bootstrap.min.js">
 		<link rel="stylesheet" href="styles/main.css">
+		<link rel="stylesheet" href="styles/bootstrap-ext.css">
 		
 		<!-- bower scripts -->
 		<script src="bower_components/jquery/dist/jquery.js"></script>
@@ -72,14 +73,16 @@
 							</a>
 						</li>
 					</ul>
-					<p class="navbar-text navbar-right">User: {{currentUser.username}}</p>
+					<div class="navbar-text navbar-right">
+						<button id="user-button" class="btn btn-primary"><i class="glyphicon glyphicon-user"></i> User: {{currentUser.username}}</button>
+					</div>
 				</div>
 			</nav>
 			
 			<div class="pad-bottom" ui-view=""></div>
 
 			<div>
-				<p><span class="glyphicon glyphicon-heart"></span> [FOOTER]</p>
+				<h5><span class="glyphicon glyphicon-copyright-mark"></span> Patrick Douglas</h5>
 			</div>
 		</div>
 
