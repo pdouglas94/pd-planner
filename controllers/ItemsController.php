@@ -47,6 +47,10 @@ class ItemsController extends ApplicationController {
 		if ($item->isNew()) {
 			$item->setCategoryId($_REQUEST['category_id']);
 		}
+		
+		if ($item->getProgress() === null) {
+			$item->setProgress(0);
+		}
 
 		try {
 			$item->fromArray($_REQUEST);

@@ -1,13 +1,15 @@
 <div>
 	<div class="modal-header">
-		Add A New Category:
+		<div ng-if="updating">Update This Category: {{category.name}}</div> 
+		<div ng-if="!updating">Add A Category: </div> 
 	</div>
 	<div class="modal-body">
-		<input id="categoryInput" class="form-control" type="text" ng-model="newCategory.name" placeholder="Enter Category Name" />
+		<input id="categoryInput" value="category.name" class="form-control" type="text" ng-model="category.name" placeholder="Enter Category Name" />
 	</div>
 	<div class="modal-footer">
-		<button class="btn btn-primary" ng-click="packageCategory()">
-			<i class="glyphicon-plus"></i> Add Category
+		<button class="btn btn-primary" ng-click="packageCategory()"><i class="glyphicon-plus"></i>
+			<span ng-if="updating"> Update Category</span>
+			<span ng-if="!updating"> Add Category</span>
 		</button>
 		<button class="btn btn-danger" ng-click="cancel()">Cancel</button>
 	</div>

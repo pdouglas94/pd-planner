@@ -1,15 +1,15 @@
 WORK ON:
-	-Update categories and items ($watch with third argument as true)
 	-Grunt serve?
+	-updated/created columns in database
+	-calendar under new tab
+	-Categories edit/delete shouldn't select that category
 	-Allow drag and drop of todo items and save place
 	-Make table row colors correspond to priority level?
 	-Make Categories section open if it's not open when you add a category?
 	-Improper data loading on switch pages (resolve on planner)
 	-Footer purpose?
+	-Robust validation for item updates to avoid errors
 	-Login Authentication
-	-Database fully integrate with data (saves/deletes/updates)
-	-Make sure complete status sets and saves properly
-	-Progress bar saves information properly
 	-Add angular bootstrap ui stuff 
 		-alerts for errors (And successful updates/removes/adds)
 		-eventually pagination

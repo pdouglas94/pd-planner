@@ -1,9 +1,18 @@
 angular.module('pdPlannerApp')
-	.controller('CategoryModalCtrl', ['$scope', 'db', '$modalInstance', function($scope, db, $modalInstance) {
-		$scope.newCategory = new db.Category;
+	.controller('CategoryModalCtrl', ['$scope', 'category', 'db', '$modalInstance', function($scope, category, db, $modalInstance) {
+		
+		if (category !== null) {
+			$scope.category = category;
+			$scope.updating = true;
+		}
+		else {
+			$scope.category = new db.Category;
+			$scope.updating = false;
+		}
 					
 		$scope.packageCategory = function() {
-			$modalInstance.close($scope.newCategory);
+			$scope.category.update = $scope.updating;
+			$modalInstance.close($scope.category);
 		};
 		
 		$scope.cancel = function() {

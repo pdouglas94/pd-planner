@@ -38,19 +38,36 @@ angular.module('pdPlannerApp')
 		});
 	});
 	
-	$scope.setActiveCat = function(index) {
-		$scope.activeCategory = $scope.categories[index];
+	$scope.setActiveCat = function($index) {
+		$scope.activeCategory = $scope.categories[$index];
 	};
 	
-	var addCategory = function(addCat) {
-		addCat.user_id = Session.userId;
+	var addCategory = function(add_cat) {
+		add_cat.user_id = Session.userId;
 
-		addCat.save().then(function(reply) {
+		add_cat.save().then(function(reply) {
 			reply.list = [];
 			$scope.categories.push(reply);
 		}, function(reply) {
 			alert("Something went wrong with saving your new category: " + reply);
 		});
+	};
+	
+	var updateCategory = function(cat) {
+		if (cat) {
+			db.Category.find(cat.id).then(function(reply) {
+				var update_cat = reply;
+				update_cat.fromJSON(cat);
+				update_cat.user_id = cat.userId;
+				update_cat.save().then(function(reply) {
+					alert("Category was updated succesfully: " + reply.name);
+				}, function(reply){
+					alert("Item was not updated successfully: " + reply);
+				});
+			}, function(reply) {
+				alert("Error: " + reply);
+			});
+		}
 	};
 	
 	$scope.removeCategory = function($index) {
@@ -63,12 +80,9 @@ angular.module('pdPlannerApp')
 		
 		var rem = new db.Category;
 		rem.fromJSON(remove_cat);
-		if ($scope.categories[0]) {
-			$scope.activeCategory = $scope.categories[0];
-		}
-		else {
-			$scope.activeCategory = {name:null, list:null};
-		}
+		
+		$scope.activeCategory = {name:null, list:null};
+		
 		rem.remove(function (reply) {
 			alert("Item was successfully removed: " + reply.name);
 		}, function(reply) {
@@ -94,13 +108,16 @@ angular.module('pdPlannerApp')
 	};
 	
 	var updateToDoItem = function(todo_item) {
-		if (todo_item) {
+		if (todo_item !== null) {
 			db.Item.find(todo_item.id).then(function(reply) {
 				var update_item = reply;
 				update_item.fromJSON(todo_item);
 				update_item.category_id = todo_item.categoryId;
+				if (update_item.progress === null) {
+					update_item.progress = 0;
+				}
 				update_item.save().then(function(reply) {
-					alert("Item was updated succesfully: " + reply.name);
+					
 				}, function(reply){
 					alert("Item was not updated successfully: " + reply);
 				});
@@ -128,6 +145,27 @@ angular.module('pdPlannerApp')
 		});
 	};
 	
+	$scope.$watch('activeCategory.list', function(newVal, oldVal) {
+		if (newVal !== null && oldVal !== null) {
+			for (var i in newVal) {
+				if (itemCompare(newVal[i], oldVal[i]) === false) {
+					updateToDoItem(newVal[i]);
+				}
+			}
+		}
+	}, true);
+	
+	var itemCompare = function(first_item, second_item) {
+		if ((first_item.name !== second_item.name) ||
+			(first_item.description !== second_item.description) ||
+			(first_item.priority !== second_item.priority) ||
+			(first_item.progress !== second_item.progress) || 
+			(first_item.complete !== second_item.complete)) {
+			return false;
+		}
+		return true;
+	};
+	
 	$scope.getPriority = function($index) {
 		switch ($scope.activeCategory.list[$index].priority) {
 			case 1:
@@ -143,6 +181,9 @@ angular.module('pdPlannerApp')
 	$scope.openToDoModal = function($index) {
 		if ($index !== null) {
 			var current_item = $scope.activeCategory.list[$index];
+		}
+		else {
+			var current_item = null;
 		}
 		
 		var modalInstance = $modal.open({
@@ -168,15 +209,32 @@ angular.module('pdPlannerApp')
 		});
 	};
 	
-	$scope.openCategoryModal = function() {
+	$scope.openCategoryModal = function($index) {
+		if ($index !== null) {
+			var current_cat = $scope.categories[$index];
+		}
+		else {
+			var current_cat = null;
+		}
+		
 		var modalInstance = $modal.open({
 			templateUrl: 'scripts/modals/overlays/category.html',
 			controller: 'CategoryModalCtrl',
-			size: 'sm'
+			size: 'sm',
+			resolve: {
+				category: function() {
+					return current_cat;
+				}
+			}
 		});
 		
 		modalInstance.result.then(function (newCat) {
-			addCategory(newCat);
+			if (newCat.update) {
+				updateCategory(newCat);
+			}
+			else {
+				addCategory(newCat);
+			}
 		}, function (cancel) {
 			
 		});

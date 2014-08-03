@@ -7,12 +7,11 @@
 			</div>
 			<div>
 				<div class="pad-bottom">
-					<h5>Number of Categories: {{ categories.length }}</h5>
 					<accordion>
 						<accordion-group is-open="dropOpen">
 							<accordion-heading>
-								Categories <i class="pull-right glyphicon" 
-											  ng-class="{'glyphicon-chevron-down': dropOpen, 'glyphicon-chevron-right': !dropOpen}"></i>
+								Categories <span class="badge">{{ categories.length }}</span>
+								<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': dropOpen, 'glyphicon-chevron-right': !dropOpen}"></i>
 							</accordion-heading>
 							<table class="table table-hover table-condensed">
 								<tr ng-class="{'success': cat.id === activeCategory.id}" ng-repeat="cat in categories" style="width:100%;" ng-click="setActiveCat($index)">
@@ -20,6 +19,9 @@
 										{{cat.name}}
 										<button ng-click="removeCategory($index)" class="btn btn-extra-sm btn-danger pull-right">
 											<i class="glyphicon glyphicon-remove-sign"></i>
+										</button>
+										<button ng-click="openCategoryModal($index)" class="btn btn-extra-sm btn-default pull-right">
+											<i class="glyphicon glyphicon-pencil"></i>
 										</button>
 									</td>
 								</tr>
@@ -31,8 +33,8 @@
 		</div>
 		<div class="col-xs-8">
 			<div class="pad-bottom large-margin-top">
-				<button ng-click="openCategoryModal()" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add Category</button>
-				<button ng-click="openToDoModal()" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add To-Do</button>
+				<button ng-click="openCategoryModal(null)" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add Category</button>
+				<button ng-click="openToDoModal(null)" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add To-Do</button>
 			</div>
 			<div class="panel" ng-class="{'panel-default' : activeCategory.name === null, 'panel-primary' : activeCategory.name !== null}">
 				<div class="panel-heading">
