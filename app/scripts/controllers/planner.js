@@ -15,17 +15,53 @@ angular.module('pdPlannerApp')
 	$scope.activeCategory = {name:null, list:null};
 	$scope.dropOpen = false;
 	
+	//Converts an 'array of objects' or 'object of arrays of objects' to objects of given type
+	//is_object assumes an object with arrays as fields
+	var converter = function(to_convert, convert_type, is_object) {
+		if (!to_convert || to_convert === null) {
+			return false;
+		}
+		switch(convert_type) {
+			case 'item':
+				if (is_object) {
+					for(var i in to_convert) {
+						db.Item.inflateArray(to_convert[i]);
+					}
+				}
+				else {
+					db.Item.inflateArray(to_convert);
+				}
+				return true;
+			case 'category':
+				if (is_object) {
+					for(var i in to_convert) {
+						db.Category.inflateArray(to_convert[i]);
+					}
+				}
+				else {
+					db.Category.inflateArray(to_convert);
+				}
+				return true;
+		}
+		return false;
+	};
+	
+	//On initial loading of page, we gather up the categories for the current user.
 	$scope.loadInfo = function() {
 		var params = {
-			user_id: Session.userId
+			userId: Session.userId
 		};
 		
 		$http.post(SITE_URL + 'rest/categories/get-user-data.json' + '?' + $.param(params)).then(
 		function(reply){
-			$scope.categories = reply.data.categories;
+			var categories = reply.data.categories;
+			var todos = reply.data.todos;
+			converter(categories, 'category', false);
+			converter(todos, 'item', true);
+			$scope.categories = categories;
 			for (var i in $scope.categories) {
 				var current = $scope.categories[i].id;
-				$scope.categories[i].list = reply.data.todos[current];
+				$scope.categories[i].list = todos[current];
 			}
 		}, function(reply) {
 			alert("Could not get categories from the database: " + reply);
@@ -43,7 +79,7 @@ angular.module('pdPlannerApp')
 	};
 	
 	var addCategory = function(add_cat) {
-		add_cat.user_id = Session.userId;
+		add_cat.userId = Session.userId;
 
 		add_cat.save().then(function(reply) {
 			reply.list = [];
@@ -54,18 +90,11 @@ angular.module('pdPlannerApp')
 	};
 	
 	var updateCategory = function(cat) {
-		if (cat) {
-			db.Category.find(cat.id).then(function(reply) {
-				var update_cat = reply;
-				update_cat.fromJSON(cat);
-				update_cat.user_id = cat.userId;
-				update_cat.save().then(function(reply) {
-					alert("Category was updated succesfully: " + reply.name);
-				}, function(reply){
-					alert("Item was not updated successfully: " + reply);
-				});
-			}, function(reply) {
-				alert("Error: " + reply);
+		if (cat && cat !== null) {
+			cat.save().then(function(reply) {
+				alert("Category was updated succesfully: " + reply.name);
+			}, function(reply){
+				alert("Item was not updated successfully: " + reply);
 			});
 		}
 	};
@@ -78,12 +107,9 @@ angular.module('pdPlannerApp')
 		var remove = $scope.categories.splice($index, 1);
 		var remove_cat = remove[0];
 		
-		var rem = new db.Category;
-		rem.fromJSON(remove_cat);
-		
 		$scope.activeCategory = {name:null, list:null};
 		
-		rem.remove(function (reply) {
+		remove_cat.remove(function (reply) {
 			alert("Item was successfully removed: " + reply.name);
 		}, function(reply) {
 			alert("Item was not removed: " + reply);
@@ -94,7 +120,7 @@ angular.module('pdPlannerApp')
 		if ($scope.activeCategory.list !== null){
 			todo_item.complete = 0;
 			todo_item.progress = 0;
-			todo_item.category_id = $scope.activeCategory.id;
+			todo_item.categoryId = $scope.activeCategory.id;
 			todo_item.save().then(function(reply) {
 				reply.expanded = false;
 				$scope.activeCategory.list.push(reply);
@@ -108,58 +134,46 @@ angular.module('pdPlannerApp')
 	};
 	
 	var updateToDoItem = function(todo_item) {
-		if (todo_item !== null) {
-			db.Item.find(todo_item.id).then(function(reply) {
-				var update_item = reply;
-				update_item.fromJSON(todo_item);
-				update_item.category_id = todo_item.categoryId;
-				if (update_item.progress === null) {
-					update_item.progress = 0;
-				}
-				update_item.save().then(function(reply) {
-					
-				}, function(reply){
-					alert("Item was not updated successfully: " + reply);
-				});
-			}, function(reply) {
-				alert("Error: " + reply);
+		if (todo_item && todo_item !== null) {
+			if (todo_item.progress === null) {
+				todo_item.progress = 0;
+			}
+			todo_item.save().then(function(reply) {
+				
+			}, function(reply){
+				alert("Item was not updated successfully: " + reply);
 			});
 		}
 	};
 	
 	$scope.removeToDoItem = function($index) {
-		
 		if (!confirm('Are you sure you want to delete this item?')) {
 			return;
 		}
 		var remove = $scope.activeCategory.list.splice($index, 1);
 		var remove_item = remove[0];
 		
-		var rem = new db.Item;
-		rem.fromJSON(remove_item);
-		rem.category_id = remove_item.categoryId;
-		rem.remove(function (reply) {
+		remove_item.remove(function (reply) {
 			alert("Item was successfully removed: " + reply.name);
 		}, function(reply) {
 			alert("Item was not removed: " + reply);
 		});
 	};
 	
+	//Watches each item in the current list for changes and saves them.
 	$scope.$watch('activeCategory.list', function(newVal, oldVal) {
 		if (newVal !== null && oldVal !== null) {
 			for (var i in newVal) {
-				if (itemCompare(newVal[i], oldVal[i]) === false) {
+				if (oldVal[i] && itemDynamicCompare(newVal[i], oldVal[i]) === false) {
 					updateToDoItem(newVal[i]);
 				}
 			}
 		}
 	}, true);
 	
-	var itemCompare = function(first_item, second_item) {
-		if ((first_item.name !== second_item.name) ||
-			(first_item.description !== second_item.description) ||
-			(first_item.priority !== second_item.priority) ||
-			(first_item.progress !== second_item.progress) || 
+	//This only compares the values that can be updated in real time without opening the modal.
+	var itemDynamicCompare = function(first_item, second_item) {		
+		if ((first_item.progress !== second_item.progress) || 
 			(first_item.complete !== second_item.complete)) {
 			return false;
 		}
@@ -198,7 +212,7 @@ angular.module('pdPlannerApp')
 		});
 
 		modalInstance.result.then(function (newItem) {
-			if (newItem.update) {
+			if (newItem.updated === true) {
 				updateToDoItem(newItem);
 			}
 			else {
@@ -229,7 +243,7 @@ angular.module('pdPlannerApp')
 		});
 		
 		modalInstance.result.then(function (newCat) {
-			if (newCat.update) {
+			if (newCat.updated === true) {
 				updateCategory(newCat);
 			}
 			else {

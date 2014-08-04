@@ -101,8 +101,8 @@ class CategoriesController extends ApplicationController {
 	
 	function getUserData() {
 		$reply = array();
-		if($_REQUEST['user_id']) {
-			$user = User::retrieveById($_REQUEST['user_id']);
+		if($_REQUEST['userId']) {
+			$user = User::retrieveById($_REQUEST['userId']);
 		}
 		$categories = $user->getCategorysRelatedByUserId();
 		$reply['todos'] = array();

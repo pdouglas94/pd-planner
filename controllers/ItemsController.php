@@ -44,16 +44,11 @@ class ItemsController extends ApplicationController {
 	function save($id = null) {
 		$item = $this->getItem($id);
 		
-		if ($item->isNew()) {
-			$item->setCategoryId($_REQUEST['category_id']);
-		}
-		
-		if ($item->getProgress() === null) {
-			$item->setProgress(0);
-		}
-
 		try {
 			$item->fromArray($_REQUEST);
+			if ($item->getProgress() === null) {
+				$item->setProgress(0);
+			}
 			if ($item->validate()) {
 				$item->save();
 				$this->flash['messages'][] = 'Item saved';

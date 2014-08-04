@@ -8,7 +8,12 @@ WORK ON:
 	-Make Categories section open if it's not open when you add a category?
 	-Improper data loading on switch pages (resolve on planner)
 	-Footer purpose?
-	-Robust validation for item updates to avoid errors
+	-Functions to check new items and fill in default items 
+	-Add subtasks
+	-Write debugging functions that display data and add buttons.
+	-Robust validation for item/category updates to avoid errors
+	-Validation on item/category add
+	-Fix issue with updates on new items (I think add them as toJSON?)
 	-Login Authentication
 	-Add angular bootstrap ui stuff 
 		-alerts for errors (And successful updates/removes/adds)

@@ -35,7 +35,7 @@ angular.module('pdPlannerApp')
 		db.Category = Entity.extend('category', {
 			url: 'categories/:id.json',
 			fields: {
-				user_id: 'int',
+				userId: 'int',
 				name: String
 			}
 		});
@@ -43,7 +43,7 @@ angular.module('pdPlannerApp')
 		db.Item = Entity.extend('item', {
 			url: 'items/:id.json',
 			fields: {
-				category_id: 'int',
+				categoryId: 'int',
 				complete: Boolean,
 				description: String,
 				priority: 'int',
