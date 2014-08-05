@@ -67,10 +67,15 @@
 									Priority: {{getPriority($index)}}
 								</div>
 								<div>
-									<progress style="text-align:center;" class="progress-striped">
+									<!-- <progress style="text-align:center;" class="progress-striped">
 										<bar class="bar-success" value="item.progress">Progress:{{item.progress}}/100</bar>
 									</progress>
-									<input type="text" ng-model="item.progress" />
+									<input type="text" ng-model="item.progress" /> -->
+									
+									<div>
+										Progress:
+										<slider ng-model="item.progress" min="0" step="1" max="100" value="{{item.progress}}"></slider>
+									</div>
 								</div>
 							</div>
 						</td>

@@ -17,7 +17,8 @@ angular
     'ngSanitize',
     'ngTouch',
 	'ui.router',
-	'ui.bootstrap'
+	'ui.bootstrap',
+	'ui.bootstrap-slider'
   ])
   
   .config(['$urlRouterProvider', function ($urlRouterProvider) {

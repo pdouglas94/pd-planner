@@ -13,13 +13,12 @@ WORK ON:
 	-Write debugging functions that display data and add buttons.
 	-Robust validation for item/category updates to avoid errors
 	-Validation on item/category add
-	-Fix issue with updates on new items (I think add them as toJSON?)
+	-Make progress bar function better (save only on stop).
 	-Login Authentication
 	-Add angular bootstrap ui stuff 
-		-alerts for errors (And successful updates/removes/adds)
+		* -alerts for errors (And successful updates/removes/adds)
 		-eventually pagination
 		-eventually timepicker/dates
-		ON HOLD: -progress bar for todo item completion
 	-Visual Improvements
 		-Better title/header image
 
