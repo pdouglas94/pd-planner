@@ -45,7 +45,7 @@ class CategoriesController extends ApplicationController {
 		$category = $this->getCategory($id);
 		
 		if ($category->isNew()){
-			$category->setUserId($_REQUEST['user_id']);
+			$category->setUserId($_REQUEST['userId']);
 		}
 		
 		try {

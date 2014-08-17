@@ -6,17 +6,19 @@ WORK ON:
 	-Allow drag and drop of todo items and save place
 	-Make table row colors correspond to priority level?
 	-Make Categories section open if it's not open when you add a category?
+	-redirect appropriately to /app/
+	-case of singular category?
 	-Improper data loading on switch pages (resolve on planner)
 	-Footer purpose?
 	-Functions to check new items and fill in default items 
 	-Add subtasks
+	-alert on todo updates, but just for modal updates
 	-Write debugging functions that display data and add buttons.
 	-Robust validation for item/category updates to avoid errors
 	-Validation on item/category add
 	-Make progress bar function better (save only on stop).
 	-Login Authentication
 	-Add angular bootstrap ui stuff 
-		* -alerts for errors (And successful updates/removes/adds)
 		-eventually pagination
 		-eventually timepicker/dates
 	-Visual Improvements

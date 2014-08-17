@@ -32,6 +32,9 @@
 			</div>
 		</div>
 		<div class="col-xs-8">
+			<div ng-model="alerts">
+				<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert()">{{alert.message}}</alert>
+			</div>
 			<div class="pad-bottom large-margin-top">
 				<button ng-click="openCategoryModal(null)" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add Category</button>
 				<button ng-click="openToDoModal(null)" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add To-Do</button>

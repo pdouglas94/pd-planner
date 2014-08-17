@@ -14,6 +14,7 @@ angular.module('pdPlannerApp')
 	$scope.categories = [];
 	$scope.activeCategory = {name:null, list:null};
 	$scope.dropOpen = false;
+	$scope.alerts = [];
 	
 	//Converts an 'array of objects' or 'object of arrays of objects' to objects of given type
 	//is_object assumes an object with arrays as fields
@@ -46,6 +47,17 @@ angular.module('pdPlannerApp')
 		return false;
 	};
 	
+	var addAlert = function(add_message, add_type) {
+		if ($scope.alerts.length > 0) {
+			$scope.alerts.splice(0,1);
+		}
+		$scope.alerts.push({message: add_message, type: add_type});
+	};
+	
+	$scope.closeAlert = function($index) {
+		$scope.alerts.splice($index, 1);
+	};
+	
 	//On initial loading of page, we gather up the categories for the current user.
 	$scope.loadInfo = function() {
 		var params = {
@@ -64,7 +76,7 @@ angular.module('pdPlannerApp')
 				$scope.categories[i].list = todos[current];
 			}
 		}, function(reply) {
-			alert("Could not get categories from the database: " + reply);
+			addAlert("Could not retrieve your information: " + reply, 'danger');
 		});
 	};
 	
@@ -84,17 +96,18 @@ angular.module('pdPlannerApp')
 		add_cat.save().then(function(reply) {
 			reply.list = [];
 			$scope.categories.push(reply);
+			addAlert("Category added successfully: " + reply.name, 'success');
 		}, function(reply) {
-			alert("Something went wrong with saving your new category: " + reply);
+			addAlert("Something went wrong with saving your new category: " + reply, 'warning');
 		});
 	};
 	
 	var updateCategory = function(cat) {
 		if (cat && cat !== null) {
 			cat.save().then(function(reply) {
-				alert("Category was updated succesfully: " + reply.name);
+				addAlert("Category was updated succesfully: " + reply.name, 'success');
 			}, function(reply){
-				alert("Item was not updated successfully: " + reply);
+				addAlert("Category was not updated successfully: " + reply, 'warning');
 			});
 		}
 	};
@@ -110,9 +123,9 @@ angular.module('pdPlannerApp')
 		$scope.activeCategory = {name:null, list:null};
 		
 		remove_cat.remove(function (reply) {
-			alert("Item was successfully removed: " + reply.name);
+			addAlert("Item was successfully removed: " + reply.name, 'success');
 		}, function(reply) {
-			alert("Item was not removed: " + reply);
+			addAlert("Item was not removed: " + reply, 'warning');
 		});
 	};
 	
@@ -124,12 +137,18 @@ angular.module('pdPlannerApp')
 			todo_item.save().then(function(reply) {
 				reply.expanded = false;
 				$scope.activeCategory.list.push(reply);
+				addAlert("Item saved successfully: " + reply.name, 'success');
 			}, function(reply) {
-				alert("ToDo Item did not save: " + reply);
+				addAlert("Item did not save: " + reply, 'warning');
 			});
 		}
 		else {
-			alert("You must make a category first!");
+			if ($scope.categories.length < 1) {
+				addAlert("You must make a category first!", 'warning');
+			}
+			else {
+				addAlert("You must make select a category first!", 'warning');
+			}
 		}
 	};
 	
@@ -141,7 +160,7 @@ angular.module('pdPlannerApp')
 			todo_item.save().then(function(reply) {
 				
 			}, function(reply){
-				alert("Item was not updated successfully: " + reply);
+				addAlert("Item was not updated successfully: " + reply, 'warning');
 			});
 		}
 	};
@@ -154,9 +173,9 @@ angular.module('pdPlannerApp')
 		var remove_item = remove[0];
 		
 		remove_item.remove(function (reply) {
-			alert("Item was successfully removed: " + reply.name);
+			addAlert("Item was successfully removed: " + reply.name, 'success');
 		}, function(reply) {
-			alert("Item was not removed: " + reply);
+			addAlert("Item was not removed: " + reply, 'warning');
 		});
 	};
 	
