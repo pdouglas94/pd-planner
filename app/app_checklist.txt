@@ -1,22 +1,20 @@
 WORK ON:
 	-Grunt serve?
-	-updated/created columns in database
 	-calendar under new tab
 	-Categories edit/delete shouldn't select that category
 	-Allow drag and drop of todo items and save place
 	-Make table row colors correspond to priority level?
 	-Make Categories section open if it's not open when you add a category?
 	-redirect appropriately to /app/
-	-case of singular category?
-	-Improper data loading on switch pages (resolve on planner)
+	-Improper data loading on switch pages (resolve on planner/promise?)
 	-Footer purpose?
 	-Functions to check new items and fill in default items 
-	-Add subtasks
 	-alert on todo updates, but just for modal updates
 	-Write debugging functions that display data and add buttons.
 	-Robust validation for item/category updates to avoid errors
 	-Validation on item/category add
 	-Make progress bar function better (save only on stop).
+	-Add subtask functionality
 	-Login Authentication
 	-Add angular bootstrap ui stuff 
 		-eventually pagination

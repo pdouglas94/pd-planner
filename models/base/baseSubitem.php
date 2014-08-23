@@ -6,23 +6,24 @@
  *		the 'models' folder.
  *
  */
-abstract class baseCategory extends ApplicationModel {
+abstract class baseSubitem extends ApplicationModel {
 
-	const ID = 'category.id';
-	const USER_ID = 'category.userId';
-	const NAME = 'category.name';
-	const UPDATED = 'category.updated';
-	const CREATED = 'category.created';
+	const ID = 'subitem.id';
+	const ITEM_ID = 'subitem.itemId';
+	const NAME = 'subitem.name';
+	const DESCRIPTION = 'subitem.description';
+	const UPDATED = 'subitem.updated';
+	const CREATED = 'subitem.created';
 
 	/**
 	 * Name of the table
 	 * @var string
 	 */
-	protected static $_tableName = 'category';
+	protected static $_tableName = 'subitem';
 
 	/**
 	 * Cache of objects retrieved from the database
-	 * @var Category[]
+	 * @var Subitem[]
 	 */
 	protected static $_instancePool = array();
 
@@ -65,11 +66,12 @@ abstract class baseCategory extends ApplicationModel {
 	 * @var string[]
 	 */
 	protected static $_columns = array(
-		Category::ID,
-		Category::USER_ID,
-		Category::NAME,
-		Category::UPDATED,
-		Category::CREATED,
+		Subitem::ID,
+		Subitem::ITEM_ID,
+		Subitem::NAME,
+		Subitem::DESCRIPTION,
+		Subitem::UPDATED,
+		Subitem::CREATED,
 	);
 
 	/**
@@ -78,8 +80,9 @@ abstract class baseCategory extends ApplicationModel {
 	 */
 	protected static $_columnNames = array(
 		'id',
-		'userId',
+		'itemId',
 		'name',
+		'description',
 		'updated',
 		'created',
 	);
@@ -90,8 +93,9 @@ abstract class baseCategory extends ApplicationModel {
 	 */
 	protected static $_columnTypes = array(
 		'id' => Model::COLUMN_TYPE_INTEGER,
-		'userId' => Model::COLUMN_TYPE_INTEGER,
+		'itemId' => Model::COLUMN_TYPE_INTEGER,
 		'name' => Model::COLUMN_TYPE_VARCHAR,
+		'description' => Model::COLUMN_TYPE_VARCHAR,
 		'updated' => Model::COLUMN_TYPE_INTEGER_TIMESTAMP,
 		'created' => Model::COLUMN_TYPE_INTEGER_TIMESTAMP,
 	);
@@ -103,16 +107,22 @@ abstract class baseCategory extends ApplicationModel {
 	protected $id;
 
 	/**
-	 * `userId` INTEGER NOT NULL DEFAULT ''
+	 * `itemId` INTEGER NOT NULL DEFAULT ''
 	 * @var int
 	 */
-	protected $userId;
+	protected $itemId;
 
 	/**
 	 * `name` VARCHAR
 	 * @var string
 	 */
 	protected $name;
+
+	/**
+	 * `description` VARCHAR
+	 * @var string
+	 */
+	protected $description;
 
 	/**
 	 * `updated` INTEGER_TIMESTAMP DEFAULT ''
@@ -135,25 +145,25 @@ abstract class baseCategory extends ApplicationModel {
 
 	/**
 	 * Sets the value of the id field
-	 * @return Category
+	 * @return Subitem
 	 */
 	function setId($value) {
 		return $this->setColumnValue('id', $value, Model::COLUMN_TYPE_INTEGER);
 	}
 
 	/**
-	 * Gets the value of the userId field
+	 * Gets the value of the itemId field
 	 */
-	function getUserId() {
-		return $this->userId;
+	function getItemId() {
+		return $this->itemId;
 	}
 
 	/**
-	 * Sets the value of the userId field
-	 * @return Category
+	 * Sets the value of the itemId field
+	 * @return Subitem
 	 */
-	function setUserId($value) {
-		return $this->setColumnValue('userId', $value, Model::COLUMN_TYPE_INTEGER);
+	function setItemId($value) {
+		return $this->setColumnValue('itemId', $value, Model::COLUMN_TYPE_INTEGER);
 	}
 
 	/**
@@ -165,10 +175,25 @@ abstract class baseCategory extends ApplicationModel {
 
 	/**
 	 * Sets the value of the name field
-	 * @return Category
+	 * @return Subitem
 	 */
 	function setName($value) {
 		return $this->setColumnValue('name', $value, Model::COLUMN_TYPE_VARCHAR);
+	}
+
+	/**
+	 * Gets the value of the description field
+	 */
+	function getDescription() {
+		return $this->description;
+	}
+
+	/**
+	 * Sets the value of the description field
+	 * @return Subitem
+	 */
+	function setDescription($value) {
+		return $this->setColumnValue('description', $value, Model::COLUMN_TYPE_VARCHAR);
 	}
 
 	/**
@@ -183,7 +208,7 @@ abstract class baseCategory extends ApplicationModel {
 
 	/**
 	 * Sets the value of the updated field
-	 * @return Category
+	 * @return Subitem
 	 */
 	function setUpdated($value) {
 		return $this->setColumnValue('updated', $value, Model::COLUMN_TYPE_INTEGER_TIMESTAMP);
@@ -201,7 +226,7 @@ abstract class baseCategory extends ApplicationModel {
 
 	/**
 	 * Sets the value of the created field
-	 * @return Category
+	 * @return Subitem
 	 */
 	function setCreated($value) {
 		return $this->setColumnValue('created', $value, Model::COLUMN_TYPE_INTEGER_TIMESTAMP);
@@ -217,7 +242,7 @@ abstract class baseCategory extends ApplicationModel {
 	/**
 	 * Searches the database for a row with the ID(primary key) that matches
 	 * the one input.
-	 * @return Category
+	 * @return Subitem
 	 */
 	 static function retrieveByPK($id) {
 		return static::retrieveByPKs($id);
@@ -226,7 +251,7 @@ abstract class baseCategory extends ApplicationModel {
 	/**
 	 * Searches the database for a row with the primary keys that match
 	 * the ones input.
-	 * @return Category
+	 * @return Subitem
 	 */
 	static function retrieveByPKs($id) {
 		if (null === $id) {
@@ -246,34 +271,43 @@ abstract class baseCategory extends ApplicationModel {
 	/**
 	 * Searches the database for a row with a id
 	 * value that matches the one provided
-	 * @return Category
+	 * @return Subitem
 	 */
 	static function retrieveById($value) {
-		return Category::retrieveByPK($value);
+		return Subitem::retrieveByPK($value);
 	}
 
 	/**
-	 * Searches the database for a row with a userId
+	 * Searches the database for a row with a itemId
 	 * value that matches the one provided
-	 * @return Category
+	 * @return Subitem
 	 */
-	static function retrieveByUserId($value) {
-		return static::retrieveByColumn('userId', $value);
+	static function retrieveByItemId($value) {
+		return static::retrieveByColumn('itemId', $value);
 	}
 
 	/**
 	 * Searches the database for a row with a name
 	 * value that matches the one provided
-	 * @return Category
+	 * @return Subitem
 	 */
 	static function retrieveByName($value) {
 		return static::retrieveByColumn('name', $value);
 	}
 
 	/**
+	 * Searches the database for a row with a description
+	 * value that matches the one provided
+	 * @return Subitem
+	 */
+	static function retrieveByDescription($value) {
+		return static::retrieveByColumn('description', $value);
+	}
+
+	/**
 	 * Searches the database for a row with a updated
 	 * value that matches the one provided
-	 * @return Category
+	 * @return Subitem
 	 */
 	static function retrieveByUpdated($value) {
 		return static::retrieveByColumn('updated', $value);
@@ -282,7 +316,7 @@ abstract class baseCategory extends ApplicationModel {
 	/**
 	 * Searches the database for a row with a created
 	 * value that matches the one provided
-	 * @return Category
+	 * @return Subitem
 	 */
 	static function retrieveByCreated($value) {
 		return static::retrieveByColumn('created', $value);
@@ -291,68 +325,68 @@ abstract class baseCategory extends ApplicationModel {
 
 	/**
 	 * Casts values of int fields to (int)
-	 * @return Category
+	 * @return Subitem
 	 */
 	function castInts() {
 		$this->id = (null === $this->id) ? null : (int) $this->id;
-		$this->userId = (null === $this->userId) ? null : (int) $this->userId;
+		$this->itemId = (null === $this->itemId) ? null : (int) $this->itemId;
 		$this->updated = (null === $this->updated) ? null : (int) $this->updated;
 		$this->created = (null === $this->created) ? null : (int) $this->created;
 		return $this;
 	}
 
 	/**
-	 * @return Category
+	 * @return Subitem
 	 */
-	function setUser(User $user = null) {
-		return $this->setUserRelatedByUserId($user);
+	function setItem(Item $item = null) {
+		return $this->setItemRelatedByItemId($item);
 	}
 
 	/**
-	 * @return Category
+	 * @return Subitem
 	 */
-	function setUserRelatedByUserId(User $user = null) {
-		if (null === $user) {
-			$this->setuserId(null);
+	function setItemRelatedByItemId(Item $item = null) {
+		if (null === $item) {
+			$this->setitemId(null);
 		} else {
-			if (!$user->getid()) {
-				throw new Exception('Cannot connect a User without a id');
+			if (!$item->getid()) {
+				throw new Exception('Cannot connect a Item without a id');
 			}
-			$this->setuserId($user->getid());
+			$this->setitemId($item->getid());
 		}
 		return $this;
 	}
 
 	/**
-	 * Returns a user object with a id
-	 * that matches $this->userId.
-	 * @return User
+	 * Returns a item object with a id
+	 * that matches $this->itemId.
+	 * @return Item
 	 */
-	function getUser() {
-		return $this->getUserRelatedByUserId();
+	function getItem() {
+		return $this->getItemRelatedByItemId();
 	}
 
 	/**
-	 * Returns a user object with a id
-	 * that matches $this->userId.
-	 * @return User
+	 * Returns a item object with a id
+	 * that matches $this->itemId.
+	 * @return Item
 	 */
-	function getUserRelatedByUserId() {
-		$fk_value = $this->getuserId();
+	function getItemRelatedByItemId() {
+		$fk_value = $this->getitemId();
 		if (null === $fk_value) {
 			return null;
 		}
-		return User::retrieveByPK($fk_value);
+		return Item::retrieveByPK($fk_value);
 	}
 
-	static function doSelectJoinUser(Query $q = null, $join_type = Query::LEFT_JOIN) {
-		return static::doSelectJoinUserRelatedByUserId($q, $join_type);
+	static function doSelectJoinItem(Query $q = null, $join_type = Query::LEFT_JOIN) {
+		return static::doSelectJoinItemRelatedByItemId($q, $join_type);
 	}
 
 	/**
-	 * @return Category[]
+	 * @return Subitem[]
 	 */
-	static function doSelectJoinUserRelatedByUserId(Query $q = null, $join_type = Query::LEFT_JOIN) {
+	static function doSelectJoinItemRelatedByItemId(Query $q = null, $join_type = Query::LEFT_JOIN) {
 		$q = $q ? clone $q : new Query;
 		$columns = $q->getColumns();
 		$alias = $q->getAlias();
@@ -367,18 +401,18 @@ abstract class baseCategory extends ApplicationModel {
 			}
 		}
 
-		$to_table = User::getTableName();
-		$q->join($to_table, $this_table . '.userId = ' . $to_table . '.id', $join_type);
-		foreach (User::getColumns() as $column) {
+		$to_table = Item::getTableName();
+		$q->join($to_table, $this_table . '.itemId = ' . $to_table . '.id', $join_type);
+		foreach (Item::getColumns() as $column) {
 			$columns[] = $column;
 		}
 		$q->setColumns($columns);
 
-		return static::doSelect($q, array('User'));
+		return static::doSelect($q, array('Item'));
 	}
 
 	/**
-	 * @return Category[]
+	 * @return Subitem[]
 	 */
 	static function doSelectJoinAll(Query $q = null, $join_type = Query::LEFT_JOIN) {
 		$q = $q ? clone $q : new Query;
@@ -396,122 +430,15 @@ abstract class baseCategory extends ApplicationModel {
 			}
 		}
 
-		$to_table = User::getTableName();
-		$q->join($to_table, $this_table . '.userId = ' . $to_table . '.id', $join_type);
-		foreach (User::getColumns() as $column) {
+		$to_table = Item::getTableName();
+		$q->join($to_table, $this_table . '.itemId = ' . $to_table . '.id', $join_type);
+		foreach (Item::getColumns() as $column) {
 			$columns[] = $column;
 		}
-		$classes[] = 'User';
+		$classes[] = 'Item';
 	
 		$q->setColumns($columns);
 		return static::doSelect($q, $classes);
-	}
-
-	/**
-	 * Returns a Query for selecting item Objects(rows) from the item table
-	 * with a categoryId that matches $this->id.
-	 * @return Query
-	 */
-	function getItemsRelatedByCategoryIdQuery(Query $q = null) {
-		return $this->getForeignObjectsQuery('item', 'categoryId', 'id', $q);
-	}
-
-	/**
-	 * Returns the count of Item Objects(rows) from the item table
-	 * with a categoryId that matches $this->id.
-	 * @return int
-	 */
-	function countItemsRelatedByCategoryId(Query $q = null) {
-		if (null === $this->getid()) {
-			return 0;
-		}
-		return Item::doCount($this->getItemsRelatedByCategoryIdQuery($q));
-	}
-
-	/**
-	 * Deletes the item Objects(rows) from the item table
-	 * with a categoryId that matches $this->id.
-	 * @return int
-	 */
-	function deleteItemsRelatedByCategoryId(Query $q = null) {
-		if (null === $this->getid()) {
-			return 0;
-		}
-		$this->ItemsRelatedByCategoryId_c = array();
-		return Item::doDelete($this->getItemsRelatedByCategoryIdQuery($q));
-	}
-
-	protected $ItemsRelatedByCategoryId_c = array();
-
-	/**
-	 * Returns an array of Item objects with a categoryId
-	 * that matches $this->id.
-	 * When first called, this method will cache the result.
-	 * After that, if $this->id is not modified, the
-	 * method will return the cached result instead of querying the database
-	 * a second time(for performance purposes).
-	 * @return Item[]
-	 */
-	function getItemsRelatedByCategoryId(Query $q = null) {
-		if (null === $this->getid()) {
-			return array();
-		}
-
-		if (
-			null === $q
-			&& $this->getCacheResults()
-			&& !empty($this->ItemsRelatedByCategoryId_c)
-			&& !$this->isColumnModified('id')
-		) {
-			return $this->ItemsRelatedByCategoryId_c;
-		}
-
-		$result = Item::doSelect($this->getItemsRelatedByCategoryIdQuery($q));
-
-		if ($q !== null) {
-			return $result;
-		}
-
-		if ($this->getCacheResults()) {
-			$this->ItemsRelatedByCategoryId_c = $result;
-		}
-		return $result;
-	}
-
-	/**
-	 * Convenience function for Category::getItemsRelatedBycategoryId
-	 * @return Item[]
-	 * @see Category::getItemsRelatedByCategoryId
-	 */
-	function getItems($extra = null) {
-		return $this->getItemsRelatedByCategoryId($extra);
-	}
-
-	/**
-	  * Convenience function for Category::getItemsRelatedBycategoryIdQuery
-	  * @return Query
-	  * @see Category::getItemsRelatedBycategoryIdQuery
-	  */
-	function getItemsQuery(Query $q = null) {
-		return $this->getForeignObjectsQuery('item', 'categoryId','id', $q);
-	}
-
-	/**
-	  * Convenience function for Category::deleteItemsRelatedBycategoryId
-	  * @return int
-	  * @see Category::deleteItemsRelatedBycategoryId
-	  */
-	function deleteItems(Query $q = null) {
-		return $this->deleteItemsRelatedByCategoryId($q);
-	}
-
-	/**
-	  * Convenience function for Category::countItemsRelatedBycategoryId
-	  * @return int
-	  * @see Category::countItemsRelatedByCategoryId
-	  */
-	function countItems(Query $q = null) {
-		return $this->countItemsRelatedByCategoryId($q);
 	}
 
 	/**
@@ -520,8 +447,8 @@ abstract class baseCategory extends ApplicationModel {
 	 */
 	function validate() {
 		$this->_validationErrors = array();
-		if (null === $this->getuserId()) {
-			$this->_validationErrors[] = 'userId must not be null';
+		if (null === $this->getitemId()) {
+			$this->_validationErrors[] = 'itemId must not be null';
 		}
 		return 0 === count($this->_validationErrors);
 	}

@@ -10,11 +10,13 @@ abstract class baseItem extends ApplicationModel {
 
 	const ID = 'item.id';
 	const CATEGORY_ID = 'item.categoryId';
-	const COMPLETE = 'item.complete';
+	const NAME = 'item.name';
 	const DESCRIPTION = 'item.description';
+	const COMPLETE = 'item.complete';
 	const PRIORITY = 'item.priority';
 	const PROGRESS = 'item.progress';
-	const NAME = 'item.name';
+	const UPDATED = 'item.updated';
+	const CREATED = 'item.created';
 
 	/**
 	 * Name of the table
@@ -69,11 +71,13 @@ abstract class baseItem extends ApplicationModel {
 	protected static $_columns = array(
 		Item::ID,
 		Item::CATEGORY_ID,
-		Item::COMPLETE,
+		Item::NAME,
 		Item::DESCRIPTION,
+		Item::COMPLETE,
 		Item::PRIORITY,
 		Item::PROGRESS,
-		Item::NAME,
+		Item::UPDATED,
+		Item::CREATED,
 	);
 
 	/**
@@ -83,11 +87,13 @@ abstract class baseItem extends ApplicationModel {
 	protected static $_columnNames = array(
 		'id',
 		'categoryId',
-		'complete',
+		'name',
 		'description',
+		'complete',
 		'priority',
 		'progress',
-		'name',
+		'updated',
+		'created',
 	);
 
 	/**
@@ -97,11 +103,13 @@ abstract class baseItem extends ApplicationModel {
 	protected static $_columnTypes = array(
 		'id' => Model::COLUMN_TYPE_INTEGER,
 		'categoryId' => Model::COLUMN_TYPE_INTEGER,
-		'complete' => Model::COLUMN_TYPE_TINYINT,
+		'name' => Model::COLUMN_TYPE_VARCHAR,
 		'description' => Model::COLUMN_TYPE_LONGVARCHAR,
+		'complete' => Model::COLUMN_TYPE_TINYINT,
 		'priority' => Model::COLUMN_TYPE_INTEGER,
 		'progress' => Model::COLUMN_TYPE_INTEGER,
-		'name' => Model::COLUMN_TYPE_VARCHAR,
+		'updated' => Model::COLUMN_TYPE_INTEGER_TIMESTAMP,
+		'created' => Model::COLUMN_TYPE_INTEGER_TIMESTAMP,
 	);
 
 	/**
@@ -117,10 +125,10 @@ abstract class baseItem extends ApplicationModel {
 	protected $categoryId;
 
 	/**
-	 * `complete` TINYINT NOT NULL DEFAULT ''
-	 * @var int
+	 * `name` VARCHAR
+	 * @var string
 	 */
-	protected $complete;
+	protected $name;
 
 	/**
 	 * `description` LONGVARCHAR
@@ -129,22 +137,34 @@ abstract class baseItem extends ApplicationModel {
 	protected $description;
 
 	/**
-	 * `priority` INTEGER NOT NULL DEFAULT ''
+	 * `complete` TINYINT DEFAULT ''
+	 * @var int
+	 */
+	protected $complete;
+
+	/**
+	 * `priority` INTEGER DEFAULT ''
 	 * @var int
 	 */
 	protected $priority;
 
 	/**
-	 * `progress` INTEGER NOT NULL DEFAULT ''
+	 * `progress` INTEGER DEFAULT ''
 	 * @var int
 	 */
 	protected $progress;
 
 	/**
-	 * `name` VARCHAR NOT NULL
-	 * @var string
+	 * `updated` INTEGER_TIMESTAMP DEFAULT ''
+	 * @var int
 	 */
-	protected $name;
+	protected $updated;
+
+	/**
+	 * `created` INTEGER_TIMESTAMP DEFAULT ''
+	 * @var int
+	 */
+	protected $created;
 
 	/**
 	 * Gets the value of the id field
@@ -177,18 +197,18 @@ abstract class baseItem extends ApplicationModel {
 	}
 
 	/**
-	 * Gets the value of the complete field
+	 * Gets the value of the name field
 	 */
-	function getComplete() {
-		return $this->complete;
+	function getName() {
+		return $this->name;
 	}
 
 	/**
-	 * Sets the value of the complete field
+	 * Sets the value of the name field
 	 * @return Item
 	 */
-	function setComplete($value) {
-		return $this->setColumnValue('complete', $value, Model::COLUMN_TYPE_TINYINT);
+	function setName($value) {
+		return $this->setColumnValue('name', $value, Model::COLUMN_TYPE_VARCHAR);
 	}
 
 	/**
@@ -204,6 +224,21 @@ abstract class baseItem extends ApplicationModel {
 	 */
 	function setDescription($value) {
 		return $this->setColumnValue('description', $value, Model::COLUMN_TYPE_LONGVARCHAR);
+	}
+
+	/**
+	 * Gets the value of the complete field
+	 */
+	function getComplete() {
+		return $this->complete;
+	}
+
+	/**
+	 * Sets the value of the complete field
+	 * @return Item
+	 */
+	function setComplete($value) {
+		return $this->setColumnValue('complete', $value, Model::COLUMN_TYPE_TINYINT);
 	}
 
 	/**
@@ -237,18 +272,39 @@ abstract class baseItem extends ApplicationModel {
 	}
 
 	/**
-	 * Gets the value of the name field
+	 * Gets the value of the updated field
 	 */
-	function getName() {
-		return $this->name;
+	function getUpdated($format = 'Y-m-d H:i:s') {
+		if (null === $this->updated || null === $format) {
+			return $this->updated;
+		}
+		return date($format, $this->updated);
 	}
 
 	/**
-	 * Sets the value of the name field
+	 * Sets the value of the updated field
 	 * @return Item
 	 */
-	function setName($value) {
-		return $this->setColumnValue('name', $value, Model::COLUMN_TYPE_VARCHAR);
+	function setUpdated($value) {
+		return $this->setColumnValue('updated', $value, Model::COLUMN_TYPE_INTEGER_TIMESTAMP);
+	}
+
+	/**
+	 * Gets the value of the created field
+	 */
+	function getCreated($format = 'Y-m-d H:i:s') {
+		if (null === $this->created || null === $format) {
+			return $this->created;
+		}
+		return date($format, $this->created);
+	}
+
+	/**
+	 * Sets the value of the created field
+	 * @return Item
+	 */
+	function setCreated($value) {
+		return $this->setColumnValue('created', $value, Model::COLUMN_TYPE_INTEGER_TIMESTAMP);
 	}
 
 	/**
@@ -306,12 +362,12 @@ abstract class baseItem extends ApplicationModel {
 	}
 
 	/**
-	 * Searches the database for a row with a complete
+	 * Searches the database for a row with a name
 	 * value that matches the one provided
 	 * @return Item
 	 */
-	static function retrieveByComplete($value) {
-		return static::retrieveByColumn('complete', $value);
+	static function retrieveByName($value) {
+		return static::retrieveByColumn('name', $value);
 	}
 
 	/**
@@ -321,6 +377,15 @@ abstract class baseItem extends ApplicationModel {
 	 */
 	static function retrieveByDescription($value) {
 		return static::retrieveByColumn('description', $value);
+	}
+
+	/**
+	 * Searches the database for a row with a complete
+	 * value that matches the one provided
+	 * @return Item
+	 */
+	static function retrieveByComplete($value) {
+		return static::retrieveByColumn('complete', $value);
 	}
 
 	/**
@@ -342,12 +407,21 @@ abstract class baseItem extends ApplicationModel {
 	}
 
 	/**
-	 * Searches the database for a row with a name
+	 * Searches the database for a row with a updated
 	 * value that matches the one provided
 	 * @return Item
 	 */
-	static function retrieveByName($value) {
-		return static::retrieveByColumn('name', $value);
+	static function retrieveByUpdated($value) {
+		return static::retrieveByColumn('updated', $value);
+	}
+
+	/**
+	 * Searches the database for a row with a created
+	 * value that matches the one provided
+	 * @return Item
+	 */
+	static function retrieveByCreated($value) {
+		return static::retrieveByColumn('created', $value);
 	}
 
 
@@ -361,6 +435,8 @@ abstract class baseItem extends ApplicationModel {
 		$this->complete = (null === $this->complete) ? null : (int) $this->complete;
 		$this->priority = (null === $this->priority) ? null : (int) $this->priority;
 		$this->progress = (null === $this->progress) ? null : (int) $this->progress;
+		$this->updated = (null === $this->updated) ? null : (int) $this->updated;
+		$this->created = (null === $this->created) ? null : (int) $this->created;
 		return $this;
 	}
 
@@ -471,6 +547,113 @@ abstract class baseItem extends ApplicationModel {
 	}
 
 	/**
+	 * Returns a Query for selecting subitem Objects(rows) from the subitem table
+	 * with a itemId that matches $this->id.
+	 * @return Query
+	 */
+	function getSubitemsRelatedByItemIdQuery(Query $q = null) {
+		return $this->getForeignObjectsQuery('subitem', 'itemId', 'id', $q);
+	}
+
+	/**
+	 * Returns the count of Subitem Objects(rows) from the subitem table
+	 * with a itemId that matches $this->id.
+	 * @return int
+	 */
+	function countSubitemsRelatedByItemId(Query $q = null) {
+		if (null === $this->getid()) {
+			return 0;
+		}
+		return Subitem::doCount($this->getSubitemsRelatedByItemIdQuery($q));
+	}
+
+	/**
+	 * Deletes the subitem Objects(rows) from the subitem table
+	 * with a itemId that matches $this->id.
+	 * @return int
+	 */
+	function deleteSubitemsRelatedByItemId(Query $q = null) {
+		if (null === $this->getid()) {
+			return 0;
+		}
+		$this->SubitemsRelatedByItemId_c = array();
+		return Subitem::doDelete($this->getSubitemsRelatedByItemIdQuery($q));
+	}
+
+	protected $SubitemsRelatedByItemId_c = array();
+
+	/**
+	 * Returns an array of Subitem objects with a itemId
+	 * that matches $this->id.
+	 * When first called, this method will cache the result.
+	 * After that, if $this->id is not modified, the
+	 * method will return the cached result instead of querying the database
+	 * a second time(for performance purposes).
+	 * @return Subitem[]
+	 */
+	function getSubitemsRelatedByItemId(Query $q = null) {
+		if (null === $this->getid()) {
+			return array();
+		}
+
+		if (
+			null === $q
+			&& $this->getCacheResults()
+			&& !empty($this->SubitemsRelatedByItemId_c)
+			&& !$this->isColumnModified('id')
+		) {
+			return $this->SubitemsRelatedByItemId_c;
+		}
+
+		$result = Subitem::doSelect($this->getSubitemsRelatedByItemIdQuery($q));
+
+		if ($q !== null) {
+			return $result;
+		}
+
+		if ($this->getCacheResults()) {
+			$this->SubitemsRelatedByItemId_c = $result;
+		}
+		return $result;
+	}
+
+	/**
+	 * Convenience function for Item::getSubitemsRelatedByitemId
+	 * @return Subitem[]
+	 * @see Item::getSubitemsRelatedByItemId
+	 */
+	function getSubitems($extra = null) {
+		return $this->getSubitemsRelatedByItemId($extra);
+	}
+
+	/**
+	  * Convenience function for Item::getSubitemsRelatedByitemIdQuery
+	  * @return Query
+	  * @see Item::getSubitemsRelatedByitemIdQuery
+	  */
+	function getSubitemsQuery(Query $q = null) {
+		return $this->getForeignObjectsQuery('subitem', 'itemId','id', $q);
+	}
+
+	/**
+	  * Convenience function for Item::deleteSubitemsRelatedByitemId
+	  * @return int
+	  * @see Item::deleteSubitemsRelatedByitemId
+	  */
+	function deleteSubitems(Query $q = null) {
+		return $this->deleteSubitemsRelatedByItemId($q);
+	}
+
+	/**
+	  * Convenience function for Item::countSubitemsRelatedByitemId
+	  * @return int
+	  * @see Item::countSubitemsRelatedByItemId
+	  */
+	function countSubitems(Query $q = null) {
+		return $this->countSubitemsRelatedByItemId($q);
+	}
+
+	/**
 	 * Returns true if the column values validate.
 	 * @return bool
 	 */
@@ -478,18 +661,6 @@ abstract class baseItem extends ApplicationModel {
 		$this->_validationErrors = array();
 		if (null === $this->getcategoryId()) {
 			$this->_validationErrors[] = 'categoryId must not be null';
-		}
-		if (null === $this->getcomplete()) {
-			$this->_validationErrors[] = 'complete must not be null';
-		}
-		if (null === $this->getpriority()) {
-			$this->_validationErrors[] = 'priority must not be null';
-		}
-		if (null === $this->getprogress()) {
-			$this->_validationErrors[] = 'progress must not be null';
-		}
-		if (null === $this->getname()) {
-			$this->_validationErrors[] = 'name must not be null';
 		}
 		return 0 === count($this->_validationErrors);
 	}

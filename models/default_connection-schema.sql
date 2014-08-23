@@ -13,7 +13,9 @@ CREATE TABLE `category`
 (
 	`id` INTEGER NOT NULL AUTO_INCREMENT,
 	`userId` INTEGER NOT NULL,
-	`name` VARCHAR(250) NOT NULL,
+	`name` VARCHAR(255),
+	`updated` INT,
+	`created` INT,
 	PRIMARY KEY (`id`),
 	INDEX `userId` (`userId`),
 	CONSTRAINT `userId`
@@ -33,11 +35,13 @@ CREATE TABLE `item`
 (
 	`id` INTEGER NOT NULL AUTO_INCREMENT,
 	`categoryId` INTEGER NOT NULL,
-	`complete` TINYINT(2) NOT NULL,
+	`name` VARCHAR(255),
 	`description` TEXT,
-	`priority` INTEGER NOT NULL,
-	`progress` INTEGER(5) NOT NULL,
-	`name` VARCHAR(250) NOT NULL,
+	`complete` TINYINT(2),
+	`priority` INTEGER,
+	`progress` INTEGER(5),
+	`updated` INT,
+	`created` INT,
 	PRIMARY KEY (`id`),
 	INDEX `categoryId` (`categoryId`),
 	CONSTRAINT `categoryId`
@@ -45,6 +49,28 @@ CREATE TABLE `item`
 		REFERENCES `category` (`id`)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- subitem
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `subitem`;
+
+CREATE TABLE `subitem`
+(
+	`id` INTEGER NOT NULL AUTO_INCREMENT,
+	`itemId` INTEGER NOT NULL,
+	`name` VARCHAR(255),
+	`description` VARCHAR(255),
+	`updated` INT,
+	`created` INT,
+	PRIMARY KEY (`id`),
+	INDEX `itemId` (`itemId`),
+	CONSTRAINT `itemId`
+		FOREIGN KEY (`itemId`)
+		REFERENCES `item` (`id`)
+		ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -56,12 +82,13 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`
 (
 	`id` INTEGER NOT NULL AUTO_INCREMENT,
-	`type` INTEGER NOT NULL,
+	`type` INTEGER DEFAULT 1,
 	`username` VARCHAR(50) NOT NULL,
-	`email` VARCHAR(50) NOT NULL,
+	`email` VARCHAR(50),
 	`password` VARCHAR(255) NOT NULL,
 	`image` VARCHAR(100),
-	`created` DATETIME NOT NULL,
+	`updated` INT,
+	`created` INT,
 	PRIMARY KEY (`id`),
 	UNIQUE INDEX `username` (`username`(50), `email`(50))
 ) ENGINE=InnoDB;
