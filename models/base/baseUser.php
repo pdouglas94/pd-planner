@@ -14,6 +14,7 @@ abstract class baseUser extends ApplicationModel {
 	const EMAIL = 'user.email';
 	const PASSWORD = 'user.password';
 	const IMAGE = 'user.image';
+	const UPDATED = 'user.updated';
 	const CREATED = 'user.created';
 
 	/**
@@ -73,6 +74,7 @@ abstract class baseUser extends ApplicationModel {
 		User::EMAIL,
 		User::PASSWORD,
 		User::IMAGE,
+		User::UPDATED,
 		User::CREATED,
 	);
 
@@ -87,6 +89,7 @@ abstract class baseUser extends ApplicationModel {
 		'email',
 		'password',
 		'image',
+		'updated',
 		'created',
 	);
 
@@ -101,7 +104,8 @@ abstract class baseUser extends ApplicationModel {
 		'email' => Model::COLUMN_TYPE_VARCHAR,
 		'password' => Model::COLUMN_TYPE_VARCHAR,
 		'image' => Model::COLUMN_TYPE_VARCHAR,
-		'created' => Model::COLUMN_TYPE_TIMESTAMP,
+		'updated' => Model::COLUMN_TYPE_INTEGER_TIMESTAMP,
+		'created' => Model::COLUMN_TYPE_INTEGER_TIMESTAMP,
 	);
 
 	/**
@@ -111,10 +115,10 @@ abstract class baseUser extends ApplicationModel {
 	protected $id;
 
 	/**
-	 * `type` INTEGER NOT NULL DEFAULT ''
+	 * `type` INTEGER DEFAULT 1
 	 * @var int
 	 */
-	protected $type;
+	protected $type = 1;
 
 	/**
 	 * `username` VARCHAR NOT NULL
@@ -123,7 +127,7 @@ abstract class baseUser extends ApplicationModel {
 	protected $username;
 
 	/**
-	 * `email` VARCHAR NOT NULL
+	 * `email` VARCHAR
 	 * @var string
 	 */
 	protected $email;
@@ -141,8 +145,14 @@ abstract class baseUser extends ApplicationModel {
 	protected $image;
 
 	/**
-	 * `created` TIMESTAMP NOT NULL
-	 * @var string
+	 * `updated` INTEGER_TIMESTAMP DEFAULT ''
+	 * @var int
+	 */
+	protected $updated;
+
+	/**
+	 * `created` INTEGER_TIMESTAMP DEFAULT ''
+	 * @var int
 	 */
 	protected $created;
 
@@ -237,16 +247,31 @@ abstract class baseUser extends ApplicationModel {
 	}
 
 	/**
+	 * Gets the value of the updated field
+	 */
+	function getUpdated($format = 'Y-m-d H:i:s') {
+		if (null === $this->updated || null === $format) {
+			return $this->updated;
+		}
+		return date($format, $this->updated);
+	}
+
+	/**
+	 * Sets the value of the updated field
+	 * @return User
+	 */
+	function setUpdated($value) {
+		return $this->setColumnValue('updated', $value, Model::COLUMN_TYPE_INTEGER_TIMESTAMP);
+	}
+
+	/**
 	 * Gets the value of the created field
 	 */
-	function getCreated($format = null) {
+	function getCreated($format = 'Y-m-d H:i:s') {
 		if (null === $this->created || null === $format) {
 			return $this->created;
 		}
-		if (0 === strpos($this->created, '0000-00-00')) {
-			return null;
-		}
-		return date($format, strtotime($this->created));
+		return date($format, $this->created);
 	}
 
 	/**
@@ -254,7 +279,7 @@ abstract class baseUser extends ApplicationModel {
 	 * @return User
 	 */
 	function setCreated($value) {
-		return $this->setColumnValue('created', $value, Model::COLUMN_TYPE_TIMESTAMP);
+		return $this->setColumnValue('created', $value, Model::COLUMN_TYPE_INTEGER_TIMESTAMP);
 	}
 
 	/**
@@ -348,6 +373,15 @@ abstract class baseUser extends ApplicationModel {
 	}
 
 	/**
+	 * Searches the database for a row with a updated
+	 * value that matches the one provided
+	 * @return User
+	 */
+	static function retrieveByUpdated($value) {
+		return static::retrieveByColumn('updated', $value);
+	}
+
+	/**
 	 * Searches the database for a row with a created
 	 * value that matches the one provided
 	 * @return User
@@ -364,6 +398,8 @@ abstract class baseUser extends ApplicationModel {
 	function castInts() {
 		$this->id = (null === $this->id) ? null : (int) $this->id;
 		$this->type = (null === $this->type) ? null : (int) $this->type;
+		$this->updated = (null === $this->updated) ? null : (int) $this->updated;
+		$this->created = (null === $this->created) ? null : (int) $this->created;
 		return $this;
 	}
 
@@ -503,14 +539,8 @@ abstract class baseUser extends ApplicationModel {
 	 */
 	function validate() {
 		$this->_validationErrors = array();
-		if (null === $this->gettype()) {
-			$this->_validationErrors[] = 'type must not be null';
-		}
 		if (null === $this->getusername()) {
 			$this->_validationErrors[] = 'username must not be null';
-		}
-		if (null === $this->getemail()) {
-			$this->_validationErrors[] = 'email must not be null';
 		}
 		if (null === $this->getpassword()) {
 			$this->_validationErrors[] = 'password must not be null';
