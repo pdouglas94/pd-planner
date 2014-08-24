@@ -28,18 +28,15 @@ angular.module('pdPlannerApp')
 //	$scope.isAuthorized = AuthService.isAuthorized;
 
 	$scope.getUser = function() {
-		db.User.find(3).then(function(reply) {
+		return db.User.find(3).then(function(reply) {
 			$rootScope.currentUser = reply;
 			Session.create(1, $rootScope.currentUser.id, USER_ROLES.all);
-			$timeout(function() {
-				$rootScope.$broadcast('user-loaded');
-			}, 100);
 		}, function (reply) {
 			console.log("Failed: ", reply);
 		});
 	};
 	
-	$scope.getUser();
+	$rootScope.userPromise = $scope.getUser();
   }]);
 
 
