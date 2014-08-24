@@ -43,6 +43,16 @@ angular.module('pdPlannerApp')
 					db.Category.inflateArray(to_convert);
 				}
 				return true;
+			case 'subitem':
+				if (is_object) {
+					for (var i in to_convert) {
+						db.Subitem.inflateArray(to_convert[i]);
+					}
+				}
+				else {
+					db.Subitem.inflateArray(to_convert);
+				}
+				return true;
 		}
 		return false;
 	};
@@ -67,23 +77,27 @@ angular.module('pdPlannerApp')
 		$http.post(SITE_URL + 'rest/categories/get-user-data.json' + '?' + $.param(params)).then(
 		function(reply){
 			var categories = reply.data.categories;
-			var todos = reply.data.todos;
+			var items = reply.data.items;
+			var subitems = reply.data.subitems;
 			converter(categories, 'category', false);
-			converter(todos, 'item', true);
+			converter(items, 'item', true);
+			converter(subitems, 'subitem', true);
 			$scope.categories = categories;
 			for (var i in $scope.categories) {
 				var current = $scope.categories[i].id;
-				$scope.categories[i].list = todos[current];
+				$scope.categories[i].list = items[current];
+				for (var k in $scope.categories[i].list) {
+					var item_current = $scope.categories[i].list[k].id;
+					$scope.categories[i].list[k].list = subitems[item_current];
+				}
 			}
 		}, function(reply) {
 			addAlert("Could not retrieve your information: " + reply, 'danger');
 		});
 	};
 	
-	$scope.$on('user-loaded', function() {
-		$scope.$apply(function() {
-			$scope.loadInfo();
-		});
+	$scope.userPromise.then(function() {
+		$scope.loadInfo();
 	});
 	
 	$scope.setActiveCat = function($index) {

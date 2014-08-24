@@ -28,7 +28,8 @@ angular.module('pdPlannerApp')
 				email: String,
 				password: String,
 				image: String,
-				created: Date
+				updated: 'int',
+				created: 'int'
 			}
 		});
 		
@@ -36,7 +37,9 @@ angular.module('pdPlannerApp')
 			url: 'categories/:id.json',
 			fields: {
 				userId: 'int',
-				name: String
+				name: String,
+				updated: 'int',
+				created: 'int'
 			}
 		});
 		
@@ -44,12 +47,26 @@ angular.module('pdPlannerApp')
 			url: 'items/:id.json',
 			fields: {
 				categoryId: 'int',
-				complete: Boolean,
+				name: String,
 				description: String,
 				priority: 'int',
+				complete: Boolean,
 				progress: 'int',
-				name: String
+				updated: 'int',
+				created: 'int'
 			}
 		});
+		
+		db.Subitem = Entity.extend('subitem', {
+			url: 'subitems/:id.json',
+			fields: {
+				itemId: 'int',
+				name: String,
+				description: String,
+				updated: 'int',
+				created: 'int'
+			}
+		});
+		
 		return db;
 	}]);

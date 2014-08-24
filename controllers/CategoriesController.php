@@ -99,18 +99,27 @@ class CategoriesController extends ApplicationController {
 		}
 	}
 	
+	/*
+	 * Gets user data - All categories, items, and subitems related to a user
+	 */
 	function getUserData() {
 		$reply = array();
 		if($_REQUEST['userId']) {
 			$user = User::retrieveById($_REQUEST['userId']);
 		}
 		$categories = $user->getCategorysRelatedByUserId();
-		$reply['todos'] = array();
-		foreach($categories as $cat) {
-			$todos = $cat->getItemsRelatedByCategoryId();
-			$reply['todos'][$cat->getId()] = $todos;
-		}
 		$reply['categories'] = $categories;
+		$reply['items'] = array();
+		foreach ($categories as $cat) {
+			$items = $cat->getItemsRelatedByCategoryId();
+			$reply['items'][$cat->getId()] = $items;
+		}
+		foreach ($reply['items'] as $item) {
+			foreach($item as $i) {
+				$subitem = $i->getSubItemsRelatedByItemId();
+				$reply['subitems'][$i->getId()] = $subitem;
+			}
+		}
 		return $reply;
 	}
 
