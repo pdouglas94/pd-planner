@@ -10,7 +10,7 @@ angular.module('pdPlannerApp')
 		}
 					
 		$scope.packageItem = function() {
-			$scope.item.updated = $scope.updating;
+			$scope.item.changed = $scope.updating;
 			$modalInstance.close($scope.item);
 		};
 		

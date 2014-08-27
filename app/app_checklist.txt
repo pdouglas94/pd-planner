@@ -14,7 +14,8 @@ WORK ON:
 	-Robust validation for item/category updates to avoid errors
 	-Start branching this stuff!
 	-Validation on item/category add
-	-Make progress bar function better (save only on stop).
+	-Make progress bar function better (save only on stop)
+	-Add in error handler (service?)
 	-Initially, just bring down the categories
 		-On select category, go and fetch the todo items for that category?
 		-Alternatively, bring down the todos as another item attached to each category

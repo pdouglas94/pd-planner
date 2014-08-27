@@ -11,7 +11,7 @@ angular.module('pdPlannerApp')
 		}
 					
 		$scope.packageCategory = function() {
-			$scope.category.updated = $scope.updating;
+			$scope.category.changed = $scope.updating;
 			$modalInstance.close($scope.category);
 		};
 		

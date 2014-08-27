@@ -74,23 +74,8 @@ angular.module('pdPlannerApp')
 			userId: Session.userId
 		};
 		
-		$http.post(SITE_URL + 'rest/categories/get-user-data.json' + '?' + $.param(params)).then(
-		function(reply){
-			var categories = reply.data.categories;
-			var items = reply.data.items;
-			var subitems = reply.data.subitems;
-			converter(categories, 'category', false);
-			converter(items, 'item', true);
-			converter(subitems, 'subitem', true);
-			$scope.categories = categories;
-			for (var i in $scope.categories) {
-				var current = $scope.categories[i].id;
-				$scope.categories[i].list = items[current];
-				for (var k in $scope.categories[i].list) {
-					var item_current = $scope.categories[i].list[k].id;
-					$scope.categories[i].list[k].list = subitems[item_current];
-				}
-			}
+		db.Category.findAll(params).then(function(reply) {
+			$scope.categories = reply;
 		}, function(reply) {
 			addAlert("Could not retrieve your information: " + reply, 'danger');
 		});
@@ -102,11 +87,18 @@ angular.module('pdPlannerApp')
 	
 	$scope.setActiveCat = function($index) {
 		$scope.activeCategory = $scope.categories[$index];
+		if (!$scope.activeCategory.list) {
+			db.Item.findAll({ categoryId: $scope.activeCategory.id }).then(function(reply) {
+				$scope.activeCategory.list = reply;
+			}, function(reply) {
+				addAlert("Could not fetch your todo list for this category: " + reply, 'danger');
+			});
+		}
 	};
 	
 	var addCategory = function(add_cat) {
 		add_cat.userId = Session.userId;
-
+		
 		add_cat.save().then(function(reply) {
 			reply.list = [];
 			$scope.categories.push(reply);
@@ -195,7 +187,7 @@ angular.module('pdPlannerApp')
 	
 	//Watches each item in the current list for changes and saves them.
 	$scope.$watch('activeCategory.list', function(newVal, oldVal) {
-		if (newVal !== null && oldVal !== null) {
+		if (newVal && oldVal) {
 			for (var i in newVal) {
 				if (oldVal[i] && itemDynamicCompare(newVal[i], oldVal[i]) === false) {
 					updateToDoItem(newVal[i]);
@@ -245,7 +237,7 @@ angular.module('pdPlannerApp')
 		});
 
 		modalInstance.result.then(function (newItem) {
-			if (newItem.updated === true) {
+			if (newItem.changed === true) {
 				updateToDoItem(newItem);
 			}
 			else {
@@ -276,7 +268,7 @@ angular.module('pdPlannerApp')
 		});
 		
 		modalInstance.result.then(function (newCat) {
-			if (newCat.updated === true) {
+			if (newCat.changed === true) {
 				updateCategory(newCat);
 			}
 			else {
@@ -287,4 +279,3 @@ angular.module('pdPlannerApp')
 		});
 	};
   }]);
-
