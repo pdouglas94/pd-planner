@@ -27,9 +27,7 @@ angular.module('pdPlannerApp')
 				username: String,
 				email: String,
 				password: String,
-				image: String,
-				updated: 'int',
-				created: 'int'
+				image: String
 			}
 		});
 		
@@ -37,9 +35,7 @@ angular.module('pdPlannerApp')
 			url: 'categories/:id.json',
 			fields: {
 				userId: 'int',
-				name: String,
-				updated: 'int',
-				created: 'int'
+				name: String
 			}
 		});
 		
@@ -51,9 +47,7 @@ angular.module('pdPlannerApp')
 				description: String,
 				priority: 'int',
 				complete: Boolean,
-				progress: 'int',
-				updated: 'int',
-				created: 'int'
+				progress: 'int'
 			}
 		});
 		
@@ -62,9 +56,7 @@ angular.module('pdPlannerApp')
 			fields: {
 				itemId: 'int',
 				name: String,
-				description: String,
-				updated: 'int',
-				created: 'int'
+				description: String
 			}
 		});
 		

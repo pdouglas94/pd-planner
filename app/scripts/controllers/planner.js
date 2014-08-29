@@ -98,10 +98,10 @@ angular.module('pdPlannerApp')
 	
 	var addCategory = function(add_cat) {
 		add_cat.userId = Session.userId;
-		
 		add_cat.save().then(function(reply) {
 			reply.list = [];
 			$scope.categories.push(reply);
+			$scope.activeCategory = reply;
 			addAlert("Category added successfully: " + reply.name, 'success');
 		}, function(reply) {
 			addAlert("Something went wrong with saving your new category: " + reply, 'warning');
@@ -239,6 +239,7 @@ angular.module('pdPlannerApp')
 		modalInstance.result.then(function (newItem) {
 			if (newItem.changed === true) {
 				updateToDoItem(newItem);
+				addAlert("Item was updated succesfully: " + reply.name, 'success');
 			}
 			else {
 				addToDoItem(newItem);

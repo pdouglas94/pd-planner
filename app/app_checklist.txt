@@ -4,13 +4,12 @@ WORK ON:
 	-Categories edit/delete shouldn't select that category
 	-Allow drag and drop (or just move position) of todo items and save place
 	-Make table row colors correspond to priority level?
-	-Make Categories section open if it's not open when you add a category?
 	-redirect appropriately to /app/
 	-Fetch data at a higher scope so I don't have to reload it each time I go to planner?
 	-Footer purpose?
 	-Functions to check new items and fill in default items 
-	-alert on todo updates, but just for modal updates
 	-Write debugging functions that display data and add buttons.
+	-Progress bar update is not working (NaN issue)
 	-Robust validation for item/category updates to avoid errors
 	-Start branching this stuff!
 	-Validation on item/category add
