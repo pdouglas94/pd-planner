@@ -5,7 +5,7 @@ angular.module('pdPlannerApp')
 				return $http.post(SITE_URL + 'rest/index/login.json?' + $.param(credentials)).then(
 					function (reply) {
 						var data = reply.data;
-						if (data.user) {
+						if (data.authenticated == true) {
 							Session.create(data.user.id, data.user.type);
 						} 
 					}, function(reply) {});

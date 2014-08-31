@@ -22,7 +22,7 @@ angular.module('pdPlannerApp')
 	};
 	
 	$scope.$on(AUTH_EVENTS.loginSuccess, function() {
-		$rootScope.currentUser = $rootScope.getCurrentUser();
+		$rootScope.userPromise = $rootScope.getCurrentUser();
 	});
 	
 	$scope.login = function() {

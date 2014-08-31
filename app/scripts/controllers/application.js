@@ -9,19 +9,32 @@
  */
 angular.module('pdPlannerApp')
   .controller('ApplicationCtrl', [
-		'$rootScope', 
-		'$timeout', 
+		'$rootScope',
 		'$scope', 
 		'$routeParams',
 		'$state',
 		'$modal',
 		'$q',
-		'Session', 
+		'$http',
+		'Session',
+		'SITE_URL',
 		'AuthService', 
 		'USER_ROLES',
 		'AUTH_EVENTS',
 		'db', 
-  function ($rootScope, $timeout, $scope, $routeParams, $state, $modal, $q, Session, AuthService, USER_ROLES, AUTH_EVENTS, db) {
+  function ($rootScope, 
+		$scope, 
+		$routeParams, 
+		$state, 
+		$modal, 
+		$q, 
+		$http, 
+		Session, 
+		SITE_URL, 
+		AuthService, 
+		USER_ROLES, 
+		AUTH_EVENTS, 
+		db) {
 	  	  
 	var viewName = $routeParams.viewName ? $routeParams.viewName : '';
 	$scope.viewName = 'views/' + viewName + '.html';
@@ -30,15 +43,22 @@ angular.module('pdPlannerApp')
 	$scope.userRoles = USER_ROLES;
 	$scope.isAuthorized = AuthService.isAuthorized;
 	
-	if (AuthService.isAuthenticated() == false) {
-		$state.go('login');
-	}
-
-	$rootScope.getCurrentUser = function (userId) {
-		return db.User.find(userId).then(function(reply) {
+	$http.get(SITE_URL + 'rest/index/is-logged-in.json').then(function(reply) {
+		if (reply.data.loggedIn == true) {
+			var user = reply.data.user;
+			Session.create(user.id, user.type);
+		}
+	}).then(function() {
+		if (AuthService.isAuthenticated() == false) {
+			$state.go('login');
+		} else {
+			$rootScope.userPromise = $rootScope.getCurrentUser();
+		}
+	});
+	
+	$rootScope.getCurrentUser = function () {
+		return db.User.find(Session.userId).then(function(reply) {
 			$rootScope.currentUser = reply;
 		}, function(reply) {});
 	};
-	
-	$rootScope.userPromise = $rootScope.getCurrentUser();
   }]);

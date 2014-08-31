@@ -18,10 +18,8 @@ class IndexController extends ApplicationController {
 			if ($user) {
 				if ($user->getPassword() === $credentials['password']) {
 					$this['authenticated'] = true;
-					$user = $user->toArray();
-					unset($user['updated']);
-					unset($user['created']);
-					unset($user['password']);
+					$expiration = time() + 60*60*24;
+					setcookie('user', $user->getId(), $expiration);
 					$this['user'] = $user;
 				} else {
 					$this['messages'] = 'Password was not correct';
@@ -40,4 +38,22 @@ class IndexController extends ApplicationController {
 		return $this;
 	}
 	
+	public function isLoggedIn() {
+		if (isset($_COOKIE['user'])) {
+			$this['loggedIn'] = true;
+			$this['user'] = User::retrieveById($_COOKIE['user']);
+		} else {
+			$this['loggedIn'] = false;
+		}
+		
+		return $this;
+	}
+	
+	public function logout() {
+		if (isset($_COOKIE['user'])) {
+			unset($_COOKIE['user']);
+			return true;
+		}
+		return false;
+	}
 }

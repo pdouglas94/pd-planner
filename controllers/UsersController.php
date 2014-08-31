@@ -94,6 +94,26 @@ class UsersController extends ApplicationController {
 			$this->redirect('users');
 		}
 	}
+	
+	/*
+	 * Overwrite for user getQuery()
+	 * Work in progress
+	 */
+	public static function getQuery($params = null) {
+		print_r2($params);
+		$q = new Query;
+		$q->setTable(User::getTableName());
+		
+		$q->addColumn(User::ID);
+		$q->addColumn(User::USERNAME);
+		$q->addColumn(User::TYPE);
+		$q->addColumn(User::EMAIL);
+		$q->addColumn(User::IMAGE);
+		
+		die($q);
+		$q->add(User::ID, $params['id']);
+		return $q;
+	}
 
 	/**
 	 * @return User
