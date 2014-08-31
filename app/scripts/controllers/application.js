@@ -12,31 +12,33 @@ angular.module('pdPlannerApp')
 		'$rootScope', 
 		'$timeout', 
 		'$scope', 
-		'$routeParams', 
+		'$routeParams',
+		'$state',
+		'$modal',
+		'$q',
 		'Session', 
 		'AuthService', 
-		'USER_ROLES', 
+		'USER_ROLES',
+		'AUTH_EVENTS',
 		'db', 
-  function ($rootScope, $timeout, $scope, $routeParams, Session, AuthService, USER_ROLES, db) {
-		  
+  function ($rootScope, $timeout, $scope, $routeParams, $state, $modal, $q, Session, AuthService, USER_ROLES, AUTH_EVENTS, db) {
+	  	  
 	var viewName = $routeParams.viewName ? $routeParams.viewName : '';
 	$scope.viewName = 'views/' + viewName + '.html';
 	$rootScope.selectedNav = viewName;
 	
-	$rootScope.currentUser = null;
 	$scope.userRoles = USER_ROLES;
-//	$scope.isAuthorized = AuthService.isAuthorized;
+	$scope.isAuthorized = AuthService.isAuthorized;
+	
+	if (AuthService.isAuthenticated() == false) {
+		$state.go('login');
+	}
 
-	$scope.getUser = function() {
-		return db.User.find(3).then(function(reply) {
+	$rootScope.getCurrentUser = function (userId) {
+		return db.User.find(userId).then(function(reply) {
 			$rootScope.currentUser = reply;
-			Session.create(1, $rootScope.currentUser.id, USER_ROLES.all);
-		}, function (reply) {
-			console.log("Failed: ", reply);
-		});
+		}, function(reply) {});
 	};
 	
-	$rootScope.userPromise = $scope.getUser();
+	$rootScope.userPromise = $rootScope.getCurrentUser();
   }]);
-
-

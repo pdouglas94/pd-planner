@@ -1,15 +1,24 @@
 WORK ON:
+	-Users
+		- Force login on initial load - save as cookie
+		- Create modal form for logging in
+		- Add Logout button to Top right, next to profile
+		- Add profile page with user button at top right
+		- Make modal submit not work unless login form elements are of good form
+		- Make ability to create user (add as button on login modal?)
+		- Handle case where only one credential is put in!
+		- userPromise not there on planner load (redirect to home initially?)
+		- User name not showing up on top nav bar
+
 	-Grunt serve?
 	-calendar under new tab
 	-Categories edit/delete shouldn't select that category
 	-Allow drag and drop (or just move position) of todo items and save place
 	-Make table row colors correspond to priority level?
-	-redirect appropriately to /app/
 	-Fetch data at a higher scope so I don't have to reload it each time I go to planner?
 	-Footer purpose?
 	-Functions to check new items and fill in default items 
 	-Write debugging functions that display data and add buttons.
-	-Progress bar update is not working (NaN issue)
 	-Robust validation for item/category updates to avoid errors
 	-Start branching this stuff!
 	-Validation on item/category add
@@ -21,7 +30,6 @@ WORK ON:
 	-Add subtask functionality
 		-Rework to not bring subtasks down initially
 		-On todo item, allow people to go to a new page with that item and all subtasks
-	-Login Authentication
 	-Add angular bootstrap ui stuff 
 		-eventually pagination
 		-eventually timepicker/dates

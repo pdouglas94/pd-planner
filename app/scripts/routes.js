@@ -22,6 +22,6 @@ angular.module('pdPlannerApp')
 			.state('login', {
 				url: '/login',
 				controller: 'LoginCtrl',
-				templateUrl: SITE_URL + 'app/views/login.html'
+				template: '<div></div>'
 			});
 	}]);

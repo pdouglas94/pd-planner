@@ -8,14 +8,13 @@
  *
  * Main module of the application.
  */
-angular
-  .module('pdPlannerApp', [
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch',
+angular.module('pdPlannerApp', [
+	'ngAnimate',
+	'ngCookies',
+	'ngResource',
+	'ngRoute',
+	'ngSanitize',
+	'ngTouch',
 	'ui.router',
 	'ui.bootstrap',
 	'ui.bootstrap-slider'
@@ -27,14 +26,17 @@ angular
   }])
   
   .run(['$rootScope', function($rootScope) {
-		$rootScope.views = [
+		$rootScope.leftViews = [
 			{link: '', name: 'Home'},
 			{link: 'about', name:'About'},
-			{link: 'planner', name:'Planner'},
-			{link: 'login', name:'Login'}
+			{link: 'planner', name:'Planner'}
+		];
+		
+		$rootScope.rightViews = [
+			{link: 'logout', name: 'Logout'}
 		];
 
 		$rootScope.selectedNav = '';
 	}])
 
-	.constant('SITE_URL', 'http://pd-planner/');
+.constant('SITE_URL', 'http://pd-planner/');
