@@ -1,16 +1,15 @@
 WORK ON:
 	-Users
-		- Force login on initial load - save as cookie
-		- Add Logout button to Top right, next to profile
 		- Add profile page with user button at top right
-		- Make modal submit not work unless login form elements are of good form
+		* - Make modal submit not work unless login form elements are of good form
 		- Make ability to create user (add as button on login modal?)
-		- Handle case where only one credential is put in! (restrict login button if nothing there?)
-		- Adjust user query to only pass back certain information
-		- Add ability to put notifications on login modal like "credentials were not correct"
+		* - Handle case where only one credential is put in! (restrict login button if nothing there?)
+		* - Add ability to put notifications on login modal like "credentials were not correct"
 
 	-Grunt serve?
 	-calendar under new tab
+	-Planner logo
+	-Ability to move todo items to different categories (brings up modal with list of categories and new category input)
 	-Categories edit/delete shouldn't select that category
 	-Allow drag and drop (or just move position) of todo items and save place
 	-Make table row colors correspond to priority level?

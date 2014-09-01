@@ -51,7 +51,7 @@ class IndexController extends ApplicationController {
 	
 	public function logout() {
 		if (isset($_COOKIE['user'])) {
-			unset($_COOKIE['user']);
+			setcookie('user', '', time()-1);
 			return true;
 		}
 		return false;

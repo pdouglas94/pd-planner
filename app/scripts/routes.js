@@ -23,5 +23,15 @@ angular.module('pdPlannerApp')
 				url: '/login',
 				controller: 'LoginCtrl',
 				template: '<div></div>'
+			})
+			
+			.state('logout', {
+				url: '/logout',
+				controller: ['$state', '$http', function($state, $http) {
+					$http.post(SITE_URL + 'rest/index/logout.json').then(function() {
+						console.log($state);
+					});
+				}],
+				template: '<div></div>'
 			});
 	}]);

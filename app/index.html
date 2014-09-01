@@ -87,10 +87,10 @@
 					<div class="navbar-text navbar-right">
 						<button id="user-button" class="btn btn-primary"><i class="glyphicon glyphicon-user"></i> {{currentUser.username}}</button>
 					</div>
-					<ul class="nav navbar-nav navbar-right">
-						<li ng-repeat="view in rightViews">
-							<a href="#/{{ view.link }}" ng-class="{'nav-selected' : selectedNav == view.name}">
-								{{ view.name }}
+					<ul ng-if="currentUser" class="nav navbar-nav navbar-right">
+						<li>
+							<a href="#/{{ logoutView.link }}" ng-class="{'nav-selected' : selectedNav == logoutView.name}">
+								{{ logoutView.name }}
 							</a>
 						</li>
 					</ul>
@@ -114,7 +114,7 @@
 
 			ga('create', 'UA-XXXXX-X');
 			ga('send', 'pageview');
-	    </script>
+		</script>
 
 		<!--[if lt IE 9]>
 		<script src="bower_components/es5-shim/es5-shim.js"></script>

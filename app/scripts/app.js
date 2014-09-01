@@ -32,9 +32,7 @@ angular.module('pdPlannerApp', [
 			{link: 'planner', name:'Planner'}
 		];
 		
-		$rootScope.rightViews = [
-			{link: 'logout', name: 'Logout'}
-		];
+		$rootScope.logoutView = {link: 'logout', name: 'Logout'};
 
 		$rootScope.selectedNav = '';
 	}])

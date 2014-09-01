@@ -8,8 +8,8 @@
  * Controller of the pdPlannerApp
  */
 angular.module('pdPlannerApp')
-  .controller('PlannerCtrl', ['Session', 'SITE_URL', '$modal', '$http', '$scope', 'db', 
-	function (Session, SITE_URL, $modal, $http, $scope, db) {
+  .controller('PlannerCtrl', ['Session', 'AuthService', 'SITE_URL', '$modal', '$http', '$scope', 'db', 
+	function (Session, AuthService, SITE_URL, $modal, $http, $scope, db) {
 	
 	$scope.categories = [];
 	$scope.activeCategory = {name:null, list:null};
@@ -81,9 +81,17 @@ angular.module('pdPlannerApp')
 		});
 	};
 	
-	$scope.userPromise.then(function() {
+	if (AuthService.isAuthenticated()) {
 		$scope.loadInfo();
-	});
+	} else {
+		$scope.$watch('userPromise', function(newVal, oldVal) {
+			if (newVal) {
+				$scope.userPromise.then(function() {
+					$scope.loadInfo();
+				});
+			}
+		});
+	}
 	
 	$scope.setActiveCat = function($index) {
 		$scope.activeCategory = $scope.categories[$index];
