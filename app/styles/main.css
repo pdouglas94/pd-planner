@@ -78,3 +78,13 @@ body {
 .priority-low {
 	color:purple;
 }
+
+.good {
+	background-color: #04BDB7;
+	border:1px solid #ccc;
+}
+
+.bad {
+	background-color: #F7637B;
+	border:1px solid #ccc;
+}

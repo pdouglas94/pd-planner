@@ -12,6 +12,7 @@ class IndexController extends ApplicationController {
 		 * password is not secure unless hashed!
 		 */
 		$credentials = $_REQUEST;
+		$this['messages'] = array();
 		
 		if (!empty($credentials['username']) && !empty($credentials['password'])) {
 			$user = User::retrieveByUsername($credentials['username']);
@@ -22,13 +23,13 @@ class IndexController extends ApplicationController {
 					setcookie('user', $user->getId(), $expiration);
 					$this['user'] = $user;
 				} else {
-					$this['messages'] = 'Password was not correct';
+					$this['messages'][] = ['message' => 'Incorrect Password.', 'type' => 'warning'];
 				}
 			} else {
-				$this['messages'] = 'User was not found';
+				$this['messages'][] = ['message' => 'User does not exist.', 'type' => 'warning'];
 			}
 		} else {
-			$this['messages'] = 'Request was not complete';
+			$this['messages'][] = ['message' => 'Something went wrong.', 'type' => 'danger'];
 		}
 		
 		if (empty($this['authenticated'])) {

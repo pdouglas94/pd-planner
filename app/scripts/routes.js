@@ -27,9 +27,10 @@ angular.module('pdPlannerApp')
 			
 			.state('logout', {
 				url: '/logout',
-				controller: ['$state', '$http', function($state, $http) {
+				controller: ['$http', '$state', '$rootScope', function($http, $state, $rootScope) {
 					$http.post(SITE_URL + 'rest/index/logout.json').then(function() {
-						console.log($state);
+						$rootScope.currentUser = null;
+						$state.go('login');
 					});
 				}],
 				template: '<div></div>'
