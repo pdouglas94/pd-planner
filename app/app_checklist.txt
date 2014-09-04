@@ -1,12 +1,12 @@
 WORK ON:
 	-Users
-		- Add profile page with user button at top right
+		* - Add profile page with user button at top right
 		- Make ability to create user (add as button on login modal?)
 		* - Handle case where only one credential is put in! (restrict login button if nothing there?) - make more rigorous?
-		- Check to see if you're logged in when going to login page, or for logout page
 
 	-Grunt serve?
 	-calendar under new tab
+	-Add alerts to rootscope to be available on all pages!
 	-Planner logo
 	-Theme/overall color scheme
 	-Ability to move todo items to different categories (brings up modal with list of categories and new category input)

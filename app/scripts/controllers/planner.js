@@ -81,7 +81,7 @@ angular.module('pdPlannerApp')
 		});
 	};
 	
-	if (AuthService.isAuthenticated()) {
+	if (AuthService.isLoggedIn()) {
 		$scope.loadInfo();
 	} else {
 		$scope.$watch('userPromise', function(newVal, oldVal) {

@@ -47,7 +47,7 @@ angular.module('pdPlannerApp')
 			Session.create(user.id, user.type);
 		}
 	}).then(function() {
-		if (AuthService.isAuthenticated() == false) {
+		if (AuthService.isLoggedIn() == false) {
 			$state.go('login');
 		} else {
 			$rootScope.userPromise = $rootScope.getCurrentUser();
@@ -58,5 +58,11 @@ angular.module('pdPlannerApp')
 		return db.User.find(Session.userId).then(function(reply) {
 			$rootScope.currentUser = reply;
 		}, function(reply) {});
+	};
+	
+	$scope.viewUser = function() {
+		if (AuthService.isLoggedIn() == true) {
+			$state.go('user', {id: Session.id});
+		}
 	};
   }]);

@@ -19,6 +19,18 @@ angular.module('pdPlannerApp')
 				templateUrl: SITE_URL + 'app/views/planner.html'
 			})
 			
+			.state('user', {
+				url: '/user',
+				controller: 'UserCtrl',
+				templateUrl: SITE_URL + 'app/views/user.html',
+				resolve: {
+					user: function() {
+						//If this returns null, then the user view should show the currently logged in user.
+						return null;
+					}
+				}
+			})
+			
 			.state('login', {
 				url: '/login',
 				controller: 'LoginCtrl',
@@ -27,9 +39,14 @@ angular.module('pdPlannerApp')
 			
 			.state('logout', {
 				url: '/logout',
-				controller: ['$http', '$state', '$rootScope', function($http, $state, $rootScope) {
+				controller: ['$http', '$state', '$rootScope', 'AuthService', 'Session', function($http, $state, $rootScope, AuthService, Session) {
+					if (!AuthService.isLoggedIn()) {
+						$state.go('login');
+					}
+					
 					$http.post(SITE_URL + 'rest/index/logout.json').then(function() {
 						$rootScope.currentUser = null;
+						Session.destroy();
 						$state.go('login');
 					});
 				}],

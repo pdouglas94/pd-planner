@@ -12,14 +12,14 @@ angular.module('pdPlannerApp')
 						}
 					}, function(reply) {});
 			},
-			isAuthenticated: function () {
+			isLoggedIn: function () {
 				return !!Session.userId;
 			},
 			isAuthorized: function (authorizedRoles) {
 				if (!angular.isArray(authorizedRoles)) {
 					authorizedRoles = [authorizedRoles];
 				}
-				return (this.isAuthenticated() &&
+				return (this.isLoggedIn() &&
 					authorizedRoles.indexOf(Session.userRole) !== -1);
 			}
 		};

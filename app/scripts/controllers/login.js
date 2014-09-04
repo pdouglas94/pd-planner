@@ -10,7 +10,7 @@
 angular.module('pdPlannerApp')
   .controller('LoginCtrl', ['$rootScope', '$scope', '$state', '$modal', 'AUTH_EVENTS', 'AuthService', 
 	function ($rootScope, $scope, $state, $modal, AUTH_EVENTS, AuthService) {
-		  
+	
 	$scope.loginModal = function(addAlerts) {
 		var modalInstance = $modal.open({
 			templateUrl: 'scripts/modals/overlays/login.html',
@@ -39,7 +39,7 @@ angular.module('pdPlannerApp')
 			if (credentials && credentials.username && credentials.password) {
 				var issues = {};
 				AuthService.login(credentials, issues).then(function () {
-					if (AuthService.isAuthenticated() == true) {
+					if (AuthService.isLoggedIn() == true) {
 						$scope.$emit(AUTH_EVENTS.loginSuccess);
 						$state.go('planner');
 					} else {
@@ -52,5 +52,9 @@ angular.module('pdPlannerApp')
 		});
 	};
 	
-	$scope.login();
+	if (AuthService.isLoggedIn() == true) {
+		$state.go('home');
+	} else {
+		$scope.login();
+	}
   }]);
