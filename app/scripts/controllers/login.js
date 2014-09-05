@@ -8,13 +8,14 @@
  * Controller of the pdPlannerApp
  */
 angular.module('pdPlannerApp')
-  .controller('LoginCtrl', ['$rootScope', '$scope', '$state', '$modal', 'AUTH_EVENTS', 'AuthService', 
-	function ($rootScope, $scope, $state, $modal, AUTH_EVENTS, AuthService) {
+  .controller('LoginCtrl', ['$rootScope', '$scope', '$state', '$modal', '$http', 'AUTH_EVENTS', 'AuthService', 
+	function ($rootScope, $scope, $state, $modal, $http, AUTH_EVENTS, AuthService) {
 	
 	$scope.loginModal = function(addAlerts) {
 		var modalInstance = $modal.open({
 			templateUrl: 'scripts/modals/overlays/login.html',
 			controller: 'LoginModalCtrl',
+			persist: true,
 			size: 'sm',
 			resolve: {
 				alerts: function() {
@@ -54,12 +55,40 @@ angular.module('pdPlannerApp')
 		});
 	};
 	
-	$scope.createNewUser = function() {
-		console.log('new user');
+	$scope.createNewUser = function(messages) {
+		$scope.newUserModal(messages).then(function (newUser) {
+			if (newUser && newUser.password && newUser.password2 && newUser.username) {
+				var issues = {};
+				$http.post('rest/users/create-new-user.json?' + $.param(newUser)).then(function(reply) {
+					console.log(reply);
+					if (reply == true) {
+						//decide what to do.
+					}
+				}, function(reply) {
+					
+				});
+			}
+		}, function(cancel) {});
 	};
 	
-	$scope.newUserModal = function() {
-		return;
+	$scope.newUserModal = function(addAlerts) {
+		var modalInstance = $modal.open({
+			templateUrl: 'scripts/modals/overlays/new_user.html',
+			controller: 'NewUserModalCtrl',
+			persist: true,
+			size: 'sm',
+			resolve: {
+				alerts: function() {
+					if (addAlerts) {
+						return addAlerts;
+					} else {
+						return null;
+					}
+				}
+			}
+		});
+
+		return modalInstance.result;
 	};
 	
 	if (AuthService.isLoggedIn() == true) {

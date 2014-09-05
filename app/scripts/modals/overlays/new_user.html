@@ -8,15 +8,21 @@
 			<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert()">{{alert.message}}</alert>
 		</div>
 		<div class="input-group margin-bottom">
-			<input type="text" class="form-control" id="username" ng-model="credentials.username" placeholder="Username">
-			<span class="input-group-addon" ng-class="{'good': credentials.username, 'bad': !credentials.username}">
-				<i class="pull-right glyphicon" ng-class="{'glyphicon-ok': credentials.username, 'glyphicon-remove': !credentials.username}"></i>
+			<input type="text" class="form-control" id="username" ng-model="newUser.username" placeholder="Username">
+			<span class="input-group-addon" ng-class="{'good': newUser.username, 'bad': !newUser.username}">
+				<i class="pull-right glyphicon" ng-class="{'glyphicon-ok': newUser.username, 'glyphicon-remove': !newUser.username}"></i>
 			</span>
 		</div>
 		<div class="input-group margin-bottom">
-			<input type="password" class="form-control" id="password" ng-model="credentials.password" placeholder="Password">
-			<span class="input-group-addon" ng-class="{'good': credentials.password, 'bad': !credentials.password}">
-				<i class="pull-right glyphicon" ng-class="{'glyphicon-ok': credentials.password, 'glyphicon-remove': !credentials.password}"></i>
+			<input type="password" class="form-control" id="password" ng-model="newUser.password" placeholder="Password">
+			<span class="input-group-addon" ng-class="{'good': newUser.password, 'bad': !newUser.password}">
+				<i class="pull-right glyphicon" ng-class="{'glyphicon-ok': newUser.password, 'glyphicon-remove': !newUser.password}"></i>
+			</span>
+		</div>
+		<div class="input-group margin-bottom">
+			<input type="password" class="form-control" id="password2" ng-model="newUser.password2" placeholder="Repeat Password">
+			<span class="input-group-addon" ng-class="{'good': newUser.password2, 'bad': !newUser.password2}">
+				<i class="pull-right glyphicon" ng-class="{'glyphicon-ok': newUser.password2, 'glyphicon-remove': !newUser.password2}"></i>
 			</span>
 		</div>
 	</div>

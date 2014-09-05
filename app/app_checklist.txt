@@ -1,6 +1,6 @@
 WORK ON:
 	-Users
-		- Expand user profile page
+		- Expand user profile page (make editable)
 		- Make ability to create user (add as button on login modal?)
 		* - Handle case where only one credential is put in! (restrict login button if nothing there?) - make more rigorous?
 	-Grunt serve?
@@ -9,6 +9,8 @@ WORK ON:
 	-Redirect in other cases, like planner when not logged in.
 	* -Better planner logo
 	-Theme/overall color scheme
+	-Add statistics tracking for planner and page for displaying that information
+	-Prevent modals from just closing when clicking off of them
 	-Ability to move todo items to different categories (brings up modal with list of categories and new category input)
 	-Categories edit/delete shouldn't select that category
 	-Allow drag and drop (or just move position) of todo items and save place

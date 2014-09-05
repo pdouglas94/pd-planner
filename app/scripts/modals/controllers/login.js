@@ -1,5 +1,5 @@
 angular.module('pdPlannerApp')
-	.controller('LoginModalCtrl', ['$scope', 'db', '$modalInstance', 'alerts', function($scope, db, $modalInstance, alerts) {
+	.controller('LoginModalCtrl', ['$scope', '$modalInstance', 'alerts', function($scope, $modalInstance, alerts) {
 		$scope.credentials = {};
 	
 		if (alerts) {
