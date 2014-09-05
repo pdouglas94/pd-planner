@@ -28,11 +28,11 @@ angular.module('pdPlannerApp', [
   .run(['$rootScope', function($rootScope) {
 		$rootScope.leftViews = [
 			{link: '', name: 'Home'},
-			{link: 'about', name:'About'},
-			{link: 'planner', name:'Planner'}
+			{link: 'about/', name:'About'},
+			{link: 'planner/', name:'Planner'}
 		];
 		
-		$rootScope.logoutView = {link: 'logout', name: 'Logout'};
+		$rootScope.logoutView = {link: 'logout/', name: 'Logout'};
 
 		$rootScope.selectedNav = '';
 	}])

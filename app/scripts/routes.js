@@ -8,37 +8,36 @@ angular.module('pdPlannerApp')
 			})
 
 			.state('about', {
-				url: '/about',
+				url: '/about/',
 				controller: 'AboutCtrl',
 				templateUrl: SITE_URL + 'app/views/about.html'
 			})
 			
 			.state('planner', {
-				url: '/planner',
+				url: '/planner/',
 				controller: 'PlannerCtrl',
 				templateUrl: SITE_URL + 'app/views/planner.html'
 			})
 			
 			.state('user', {
-				url: '/user',
+				url: '/user/:user_id',
 				controller: 'UserCtrl',
 				templateUrl: SITE_URL + 'app/views/user.html',
 				resolve: {
-					user: function() {
-						//If this returns null, then the user view should show the currently logged in user.
-						return null;
-					}
+					user: ['$stateParams', 'db', function($stateParams, db) {
+						return db.User.find($stateParams.user_id);
+					}]
 				}
 			})
 			
 			.state('login', {
-				url: '/login',
+				url: '/login/',
 				controller: 'LoginCtrl',
 				template: '<div></div>'
 			})
 			
 			.state('logout', {
-				url: '/logout',
+				url: '/logout/',
 				controller: ['$http', '$state', '$rootScope', 'AuthService', 'Session', function($http, $state, $rootScope, AuthService, Session) {
 					if (!AuthService.isLoggedIn()) {
 						$state.go('login');

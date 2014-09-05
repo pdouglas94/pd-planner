@@ -78,7 +78,8 @@
 		<div class="page-width">
 			<nav class="navbar planner-navbar navbar-inverse navbar-fixed-top">
 				<div class="container-fluid">
-					<ul class="nav navbar-nav navbar-left">
+					<img src="images/pd_planner_logo.png" alt="PLANNER" class="logo-size pull-left"/>
+					<ul class="nav navbar-nav navbar-left" ng-if="currentUser">
 						<li ng-repeat="view in leftViews">
 							<a href="#/{{ view.link }}" ng-class="{'nav-selected' : selectedNav == view.name}">
 								{{ view.name }}

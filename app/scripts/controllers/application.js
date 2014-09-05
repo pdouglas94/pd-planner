@@ -62,7 +62,7 @@ angular.module('pdPlannerApp')
 	
 	$scope.viewUser = function() {
 		if (AuthService.isLoggedIn() == true) {
-			$state.go('user', {id: Session.id});
+			$state.go('user', { user_id: Session.userId });
 		}
 	};
   }]);

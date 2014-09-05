@@ -48,8 +48,18 @@ angular.module('pdPlannerApp')
 				});
 			}
 		}, function (cancel) {
-			$scope.login();
+			if (cancel === 'newUser') {
+				$scope.createNewUser();
+			}
 		});
+	};
+	
+	$scope.createNewUser = function() {
+		console.log('new user');
+	};
+	
+	$scope.newUserModal = function() {
+		return;
 	};
 	
 	if (AuthService.isLoggedIn() == true) {

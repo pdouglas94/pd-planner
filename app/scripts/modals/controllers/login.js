@@ -18,6 +18,10 @@ angular.module('pdPlannerApp')
 		$scope.closeAlert = function($index) {
 			$scope.alerts.splice($index, 1);
 		};
+		
+		$scope.createNewUser = function() {
+			$modalInstance.dismiss('newUser');
+		};
 	
 		$scope.login = function() {
 			if ($scope.credentials.username && $scope.credentials.password) {
