@@ -8,8 +8,8 @@
  * Controller of the pdPlannerApp
  */
 angular.module('pdPlannerApp')
-  .controller('LoginCtrl', ['$rootScope', '$scope', '$state', '$modal', '$http', 'AUTH_EVENTS', 'AuthService', 
-	function ($rootScope, $scope, $state, $modal, $http, AUTH_EVENTS, AuthService) {
+  .controller('LoginCtrl', ['$rootScope', '$scope', '$state', '$modal', '$http', 'AUTH_EVENTS', 'AuthService', 'SITE_URL', 'Session',
+	function ($rootScope, $scope, $state, $modal, $http, AUTH_EVENTS, AuthService, SITE_URL, Session) {
 	
 	$scope.loginModal = function(addAlerts) {
 		var modalInstance = $modal.open({
@@ -35,18 +35,22 @@ angular.module('pdPlannerApp')
 		$rootScope.userPromise = $rootScope.getCurrentUser();
 	});
 	
+	var doLogin = function(credentials, issues) {
+		AuthService.login(credentials, issues).then(function () {
+			if (AuthService.isLoggedIn() == true) {
+				$scope.$emit(AUTH_EVENTS.loginSuccess);
+				$state.go('planner');
+			} else {
+				$scope.login(issues);
+			}
+		});
+	};
+	
 	$scope.login = function(messages) {
 		$scope.loginModal(messages).then(function (credentials) {
 			if (credentials && credentials.username && credentials.password) {
 				var issues = {};
-				AuthService.login(credentials, issues).then(function () {
-					if (AuthService.isLoggedIn() == true) {
-						$scope.$emit(AUTH_EVENTS.loginSuccess);
-						$state.go('planner');
-					} else {
-						$scope.login(issues);
-					}
-				});
+				doLogin(credentials, issues);
 			}
 		}, function (cancel) {
 			if (cancel === 'newUser') {
@@ -59,13 +63,13 @@ angular.module('pdPlannerApp')
 		$scope.newUserModal(messages).then(function (newUser) {
 			if (newUser && newUser.password && newUser.password2 && newUser.username) {
 				var issues = {};
-				$http.post('rest/users/create-new-user.json?' + $.param(newUser)).then(function(reply) {
-					console.log(reply);
-					if (reply == true) {
-						//decide what to do.
+				$http.post(SITE_URL + 'rest/users/create-new-user.json?' + $.param(newUser)).then(function(reply) {
+					if (reply.data.success == true) {
+						Session.create(reply.data.user.id, reply.data.user.type);
+						$scope.$emit(AUTH_EVENTS.loginSuccess);
 					}
 				}, function(reply) {
-					
+					$scope.createNewUser();
 				});
 			}
 		}, function(cancel) {});

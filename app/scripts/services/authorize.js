@@ -2,6 +2,9 @@ angular.module('pdPlannerApp')
 	.factory('AuthService', ['$http', 'Session', 'db', 'SITE_URL', function ($http, Session, db, SITE_URL) {
 		return {
 			login: function (credentials, issues) {
+				if (typeof issues == 'undefined') {
+					var issues = {};
+				}
 				return $http.post(SITE_URL + 'rest/index/login.json?' + $.param(credentials)).then(
 					function (reply) {
 						var data = reply.data;

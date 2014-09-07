@@ -96,6 +96,35 @@ class UsersController extends ApplicationController {
 	}
 	
 	/*
+	 * Creates a new user from $_REQUEST data
+	 * @return	success	boolean
+	 * @return	user		User
+	 */
+	public function createNewUser() {
+		$user = $_REQUEST;
+		if (empty($user['username']) || empty($user['password']) || empty($user['password2'])) {
+			return $this['success'] = false;
+		}
+		$newUser = new User;
+		
+		//Must hash passwords!
+		if ($user['password'] === $user['password2']) {
+			$newUser->setPassword($user['password']);
+		} else {
+			return $this['success'] = false;
+		}
+		$newUser->setUsername($user['username']);
+		if (isset($user['email'])) {
+			$newUser->setEmail($user['email']);
+		}
+		
+		$newUser->save();
+		$this['user'] = $newUser;
+		$this['success'] = true;
+		return $this;
+	}
+	
+	/*
 	 * Overwrite for user getQuery()
 	 * Work in progress
 	 */

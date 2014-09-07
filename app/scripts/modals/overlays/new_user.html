@@ -14,6 +14,12 @@
 			</span>
 		</div>
 		<div class="input-group margin-bottom">
+			<input type="text" class="form-control" id="email" ng-model="newUser.email" placeholder="Email">
+			<span class="input-group-addon" ng-class="{'good': newUser.email, 'bad': !newUser.email}">
+				<i class="pull-right glyphicon" ng-class="{'glyphicon-ok': newUser.email, 'glyphicon-remove': !newUser.email}"></i>
+			</span>
+		</div>
+		<div class="input-group margin-bottom">
 			<input type="password" class="form-control" id="password" ng-model="newUser.password" placeholder="Password">
 			<span class="input-group-addon" ng-class="{'good': newUser.password, 'bad': !newUser.password}">
 				<i class="pull-right glyphicon" ng-class="{'glyphicon-ok': newUser.password, 'glyphicon-remove': !newUser.password}"></i>

@@ -1,8 +1,14 @@
 WORK ON:
 	-Users
 		- Expand user profile page (make editable)
-		- Make ability to create user (add as button on login modal?)
+		* - Make ability to create user (add as button on login modal?)
 		* - Handle case where only one credential is put in! (restrict login button if nothing there?) - make more rigorous?
+		- Make sure email is unique and of the correct form
+		- Make email a requirement
+		- Make username unique
+		- Deal with user creation errors
+		- Auto-login new users
+		- Checks on password for proper length, variation, tooltip for requirements
 	-Grunt serve?
 	-calendar under new tab
 	* -Add alerts to rootscope to be available on all pages!
