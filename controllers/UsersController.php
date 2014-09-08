@@ -107,9 +107,13 @@ class UsersController extends ApplicationController {
 		}
 		$newUser = new User;
 		
-		//Must hash passwords!
 		if ($user['password'] === $user['password2']) {
-			$newUser->setPassword($user['password']);
+			$password = password_hash($user['password'], PASSWORD_BCRYPT, array('cost' => 12));
+			if ($password !== false) {
+				$newUser->setPassword($password);
+			} else {
+				$this['success'] = false;
+			}
 		} else {
 			return $this['success'] = false;
 		}
@@ -119,6 +123,8 @@ class UsersController extends ApplicationController {
 		}
 		
 		$newUser->save();
+		$expiration = time() + 60*60*24;
+		setcookie('user', $newUser->getId(), $expiration, '/', 'pd-planner');
 		$this['user'] = $newUser;
 		$this['success'] = true;
 		return $this;

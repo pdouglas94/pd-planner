@@ -7,20 +7,20 @@ class IndexController extends ApplicationController {
 	}
 	
 	public function login() {
-		/*
-		 * Notes:
-		 * password is not secure unless hashed!
-		 */
 		$credentials = $_REQUEST;
 		$this['messages'] = array();
 		
 		if (!empty($credentials['username']) && !empty($credentials['password'])) {
 			$user = User::retrieveByUsername($credentials['username']);
-			if ($user) {
-				if ($user->getPassword() === $credentials['password']) {
+			if (!empty($user)) {
+				if (password_needs_rehash($user->getPassword(), PASSWORD_BCRYPT, array('cost' => 12)) == true) {
+					$user->setPassword(password_hash($user->getPassword(), PASSWORD_BCRYPT, array('cost' => 12)));
+					$user->save();
+				}
+				if (password_verify($credentials['password'], $user->getPassword()) == true) {
 					$this['authenticated'] = true;
 					$expiration = time() + 60*60*24;
-					setcookie('user', $user->getId(), $expiration);
+					setcookie('user', $user->getId(), $expiration, '/', 'pd-planner');
 					$this['user'] = $user;
 				} else {
 					$this['messages'][] = ['message' => 'Incorrect Password.', 'type' => 'warning'];
