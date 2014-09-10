@@ -19,7 +19,7 @@
 	</div>
 	<div class="modal-footer">
 		<div class="pad-top">
-			<button class="btn btn-primary" ng-click="packageItem()"><i class="glyphicon-plus"></i>
+			<button class="btn btn-primary" ng-disabled="!item.name" ng-click="packageItem()"><i class="glyphicon-plus"></i>
 				<span ng-if="updating"> Update Item</span>
 				<span ng-if="!updating"> Add Item</span>
 			</button>

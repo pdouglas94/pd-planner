@@ -7,7 +7,7 @@
 		<input id="categoryInput" value="category.name" class="form-control" type="text" ng-model="category.name" placeholder="Enter Category Name" />
 	</div>
 	<div class="modal-footer">
-		<button class="btn btn-primary" ng-click="packageCategory()"><i class="glyphicon-plus"></i>
+		<button class="btn btn-primary" ng-disabled="!category.name" ng-click="packageCategory()"><i class="glyphicon-plus"></i>
 			<span ng-if="updating"> Update Category</span>
 			<span ng-if="!updating"> Add Category</span>
 		</button>

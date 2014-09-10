@@ -1,7 +1,31 @@
 WORK ON:
-	-Users
+	-Fixes:
+		-Redirect in other cases, like planner when not logged in.
+		-Prevent modals from just closing when clicking off of them
+		-Categories edit/delete shouldn't select that category
+		-Fetch data at a higher scope so I don't have to reload it each time I go to planner/or handle as service - bring down todos attached?
+		-Make progress bar function better (save only on stop)
+
+	-Visuals:
+		-Better planner logo
+		-Theme/overall color scheme
+		-Some kind of header image
+
+	-General Improvements:
+		-Add alerts to rootscope to be available on all pages!
+		-Robust validation for all data to avoid errors
+
+	-Planner:
+		-Add general comments textarea of jotting down brief notes
+		-Ability to move todo items to different categories (brings up modal with list of categories and new category input)
+		-Allow drag and drop (or just move position) of todo items, for custom ordering
+		-Allow filtering on todo lists by things like priority and complete
+		-Make table row colors correspond to priority level?
+		-Add datepicker for items - things like due dates and expiration reminders
+
+	-Users:
 		- Expand user profile page (make editable)
-		* - Handle case where only one credential is put in! (restrict login button if nothing there?) - make more rigorous?
+		- Handle case where only one credential is put in! (restrict login button if nothing there?) - make more rigorous?
 		- Make sure email is unique and of the correct form
 		- Make email a requirement
 		- Make username unique
@@ -10,38 +34,16 @@ WORK ON:
 		- Checks on password for proper length, variation, tooltip for requirements
 		- Ability to reset password
 
-	-Grunt serve?
-	-calendar under new tab
-	* -Add alerts to rootscope to be available on all pages!
-	-Redirect in other cases, like planner when not logged in.
-	* -Better planner logo
-	-Theme/overall color scheme
-	-Add general comments textarea of jotting down brief notes
-	-Add statistics tracking for planner and page for displaying that information
-	-Prevent modals from just closing when clicking off of them
-	-Ability to move todo items to different categories (brings up modal with list of categories and new category input)
-	-Categories edit/delete shouldn't select that category
-	-Allow drag and drop (or just move position) of todo items and save place
-	-Make table row colors correspond to priority level?
-	-Fetch data at a higher scope so I don't have to reload it each time I go to planner?
-	-Footer purpose?
-	-Functions to check new items and fill in default items 
-	-Write debugging functions that display data and add buttons.
-	-Robust validation for item/category updates to avoid errors
-	-Start branching this stuff!
-	-Validation on item/category add
-	-Make progress bar function better (save only on stop)
-	-Add in error handler (service?)
-	-Initially, just bring down the categories
-		-On select category, go and fetch the todo items for that category?
-		-Alternatively, bring down the todos as another item attached to each category
-	-Add subtask functionality
-		-Rework to not bring subtasks down initially
-		-On todo item, allow people to go to a new page with that item and all subtasks
-	-Add angular bootstrap ui stuff 
-		-eventually pagination
-		-eventually timepicker/dates
-	-Visual Improvements
-		-Better title/header image
+	-New Features:
+		-calendar under new tab
+		-Add statistics tracking for planner and page for displaying that information
+		-Footer purpose?
+		-Add in error handler (service?)
+		-Add subitems to items - seperate to new page
+		-Eventually add pagination to various lists
 
-	-amplify.js
+	-Project Management:
+		-Grunt
+		-Start branching this stuff!
+		-amplify.js
+		-highcharts

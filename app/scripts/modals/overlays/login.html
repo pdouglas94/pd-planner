@@ -23,6 +23,11 @@
 		<div class="pull-left">
 			<button type="submit" class="btn btn-primary" ng-click="createNewUser()">New Account</button>
 		</div>
-		<button type="submit" class="btn btn-default" ng-click="login()">Login</button>
+		<button 
+			type="submit" 
+			class="btn btn-default" 
+			ng-disabled="!credentials.username || !credentials.password" 
+			ng-click="login()">Login
+		</button>
 	</div>
 </div>
