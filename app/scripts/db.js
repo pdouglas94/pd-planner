@@ -31,6 +31,14 @@ angular.module('pdPlannerApp')
 			}
 		});
 		
+		db.Note = Entity.extend('note', {
+			url: 'notes/:user_id.json',
+			fields: {
+				userId: 'int',
+				comment: String
+			}
+		});
+		
 		db.Category = Entity.extend('category', {
 			url: 'categories/:id.json',
 			fields: {

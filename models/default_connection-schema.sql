@@ -52,6 +52,26 @@ CREATE TABLE `item`
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
+-- note
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `note`;
+
+CREATE TABLE `note`
+(
+	`userId` INTEGER NOT NULL,
+	`comment` TEXT,
+	`updated` INT,
+	`created` INT,
+	PRIMARY KEY (`userId`),
+	CONSTRAINT `note_ibfk_1`
+		FOREIGN KEY (`userId`)
+		REFERENCES `user` (`id`)
+		ON UPDATE CASCADE
+		ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
 -- subitem
 -- ---------------------------------------------------------------------
 

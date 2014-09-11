@@ -125,7 +125,12 @@ class UsersController extends ApplicationController {
 		$newUser->save();
 		$expiration = time() + 60*60*24;
 		setcookie('user', $newUser->getId(), $expiration, '/', 'pd-planner');
+		
+		$notes = new Note;
+		$notes->setUser($newUser);
+		$notes->save();
 		$this['user'] = $newUser;
+		$this['notes'] = $notes;
 		$this['success'] = true;
 		return $this;
 	}

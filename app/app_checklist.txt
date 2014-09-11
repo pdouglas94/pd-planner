@@ -14,13 +14,13 @@ WORK ON:
 	-General Improvements:
 		-Add alerts to rootscope to be available on all pages!
 		-Robust validation for all data to avoid errors
+		-Hit enter event does button function
 
 	-Planner:
-		-Add general comments textarea of jotting down brief notes
+		* -Add general comments textarea of jotting down brief notes
 		-Ability to move todo items to different categories (brings up modal with list of categories and new category input)
 		-Allow drag and drop (or just move position) of todo items, for custom ordering
 		-Allow filtering on todo lists by things like priority and complete
-		-Make table row colors correspond to priority level?
 		-Add datepicker for items - things like due dates and expiration reminders
 
 	-Users:

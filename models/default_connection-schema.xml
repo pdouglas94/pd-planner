@@ -30,6 +30,15 @@
       <index-column name="categoryId"/>
     </index>
   </table>
+  <table name="note" phpName="Note">
+    <column name="userId" phpName="Userid" type="INTEGER" primaryKey="true" required="true"/>
+    <column name="comment" phpName="Comment" type="LONGVARCHAR" required="false"/>
+    <column name="updated" phpName="Updated" type="INTEGER_TIMESTAMP" required="false"/>
+    <column name="created" phpName="Created" type="INTEGER_TIMESTAMP" required="false"/>
+    <foreign-key foreignTable="user" name="note_ibfk_1" onDelete="CASCADE" onUpdate="CASCADE">
+      <reference local="userId" foreign="id"/>
+    </foreign-key>
+  </table>
   <table name="subitem" phpName="Subitem">
     <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
     <column name="itemId" phpName="Itemid" type="INTEGER" required="true"/>

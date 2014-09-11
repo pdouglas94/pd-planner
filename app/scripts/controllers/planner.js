@@ -79,6 +79,12 @@ angular.module('pdPlannerApp')
 		}, function(reply) {
 			addAlert("Could not retrieve your information: " + reply, 'danger');
 		});
+		
+		db.Note.findAll(params).then(function(reply) {
+			$scope.note = reply[0];
+		}, function(reply) {
+			addAlert("Failed to retrieve your notes: " + reply, 'danger');
+		});
 	};
 	
 	if (AuthService.isLoggedIn()) {

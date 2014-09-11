@@ -498,6 +498,77 @@ abstract class baseUser extends ApplicationModel {
 	}
 
 	/**
+	 * Returns a Query for selecting note Objects(rows) from the note table
+	 * with a userId that matches $this->id.
+	 * @return Query
+	 */
+	function getNotesRelatedByUserIdQuery(Query $q = null) {
+		return $this->getForeignObjectsQuery('note', 'userId', 'id', $q);
+	}
+
+	/**
+	 * Returns the count of Note Objects(rows) from the note table
+	 * with a userId that matches $this->id.
+	 * @return int
+	 */
+	function countNotesRelatedByUserId(Query $q = null) {
+		if (null === $this->getid()) {
+			return 0;
+		}
+		return Note::doCount($this->getNotesRelatedByUserIdQuery($q));
+	}
+
+	/**
+	 * Deletes the note Objects(rows) from the note table
+	 * with a userId that matches $this->id.
+	 * @return int
+	 */
+	function deleteNotesRelatedByUserId(Query $q = null) {
+		if (null === $this->getid()) {
+			return 0;
+		}
+		$this->NotesRelatedByUserId_c = array();
+		return Note::doDelete($this->getNotesRelatedByUserIdQuery($q));
+	}
+
+	protected $NotesRelatedByUserId_c = array();
+
+	/**
+	 * Returns an array of Note objects with a userId
+	 * that matches $this->id.
+	 * When first called, this method will cache the result.
+	 * After that, if $this->id is not modified, the
+	 * method will return the cached result instead of querying the database
+	 * a second time(for performance purposes).
+	 * @return Note[]
+	 */
+	function getNotesRelatedByUserId(Query $q = null) {
+		if (null === $this->getid()) {
+			return array();
+		}
+
+		if (
+			null === $q
+			&& $this->getCacheResults()
+			&& !empty($this->NotesRelatedByUserId_c)
+			&& !$this->isColumnModified('id')
+		) {
+			return $this->NotesRelatedByUserId_c;
+		}
+
+		$result = Note::doSelect($this->getNotesRelatedByUserIdQuery($q));
+
+		if ($q !== null) {
+			return $result;
+		}
+
+		if ($this->getCacheResults()) {
+			$this->NotesRelatedByUserId_c = $result;
+		}
+		return $result;
+	}
+
+	/**
 	 * Convenience function for User::getCategorysRelatedByuserId
 	 * @return Category[]
 	 * @see User::getCategorysRelatedByUserId
@@ -531,6 +602,42 @@ abstract class baseUser extends ApplicationModel {
 	  */
 	function countCategorys(Query $q = null) {
 		return $this->countCategorysRelatedByUserId($q);
+	}
+
+	/**
+	 * Convenience function for User::getNotesRelatedByuserId
+	 * @return Note[]
+	 * @see User::getNotesRelatedByUserId
+	 */
+	function getNotes($extra = null) {
+		return $this->getNotesRelatedByUserId($extra);
+	}
+
+	/**
+	  * Convenience function for User::getNotesRelatedByuserIdQuery
+	  * @return Query
+	  * @see User::getNotesRelatedByuserIdQuery
+	  */
+	function getNotesQuery(Query $q = null) {
+		return $this->getForeignObjectsQuery('note', 'userId','id', $q);
+	}
+
+	/**
+	  * Convenience function for User::deleteNotesRelatedByuserId
+	  * @return int
+	  * @see User::deleteNotesRelatedByuserId
+	  */
+	function deleteNotes(Query $q = null) {
+		return $this->deleteNotesRelatedByUserId($q);
+	}
+
+	/**
+	  * Convenience function for User::countNotesRelatedByuserId
+	  * @return int
+	  * @see User::countNotesRelatedByUserId
+	  */
+	function countNotes(Query $q = null) {
+		return $this->countNotesRelatedByUserId($q);
 	}
 
 	/**
