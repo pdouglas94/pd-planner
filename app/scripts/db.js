@@ -31,10 +31,11 @@ angular.module('pdPlannerApp')
 			}
 		});
 		
-		db.Note = Entity.extend('note', {
-			url: 'notes/:user_id.json',
+		db.Note = Model.extend('note', {
+			adapter: adapter,
+			url: 'notes/:userId.json',
 			fields: {
-				userId: 'int',
+				userId: { type: 'int', key: true, computed: true },
 				comment: String
 			}
 		});

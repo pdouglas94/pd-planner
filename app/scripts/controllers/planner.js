@@ -14,6 +14,7 @@ angular.module('pdPlannerApp')
 	$scope.categories = [];
 	$scope.activeCategory = {name:null, list:null};
 	$scope.dropOpen = false;
+	$scope.showNotes = false;
 	$scope.alerts = [];
 	
 	//Converts an 'array of objects' or 'object of arrays of objects' to objects of given type
@@ -146,6 +147,14 @@ angular.module('pdPlannerApp')
 			addAlert("Item was successfully removed: " + reply.name, 'success');
 		}, function(reply) {
 			addAlert("Item was not removed: " + reply, 'warning');
+		});
+	};
+	
+	$scope.saveNote = function() {
+		$scope.note.save().then(function(reply) {
+			addAlert("Notes were successfully updated!", 'success')
+		}, function(reply) {
+			addAlert("Notes were not saved successfully!" + reply, 'warning');
 		});
 	};
 	

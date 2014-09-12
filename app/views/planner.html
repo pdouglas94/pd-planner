@@ -6,6 +6,19 @@
 				<small>Organize and Plan Your Day</small>
 			</div>
 			<div>
+				<div class="form-group">
+					<div class="margin-bottom">
+						<label for="notes-text">Notes</label>
+						<button class="btn btn-default btn-small pull-right" ng-click="showNotes = !showNotes">
+							<span ng-if="showNotes">Hide Notes</span>
+							<span ng-if="!showNotes">Show Notes</span>
+						</button>
+					</div>
+					<div ng-show="showNotes">
+						<textarea id="notes-text" style="resize:none;" rows="5" class="form-control" ng-model="note.comment" placeholder="Notes..."></textarea>
+						<button ng-click="saveNote()" class="btn btn-default form-control">Save</button>
+					</div>
+				</div>
 				<div class="pad-bottom">
 					<accordion>
 						<accordion-group is-open="dropOpen">
@@ -28,10 +41,6 @@
 							</table>
 						</accordion-group>
 					</accordion>
-				</div>
-				<div>
-					{{note.comment}}
-					<input type="text" ng-model="note.comment"/>
 				</div>
 			</div>
 		</div>
