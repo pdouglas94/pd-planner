@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc function
- * @name pdPlannerApp.controller:ListCtrl
+ * @name pdPlannerApp.controller:PlannerCtrl
  * @description
  * # PlannerCtrl
  * Controller of the pdPlannerApp
  */
 angular.module('pdPlannerApp')
-  .controller('PlannerCtrl', ['Session', 'AuthService', 'SITE_URL', '$modal', '$http', '$scope', 'db', 
-	function (Session, AuthService, SITE_URL, $modal, $http, $scope, db) {
+  .controller('PlannerCtrl', ['Session', 'AuthService', 'SITE_URL', '$modal', '$http', '$scope', 'db', '$state',
+	function (Session, AuthService, SITE_URL, $modal, $http, $scope, db, $state) {
 	
 	$scope.categories = [];
 	$scope.activeCategory = {name:null, list:null};
@@ -270,6 +270,13 @@ angular.module('pdPlannerApp')
 		}, function (cancel) {
 			
 		});
+	};
+	
+	$scope.goItemPage = function($index) {
+		var current_item = $scope.activeCategory.list[$index];
+		if (current_item && current_item.id) {
+			$state.go('planner.item', { item_id: current_item.id });
+		}
 	};
 	
 	$scope.openCategoryModal = function($index) {

@@ -19,6 +19,17 @@ angular.module('pdPlannerApp')
 				templateUrl: SITE_URL + 'app/views/planner.html'
 			})
 			
+			.state('planner.item', {
+				url: ':item_id/',
+				controller: 'ItemCtrl',
+				templateUrl: SITE_URL + 'app/views/item.html',
+				resolve: {
+					item: ['$stateParams', 'db', function($stateParams, db) {
+						return db.Subitem.find({ itemId: $stateParams.item_id});
+					}]
+				}
+			})
+			
 			.state('user', {
 				url: '/user/:user_id',
 				controller: 'UserCtrl',
