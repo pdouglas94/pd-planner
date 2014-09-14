@@ -15,19 +15,38 @@ angular.module('pdPlannerApp')
 			
 			.state('planner', {
 				url: '/planner/',
-				controller: 'PlannerCtrl',
+				controller: ['$scope', function($scope) {
+					$scope.sections = [
+						{name: 'Planner', link: 'planner.overview'},
+						{name: 'Notes', link: 'planner.notes'}
+					];
+				}],
 				templateUrl: SITE_URL + 'app/views/planner.html'
 			})
 			
+			.state('planner.overview', {
+				url: 'overview/',
+				controller: 'OverviewCtrl',
+				templateUrl: SITE_URL + 'app/views/overview.html'
+			})
+			
+			.state('planner.notes', {
+				url: 'notes/',
+				controller: ['$scope', function($scope) {
+						
+				}],
+				template: '<div>NOTES YO</div>'
+			})
+			
 			.state('planner.item', {
-				url: ':item_id/',
-				controller: 'ItemCtrl',
-				templateUrl: SITE_URL + 'app/views/item.html',
-				resolve: {
+				url: 'item/:item_id',
+				resolve: {	
 					item: ['$stateParams', 'db', function($stateParams, db) {
-						return db.Subitem.find({ itemId: $stateParams.item_id});
+						return db.Subitem.findAll({ itemId: $stateParams.item_id });
 					}]
-				}
+				},
+				controller: 'ItemCtrl',
+				templateUrl: SITE_URL + 'app/views/item.html'
 			})
 			
 			.state('user', {

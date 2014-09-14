@@ -1,122 +1,20 @@
 <div class="well container-fluid">
-	<div class="page-header">
-		<h2>PLANNER</h2>
-		<small>Organize and Plan Your Day</small>
-	</div>
-	<div ui-sref="planner">
-		<div class="row-fluid">
-			<div class="col-xs-4">
-				<div>
-					<div class="form-group">
-						<div class="margin-bottom">
-							<label for="notes-text">Notes</label>
-							<button class="btn btn-default btn-small pull-right" ng-click="showNotes = !showNotes">
-								<span ng-if="showNotes">Hide Notes</span>
-								<span ng-if="!showNotes">Show Notes</span>
-							</button>
-						</div>
-						<div ng-show="showNotes">
-							<textarea id="notes-text" style="resize:none;" rows="5" class="form-control" ng-model="note.comment" placeholder="Notes..."></textarea>
-							<button ng-click="saveNote()" class="btn btn-default form-control">Save</button>
-						</div>
-					</div>
-					<div class="pad-bottom">
-						<accordion>
-							<accordion-group is-open="dropOpen">
-								<accordion-heading>
-									Categories <span class="badge">{{ categories.length }}</span>
-									<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': dropOpen, 'glyphicon-chevron-right': !dropOpen}"></i>
-								</accordion-heading>
-								<table class="table table-hover table-condensed">
-									<tr ng-class="{'success': cat.id === activeCategory.id}" ng-repeat="cat in categories" style="width:100%;" ng-click="setActiveCat($index)">
-										<td>
-											{{cat.name}}
-											<button ng-click="removeCategory($index)" class="btn btn-extra-sm btn-danger pull-right">
-												<i class="glyphicon glyphicon-trash"></i>
-											</button>
-											<button ng-click="openCategoryModal($index)" class="btn btn-extra-sm btn-default pull-right">
-												<i class="glyphicon glyphicon-pencil"></i>
-											</button>
-										</td>
-									</tr>
-								</table>
-							</accordion-group>
-						</accordion>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-8">
-				<div ng-model="alerts">
-					<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert()">{{alert.message}}</alert>
-				</div>
-				<div class="pad-bottom">
-					<button ng-click="openCategoryModal(null)" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add Category</button>
-					<button ng-click="openToDoModal(null)" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add To-Do</button>
-				</div>
-				<div class="panel" ng-class="{'panel-default' : activeCategory.name === null, 'panel-primary' : activeCategory.name !== null}">
-					<div class="panel-heading">
-						<h4>
-							{{activeCategory.name}}
-							<div ng-if="activeCategory.name === null">
-								No Category Selected
-							</div>
-						</h4>
-					</div>
-					<table class="table">
-						<tr ng-repeat="item in activeCategory.list" ng-class="{completed: item.complete === 1}">
-							<td>
-								<div>
-									<button type="button" class="btn btn-extra-sm btn-default" ng-model="item.complete" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-										<div ng-if="item.complete === 0">
-											<i class="glyphicon glyphicon-unchecked"></i>
-										</div>
-										<div ng-if="item.complete === 1">
-											<i class="glyphicon glyphicon-check"></i>
-										</div>
-									</button>
-								</div>
-							</td>
-							<td>
-								{{item.name}}
-								<div collapse="!item.expanded">
-									<div>Description: {{item.description}}</div>
-									<div ng-class="{'priority-high': (item.priority === 1), 'priority-medium': (item.priority === 2), 'priority-low': (item.priority === 3)}">
-										Priority: {{getPriority($index)}}
-									</div>
-									<div>
-										<!-- <progress style="text-align:center;" class="progress-striped">
-											<bar class="bar-success" value="item.progress">Progress:{{item.progress}}/100</bar>
-										</progress>
-										<input type="text" ng-model="item.progress" /> -->
-
-										<div>
-											Progress:
-											<slider ng-model="item.progress" min="0" step="1" max="100" value="{{item.progress}}"></slider>
-										</div>
-									</div>
-								</div>
-							</td>
-							<td>
-								<button ng-click="removeToDoItem($index)" class="btn btn-sm btn-danger pull-right">
-									<i class="glyphicon glyphicon-remove-sign"></i> Remove
-								</button>
-								<button ng-click="item.expanded = !item.expanded" class="btn btn-sm btn-default pull-right">
-									<i class="glyphicon glyphicon-plus-sign"></i> Details
-								</button>
-								<button data-tooltip="Open Item Page" ng-click="goItemPage($index)" class="btn btn-sm btn-default pull-right">
-									<i class="glyphicon glyphicon-open"></i>
-								</button>
-								<button ng-click="openToDoModal($index)" class="btn btn-sm btn-default pull-right">
-									<i class="glyphicon glyphicon-pencil"></i>
-								</button>
-							</td>
-						</tr>
-					</table>
-				</div>
+	<div class="row-fluid clearfix">
+		<div class="col-xs-4">
+			<div class="planner-header">
+				<h2>PLANNER</h2>
+				<small>Organize and Plan Your Day</small>
 			</div>
 		</div>
+		<div class="col-xs-8 clearfix">
+			<nav class="navbar navbar-default" role="navigation">
+				<ul class="nav navbar-nav">
+					<li ng-repeat="section in sections">
+						<a ui-sref="{{section.link}}">{{section.name}}</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
 	</div>
-	<div ui-sref="planner.item">
-		
-	</div>
+	<div ui-view></div>
 </div>

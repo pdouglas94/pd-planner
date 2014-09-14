@@ -18,7 +18,8 @@ WORK ON:
 		-Hit enter event does button function
 
 	-Planner:
-		* -Add general comments textarea of jotting down brief notes - Better visual representation.
+		* -Add general comments textarea of jotting down brief notes - Move to nested state.
+		* -Fix up planner view
 		-Ability to move todo items to different categories (brings up modal with list of categories and new category input)
 		-Allow drag and drop (or just move position) of todo items, for custom ordering
 		-Allow filtering on todo lists by things like priority and complete
@@ -39,12 +40,12 @@ WORK ON:
 		-Add statistics tracking for planner and page for displaying that information
 		-Footer purpose?
 		-Add in error handler (service?)
-		* -Add subitems to items - seperate to new page
+		* -Add subitems to items - seperate to new page/state
 		-Eventually add pagination to various lists
 
 	-Project Management:
 		-Grunt
-		-Reorganize project
+		* -Reorganize project
 		-Start branching this stuff!
 		-amplify.js
 		-highcharts
