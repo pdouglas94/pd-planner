@@ -1,4 +1,11 @@
 <div class="row-fluid">
-	<h1>{{hello}} ITEM CONTROLLER</h1>
-	<div>{{item}}</div>
+	<div class="col-xs-3">
+		<button ui-sref="planner.overview" class="btn btn-default"><i class="glyphicon glyphicon-chevron-left"></i> Back to Planner</button>
+		<h3>Item: {{item.name}}</h3>
+	</div>
+	<div class="col-xs-9">
+		<h5>
+			{{subitems}}
+		</h5>
+	</div>
 </div>

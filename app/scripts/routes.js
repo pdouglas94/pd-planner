@@ -18,7 +18,7 @@ angular.module('pdPlannerApp')
 				controller: ['$scope', function($scope) {
 					$scope.sections = [
 						{name: 'Planner', link: 'planner.overview'},
-						{name: 'Notes', link: 'planner.notes'}
+						{name: 'Notes', link: 'planner.notes({user_id: currentUser.id})'}
 					];
 				}],
 				templateUrl: SITE_URL + 'app/views/planner.html'
@@ -31,18 +31,33 @@ angular.module('pdPlannerApp')
 			})
 			
 			.state('planner.notes', {
-				url: 'notes/',
-				controller: ['$scope', function($scope) {
-						
+				url: 'notes/:user_id',
+				controller: ['$scope', 'note', function($scope, note) {
+					$scope.note = note[0];
+					console.log($scope.note);
+					
+					$scope.saveNote = function() {
+						$scope.note.save().then(function(reply) {
+							//Disabled until alerts are moved elsewhere!
+							//addAlert("Notes were successfully updated!", 'success')
+						}, function(reply) {
+							//addAlert("Notes were not saved successfully!" + reply, 'warning');
+						});
+					};
 				}],
-				template: '<div>NOTES YO</div>'
+				templateUrl: SITE_URL + 'app/views/notes.html',
+				resolve: {
+					note: ['$stateParams', 'db', function($stateParams, db) {
+						return db.Note.findAll({userId: $stateParams.user_id});
+					}]
+				}
 			})
 			
 			.state('planner.item', {
 				url: 'item/:item_id',
 				resolve: {	
 					item: ['$stateParams', 'db', function($stateParams, db) {
-						return db.Subitem.findAll({ itemId: $stateParams.item_id });
+						return db.Item.find($stateParams.item_id);
 					}]
 				},
 				controller: 'ItemCtrl',

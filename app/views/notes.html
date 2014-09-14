@@ -1,0 +1,18 @@
+<div class="row-fluid">
+	<div class="col-xs-3">
+		<div class="margin-bottom">
+			<label for="notes-text">Notes</label>
+		</div>
+		<div class="margin-bottom">
+			Welcome! Write down any notes you want to take. Use this however you want!
+		</div>
+		<div class="margin-top">
+			<button ng-click="saveNote()" class="btn btn-default form-control">Save</button>
+		</div>
+	</div>
+	<div class="col-xs-9">
+		<div class="form-group">
+			<textarea id="notes-text" style="resize:none;" rows="8" class="form-control" ng-model="note.comment" placeholder="Notes..."></textarea>
+		</div>
+	</div>
+</div>

@@ -10,7 +10,12 @@
 angular.module('pdPlannerApp')
   .controller('ItemCtrl', ['SITE_URL', '$modal', '$http', '$scope', 'db', 'item',
 	function (SITE_URL, $modal, $http, $scope, db, item) {
-		console.log('item controller');
 		$scope.item = item;
-		$scope.hello = 'HELLO, YOU ARE AT THE: ';
+		$scope.subitems = null;
+		
+		db.Subitem.findAll({itemId: item.id}).then(function(reply) {
+			$scope.subitems = reply;
+		}, function(reply) {
+			
+		});
 	}]);

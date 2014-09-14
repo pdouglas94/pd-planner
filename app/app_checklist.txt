@@ -20,6 +20,7 @@ WORK ON:
 	-Planner:
 		* -Add general comments textarea of jotting down brief notes - Move to nested state.
 		* -Fix up planner view
+		* -Cleanup todo item buttons
 		-Ability to move todo items to different categories (brings up modal with list of categories and new category input)
 		-Allow drag and drop (or just move position) of todo items, for custom ordering
 		-Allow filtering on todo lists by things like priority and complete
