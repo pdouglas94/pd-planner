@@ -1,18 +1,15 @@
 <div class="row-fluid">
 	<!-- notes:
-		-Make slider work the same here!
-		-Edit modal
-		-Make item editable from this view
 		-Add subitem add inputs
 	-->
 	<div class="col-xs-3">
 		<button ui-sref="planner.overview" class="btn btn-default"><i class="glyphicon glyphicon-chevron-left"></i> Back to Planner</button>
 		<div ng-class="{completed: item.complete === 1}">
 			<div class="margin-top-20 margin-bottom clearfix" style="font-size:20px;">
-				<div class="pull-left">{{item.name}}</div>
-				<span class="pull-right" ng-class="{'priority-high': (item.priority === 1), 'priority-medium': (item.priority === 2), 'priority-low': (item.priority === 3)}">
+				<div class="pull-left item-title">{{item.name}}</div>
+				<div ng-class="{'priority-high': (item.priority === 1), 'priority-medium': (item.priority === 2), 'priority-low': (item.priority === 3)}">
 					Priority: {{priorities[item.priority]}}
-				</span>
+				</div>
 			</div>
 			<div class="form-group clearfix margin-top margin-bottom">
 				<button type="button" class="btn btn-sm btn-default pull-left" ng-model="item.complete" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
@@ -28,7 +25,7 @@
 				<button ng-click="removeToDoItem()" class="btn btn-sm btn-danger pull-left">
 					<i class="glyphicon glyphicon-remove-sign"></i> Remove
 				</button>
-				<button ng-click="openToDoModal($index)" class="btn btn-sm btn-default pull-left">
+				<button ng-click="openToDoModal()" class="btn btn-sm btn-default pull-left">
 					<i class="glyphicon glyphicon-pencil"></i>
 				</button>
 			</div>
@@ -42,6 +39,9 @@
 		</div>
 	</div>
 	<div class="col-xs-9">
+		<div class="pad-bottom">
+			<button ng-click="openSubitemModal(null)" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add Subtask</button>
+		</div>
 		<table class="table">
 			<tr ng-repeat="subitem in subitems">
 				<td>{{subitem.name}}</td>

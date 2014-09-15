@@ -14,12 +14,12 @@ WORK ON:
 		-Some kind of header image
 
 	-General Improvements:
+		-Make responsive for mobile/small resolution
 		* -Add alerts as service to be available on all pages! - Also use for error handling.
 		-Robust validation for all data to avoid errors
 		-Hit enter event does button function
 
 	-Planner:
-		* -Add general comments textarea of jotting down brief notes - Move to nested state.
 		* -Fix up planner view
 		* -Cleanup todo item buttons
 		-Extend items and subitems

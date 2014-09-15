@@ -56,4 +56,31 @@ angular.module('pdPlannerApp')
 				});
 			}
 		};
+		
+		$scope.openToDoModal = function() {
+
+			var modalInstance = $modal.open({
+				templateUrl: 'scripts/modals/overlays/todo.html',
+				controller: 'ToDoModalCtrl',
+				size: 'sm',
+				resolve: {
+					item: function() {
+						return $scope.item;
+					}
+				}
+			});
+
+			modalInstance.result.then(function (newItem) {
+				if (newItem.changed === true) {
+					updateToDoItem(newItem);
+					//addAlert("Item was updated succesfully: " + reply.name, 'success');
+				}
+			}, function (cancel) {
+
+			});
+		};
+		
+		$scope.openSubitemModal = function() {
+			return null;
+		};
 	}]);
