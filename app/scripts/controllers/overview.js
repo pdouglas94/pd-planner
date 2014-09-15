@@ -213,16 +213,10 @@ angular.module('pdPlannerApp')
 		return true;
 	};
 	
-	$scope.getPriority = function($index) {
-		switch ($scope.activeCategory.list[$index].priority) {
-			case 1:
-				return "High";
-			case 2:
-				return "Medium";
-			case 3:
-				return "Low";
-		}
-		return "None";
+	$scope.priorities = {
+		1: 'High',
+		2: 'Medium',
+		3: 'Low'
 	};
 	
 	$scope.openToDoModal = function($index) {

@@ -34,7 +34,6 @@ angular.module('pdPlannerApp')
 				url: 'notes/:user_id',
 				controller: ['$scope', 'note', function($scope, note) {
 					$scope.note = note[0];
-					console.log($scope.note);
 					
 					$scope.saveNote = function() {
 						$scope.note.save().then(function(reply) {

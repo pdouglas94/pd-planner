@@ -62,7 +62,7 @@
 						<div collapse="!item.expanded">
 							<div>Description: {{item.description}}</div>
 							<div ng-class="{'priority-high': (item.priority === 1), 'priority-medium': (item.priority === 2), 'priority-low': (item.priority === 3)}">
-								Priority: {{getPriority($index)}}
+								Priority: {{priorities[item.priority]}}
 							</div>
 							<div>
 								<!-- <progress style="text-align:center;" class="progress-striped">

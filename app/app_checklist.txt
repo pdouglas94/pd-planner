@@ -1,6 +1,7 @@
 WORK ON:
 	-Fixes:
-		-Redirect in other cases, like planner when not logged in.
+		-Make login cookie refresh on revisit of page
+		-Redirect in other cases, like planner when not logged in
 		-Prevent modals from just closing when clicking off of them
 		-Categories edit/delete shouldn't select that category
 		-Fetch data at a higher scope so I don't have to reload it each time I go to planner/or handle as service - bring down todos attached?
@@ -13,7 +14,7 @@ WORK ON:
 		-Some kind of header image
 
 	-General Improvements:
-		-Add alerts as service to be available on all pages! - Also use for error handling.
+		* -Add alerts as service to be available on all pages! - Also use for error handling.
 		-Robust validation for all data to avoid errors
 		-Hit enter event does button function
 
@@ -21,6 +22,9 @@ WORK ON:
 		* -Add general comments textarea of jotting down brief notes - Move to nested state.
 		* -Fix up planner view
 		* -Cleanup todo item buttons
+		-Extend items and subitems
+		-Make priority default to 0
+		-Turn item into service?
 		-Ability to move todo items to different categories (brings up modal with list of categories and new category input)
 		-Allow drag and drop (or just move position) of todo items, for custom ordering
 		-Allow filtering on todo lists by things like priority and complete
@@ -37,6 +41,7 @@ WORK ON:
 		- Ability to reset password
 
 	-New Features:
+		-Maybe add a welcome message that only admins can edit?
 		-calendar under new tab
 		-Add statistics tracking for planner and page for displaying that information
 		-Footer purpose?
