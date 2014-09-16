@@ -44,6 +44,8 @@ WORK ON:
 
 	-New Features:
 		-Maybe add a welcome message that only admins can edit?
+		-Put a tutorial on about page!
+		-Put something on home page!
 		-calendar under new tab
 		-Add statistics tracking for planner and page for displaying that information
 		-Footer purpose?
@@ -53,7 +55,6 @@ WORK ON:
 
 	-Project Management:
 		-Grunt
-		* -Reorganize project
 		-Start branching this stuff!
 		-amplify.js
 		-highcharts

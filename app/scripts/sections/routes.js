@@ -4,13 +4,13 @@ angular.module('pdPlannerApp')
 			.state('home', {
 				url: '/',
 				controller: 'MainCtrl',
-				templateUrl: SITE_URL + 'app/views/main.html'
+				templateUrl: SITE_URL + 'app/scripts/sections/main/views/main.html'
 			})
 
 			.state('about', {
 				url: '/about/',
 				controller: 'AboutCtrl',
-				templateUrl: SITE_URL + 'app/views/about.html'
+				templateUrl: SITE_URL + 'app/scripts/sections/about/views/about.html'
 			})
 			
 			.state('planner', {
@@ -21,13 +21,13 @@ angular.module('pdPlannerApp')
 						{name: 'Notes', link: 'planner.notes({user_id: currentUser.id})'}
 					];
 				}],
-				templateUrl: SITE_URL + 'app/views/planner.html'
+				templateUrl: SITE_URL + 'app/scripts/sections/planner/views/planner.html'
 			})
 			
 			.state('planner.overview', {
 				url: 'overview/',
 				controller: 'OverviewCtrl',
-				templateUrl: SITE_URL + 'app/views/overview.html'
+				templateUrl: SITE_URL + 'app/scripts/sections/planner/views/overview.html'
 			})
 			
 			.state('planner.notes', {
@@ -44,7 +44,7 @@ angular.module('pdPlannerApp')
 						});
 					};
 				}],
-				templateUrl: SITE_URL + 'app/views/notes.html',
+				templateUrl: SITE_URL + 'app/scripts/sections/planner/views/notes.html',
 				resolve: {
 					note: ['$stateParams', 'db', function($stateParams, db) {
 						return db.Note.findAll({userId: $stateParams.user_id});
@@ -60,13 +60,13 @@ angular.module('pdPlannerApp')
 					}]
 				},
 				controller: 'ItemCtrl',
-				templateUrl: SITE_URL + 'app/views/item.html'
+				templateUrl: SITE_URL + 'app/scripts/sections/planner/views/item.html'
 			})
 			
 			.state('user', {
 				url: '/user/:user_id',
 				controller: 'UserCtrl',
-				templateUrl: SITE_URL + 'app/views/user.html',
+				templateUrl: SITE_URL + 'app/scripts/sections/user/views/user.html',
 				resolve: {
 					user: ['$stateParams', 'db', function($stateParams, db) {
 						return db.User.find($stateParams.user_id);
