@@ -5,17 +5,17 @@
 				<accordion>
 					<accordion-group is-open="dropOpen">
 						<accordion-heading>
-							Categories <span class="badge">{{ categories.length }}</span>
-							<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': dropOpen, 'glyphicon-chevron-right': !dropOpen}"></i>
+							<span style="cursor:pointer;">Categories <span class="badge">{{ categories.length }}</span></span>
+							<i style="cursor:pointer;" class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': dropOpen, 'glyphicon-chevron-right': !dropOpen}"></i>
 						</accordion-heading>
 						<table class="table table-hover table-condensed">
 							<tr ng-class="{'success': cat.id === activeCategory.id}" ng-repeat="cat in categories" style="width:100%;" ng-click="setActiveCat($index)">
 								<td>
 									{{cat.name}}
-									<button ng-click="removeCategory($index)" class="btn btn-extra-sm btn-danger pull-right">
+									<button ng-click="removeCategory($index)" data-tooltip="Remove Category" class="btn btn-extra-sm btn-danger pull-right">
 										<i class="glyphicon glyphicon-trash"></i>
 									</button>
-									<button ng-click="openCategoryModal($index)" class="btn btn-extra-sm btn-default pull-right">
+									<button ng-click="openCategoryModal($index)" data-tooltip="Edit Category" class="btn btn-extra-sm btn-default pull-right">
 										<i class="glyphicon glyphicon-pencil"></i>
 									</button>
 								</td>
@@ -78,17 +78,17 @@
 						</div>
 					</td>
 					<td>
-						<button ng-click="removeToDoItem($index)" class="btn btn-sm btn-danger pull-right">
-							<i class="glyphicon glyphicon-remove-sign"></i> Remove
+						<button ng-click="removeToDoItem($index)" data-tooltip="Remove Item" class="btn btn-sm btn-danger pull-right">
+							<i class="glyphicon glyphicon-trash"></i>
+						</button>
+						<button ng-click="openToDoModal($index)" data-tooltip="Edit Item" class="btn btn-sm btn-default pull-right">
+							<i class="glyphicon glyphicon-pencil"></i>
+						</button>
+						<button ng-click="goItem($index)" data-tooltip="Open Item Page" class="btn btn-sm btn-default pull-right">
+							<i class="glyphicon glyphicon-folder-open"></i>
 						</button>
 						<button ng-click="item.expanded = !item.expanded" class="btn btn-sm btn-default pull-right">
 							<i class="glyphicon glyphicon-plus-sign"></i> Details
-						</button>
-						<button ng-click="goItem($index)" data-tooltip="Open Item Page" class="btn btn-sm btn-default pull-right">
-							<i class="glyphicon glyphicon-open"></i>
-						</button>
-						<button ng-click="openToDoModal($index)" class="btn btn-sm btn-default pull-right">
-							<i class="glyphicon glyphicon-pencil"></i>
 						</button>
 					</td>
 				</tr>

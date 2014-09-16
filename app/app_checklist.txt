@@ -12,6 +12,8 @@ WORK ON:
 		-Theme/overall color scheme
 		-Add animations
 		-Some kind of header image
+		-More glyphicons - login and logout
+		-Something happens on logo hover
 
 	-General Improvements:
 		-Make responsive for mobile/small resolution
@@ -21,7 +23,7 @@ WORK ON:
 
 	-Planner:
 		* -Fix up planner view
-		* -Cleanup todo item buttons
+		-Add number of subtasks to planner view on each item
 		-Extend items and subitems
 		-Make priority default to 0
 		-Turn item into service?
